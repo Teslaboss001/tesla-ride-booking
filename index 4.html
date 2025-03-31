@@ -1,0 +1,129 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <title>特斯拉智慧叫車系統</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #0f1113;
+      font-family: 'Segoe UI', 'Roboto', sans-serif;
+      color: #e0e0e0;
+    }
+    header {
+      background-color: #0f1113;
+      padding: 40px 20px 20px;
+      text-align: center;
+    }
+    .intro-text {
+      font-size: 1.6em;
+      color: #00e5ff;
+      animation: fadeIn 2s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .car-image {
+      display: block;
+      margin: 20px auto;
+      max-width: 300px;
+      filter: drop-shadow(0 0 10px #00e5ff);
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    label {
+      display: block;
+      margin-top: 20px;
+      font-weight: 600;
+      color: #b0bec5;
+    }
+    input, select, button {
+      padding: 12px;
+      margin-top: 8px;
+      width: 100%;
+      font-size: 1em;
+      background-color: #1c1f22;
+      border: 1px solid #37474f;
+      color: #ffffff;
+      border-radius: 4px;
+    }
+    #result {
+      margin-top: 25px;
+      font-size: 1.3em;
+      font-weight: bold;
+      color: #00e5ff;
+    }
+    button {
+      background-color: #00bcd4;
+      border: none;
+      color: #000;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #26c6da;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="intro-text">智慧叫車，科技移動</div>
+    
+    <img class="car-image" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Tesla_Model_3_parked_front.jpg/640px-Tesla_Model_3_parked_front.jpg" alt="Tesla Model 3">
+    <img class="car-image" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Tesla_Model_X_front_view.jpg/640px-Tesla_Model_X_front_view.jpg" alt="Tesla Model X">
+    
+  </header>
+  <div class="container">
+    <label for="distance">預估行駛距離（公里）</label>
+    <input type="number" id="distance" placeholder="例如：15" min="0" step="0.1">
+
+    <label for="carType">選擇車型</label>
+    <select id="carType">
+      <option value="5">五人座</option>
+      <option value="7">七人座</option>
+    </select>
+
+    <label for="rideTime">預計搭車時間</label>
+    <input type="time" id="rideTime">
+
+    <button onclick="calculateFare()">計算預估金額</button>
+
+    <div id="result"></div>
+  </div>
+
+  <script>
+    function calculateFare() {
+      const distance = parseFloat(document.getElementById("distance").value);
+      const carType = document.getElementById("carType").value;
+      const rideTime = document.getElementById("rideTime").value;
+
+      if (isNaN(distance) || distance <= 0) {
+        document.getElementById("result").innerText = "請輸入有效的距離數字。";
+        return;
+      }
+
+      if (!rideTime) {
+        document.getElementById("result").innerText = "請輸入搭車時間。";
+        return;
+      }
+
+      const hour = parseInt(rideTime.split(":")[0]);
+      const base = (distance * 30 + 85) * 1.4;
+      const isNight = (hour >= 23 || hour < 6);
+      const nightMultiplier = isNight ? 1.2 : 1;
+      const minFare = carType === "7" ? 1000 : 500;
+      const finalFare = Math.max(base * nightMultiplier, minFare).toFixed(0);
+
+      document.getElementById("result").innerText = `預估金額：NT$ ${finalFare} 元` + (isNight ? "（含深夜加成）" : "");
+    }
+  </script>
+</body>
+</html>
