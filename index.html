@@ -52,11 +52,34 @@
       color: #00e5ff;
       font-weight: bold;
     }
+    .car-image {
+      display: block;
+      margin: 20px auto;
+      max-width: 300px;
+    }
+    .video-container {
+      text-align: center;
+      margin-top: 30px;
+    }
+    iframe {
+      width: 100%;
+      max-width: 560px;
+      height: 315px;
+    }
   </style>
 </head>
 <body>
   <h1>智慧叫車 · 科技估價</h1>
   <div class="car-caption">TeslaMarryMe</div>
+
+  <!-- Car images -->
+  <img class="car-image" src="https://upload.wikimedia.org/wikipedia/commons/f/fb/Tesla_Model_3_parked_front.jpg" alt="Tesla Model 3">
+  <img class="car-image" src="https://upload.wikimedia.org/wikipedia/commons/f/f2/Tesla_Model_X_front_view.jpg" alt="Tesla Model X">
+
+  <!-- Embedded YouTube video -->
+  <div class="video-container">
+    <iframe src="https://www.youtube.com/embed/v53FoUQn1NI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
 
   <div class="container">
     <label for="origin">出發地地址</label>
