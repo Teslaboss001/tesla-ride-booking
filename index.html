@@ -3,7 +3,7 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8">
-  <title>特斯拉叫車估價</title>
+  <title>特斯拉智慧叫車系統</title>
   <style>
     body {
       background-color: #0f1113;
@@ -14,6 +14,25 @@
     h1 {
       color: #00e5ff;
       text-align: center;
+      font-size: 1.8em;
+      animation: fadeIn 1.5s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .car-image {
+      display: block;
+      margin: 20px auto 5px;
+      max-width: 300px;
+      filter: drop-shadow(0 0 10px #00e5ff);
+    }
+    .car-caption {
+      text-align:center;
+      font-size:1.2em;
+      margin-top:0px;
+      color:#00e5ff;
+      font-weight:bold;
     }
     .container {
       max-width: 600px;
@@ -48,13 +67,17 @@
   </style>
 </head>
 <body>
-  <h1>智慧叫車，科技估價</h1>
+  <h1>智慧叫車，科技移動</h1>
+  <img class="car-image" src="https://upload.wikimedia.org/wikipedia/commons/f/fb/Tesla_Model_3_parked_front.jpg" alt="Tesla Model 3">
+  <div class="car-caption">TeslaMarryMe</div>
+  <img class="car-image" src="https://upload.wikimedia.org/wikipedia/commons/f/f2/Tesla_Model_X_front_view.jpg" alt="Tesla Model X">
+
   <div class="container">
     <label for="origin">出發地地址</label>
-    <input id="origin" placeholder="例如：台北101">
+    <input id="origin" placeholder="例如：台北101" onFocus="initAutocomplete(this)" autocomplete="off">
 
     <label for="destination">目的地地址</label>
-    <input id="destination" placeholder="例如：桃園機場">
+    <input id="destination" placeholder="例如：桃園機場" onFocus="initAutocomplete(this)" autocomplete="off">
 
     <label for="carType">選擇車型</label>
     <select id="carType">
@@ -93,7 +116,7 @@
         destinations: [destination],
         travelMode: 'DRIVING',
         unitSystem: google.maps.UnitSystem.METRIC,
-      }, (response, status) => {
+      }, function(response, status) {
         if (status !== "OK") {
           document.getElementById("result").innerText = "距離查詢失敗：" + status;
         } else {
@@ -103,16 +126,32 @@
             const base = (distanceInKm * 30 + 85) * 1.4;
             const fare = Math.max(base * nightMultiplier, minFare).toFixed(0);
             document.getElementById("result").innerText =
-              `距離：${distanceInKm.toFixed(1)} 公里，預估金額：NT$ ${fare} 元` + (isNight ? "（含深夜加成）" : "");
+              "距離：" + distanceInKm.toFixed(1) + " 公里，預估金額：NT$ " + fare + " 元" + (isNight ? "（含深夜加成）" : "");
           } else {
             document.getElementById("result").innerText = "無法取得距離資料。";
           }
         }
       });
     }
-  </script>
+  
+    function initAutocomplete(inputElement) {
+      const autocomplete = new google.maps.places.Autocomplete(inputElement, {
+        types: ['geocode'],
+        componentRestrictions: { country: 'tw' }
+      });
+    }
+    </script>
+    
   <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQkGqzY1rKDkWdSwDd8KkoBPIK-oYfeA0&libraries=places">
-  </script>
+  
+    function initAutocomplete(inputElement) {
+      const autocomplete = new google.maps.places.Autocomplete(inputElement, {
+        types: ['geocode'],
+        componentRestrictions: { country: 'tw' }
+      });
+    }
+    </script>
+    
 </body>
 </html>
