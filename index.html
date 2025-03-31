@@ -108,7 +108,10 @@
         } else {
           const element = response.rows[0].elements[0];
           if (element.status === "OK") {
-            const distanceInKm = element.distance.value / 1000;
+            const distanceInMeters = element.distance.value; // Distance in meters
+            const distanceInKm = distanceInMeters / 1000; // Convert to kilometers
+
+            // Ensure the calculation is done only after correct data
             const base = (distanceInKm * 30 + 85) * 1.4;
             const fare = Math.max(base * nightMultiplier, minFare).toFixed(0);
             document.getElementById("result").innerText =
