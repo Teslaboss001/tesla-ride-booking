@@ -1,0 +1,110 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <title>智慧叫車 · 科技估價</title>
+  <style>
+    body {
+      background-color: #0f1113;
+      font-family: 'Segoe UI', 'Roboto', sans-serif;
+      color: #e0e0e0;
+      padding: 20px;
+    }
+    h1 {
+      color: #00e5ff;
+      text-align: center;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+    }
+    label {
+      margin-top: 10px;
+      display: block;
+      color: #b0bec5;
+    }
+    input, select, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 5px;
+      background: #1c1f22;
+      border: 1px solid #37474f;
+      color: white;
+    }
+    button {
+      background: #00bcd4;
+      font-weight: bold;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+    #result {
+      margin-top: 20px;
+      font-size: 1.2em;
+      color: #00e5ff;
+      font-weight: bold;
+    }
+  </style>
+  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_API_KEY&libraries=places"></script>
+</head>
+<body>
+  <h1>智慧叫車 · 科技估價</h1>
+  <div class="container">
+    <label for="origin">出發地</label>
+    <input id="origin" placeholder="例如：台北市信義區市府路45號">
+
+    <label for="destination">目的地</label>
+    <input id="destination" placeholder="例如：桃園機場">
+
+    <label for="carType">選擇車型</label>
+    <select id="carType">
+      <option value="5">五人座</option>
+      <option value="7">七人座</option>
+    </select>
+
+    <label for="rideDate">搭車日期</label>
+    <input type="date" id="rideDate">
+
+    <label for="rideTime">搭車時間</label>
+    <input type="time" id="rideTime">
+
+    <button onclick="calculateFare()">預約報價</button>
+
+    <div id="result"></div>
+  </div>
+
+  <script>
+    function calculateFare() {
+      const origin = document.getElementById("origin").value;
+      const destination = document.getElementById("destination").value;
+      const carType = document.getElementById("carType").value;
+      const rideDate = document.getElementById("rideDate").value;
+      const rideTime = document.getElementById("rideTime").value;
+
+      if (!origin || !destination) {
+        document.getElementById("result").innerText = "請輸入出發地與目的地地址。";
+        return;
+      }
+
+      const service = new google.maps.DirectionsService();
+      service.route({
+        origin: origin,
+        destination: destination,
+        travelMode: google.maps.TravelMode.DRIVING,
+        unitSystem: google.maps.UnitSystem.METRIC,
+      }, function(response, status) {
+        if (status === google.maps.DirectionsStatus.OK) {
+          const distance = response.routes[0].legs[0].distance.value / 1000; // 轉換為公里
+          const baseFare = (distance * 30 + 85) * 1.4; // 基本費用計算公式
+          const fare = Math.max(baseFare, carType === '7' ? 1000 : 500).toFixed(0); // 七人座最低費用為1000，五人座最低500
+          document.getElementById("result").innerText =
+            `距離：${distance.toFixed(1)} 公里，預估金額：NT$ ${fare} 元`;
+        } else {
+          document.getElementById("result").innerText = "無法計算距離，請檢查地址是否正確。";
+        }
+      });
+    }
+  </script>
+</body>
+</html>
