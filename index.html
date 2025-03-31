@@ -52,6 +52,11 @@
       color: #00e5ff;
       font-weight: bold;
     }
+    #debug-output {
+      color: red;
+      font-size: 1.1em;
+      margin-top: 10px;
+    }
   </style>
 </head>
 <body>
@@ -77,6 +82,7 @@
     <button onclick="getDistance()">計算預估金額</button>
 
     <div id="result"></div>
+    <div id="debug-output"></div> <!-- Add debug output section -->
   </div>
 
   <script>
@@ -103,8 +109,9 @@
         travelMode: 'DRIVING',
         unitSystem: google.maps.UnitSystem.METRIC,
       }, function(response, status) {
+        // Debug output
         if (status !== "OK") {
-          document.getElementById("result").innerText = "距離查詢失敗：" + status;
+          document.getElementById("debug-output").innerText = "Google Maps API 呼叫錯誤: " + status;
         } else {
           const element = response.rows[0].elements[0];
           if (element.status === "OK") {
@@ -116,7 +123,7 @@
             document.getElementById("result").innerText =
               "距離：" + distanceInKm.toFixed(1) + " 公里，預估金額：NT$ " + fare + " 元" + (isNight ? "（含深夜加成）" : "");
           } else {
-            document.getElementById("result").innerText = "無法取得距離資料，請檢查地址輸入。";
+            document.getElementById("debug-output").innerText = "無法計算距離：API 返回錯誤。" + element.status;
           }
         }
       });
