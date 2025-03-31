@@ -1,21 +1,41 @@
+
 <!DOCTYPE html>
-<html>
+<html lang="zh-Hant">
 <head>
   <meta charset="UTF-8">
-  <title>特斯拉叫車預約</title>
+  <title>特斯拉智慧叫車系統</title>
   <style>
     body {
+      margin: 0;
+      padding: 0;
       background-color: #0f1113;
       font-family: 'Segoe UI', 'Roboto', sans-serif;
-      padding: 40px;
       color: #e0e0e0;
     }
-    h1 {
-      color: #00bcd4;
-      font-size: 2em;
-      border-bottom: 2px solid #00bcd4;
-      display: inline-block;
-      padding-bottom: 5px;
+    header {
+      background-color: #0f1113;
+      padding: 40px 20px 20px;
+      text-align: center;
+    }
+    .intro-text {
+      font-size: 1.6em;
+      color: #00e5ff;
+      animation: fadeIn 2s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .car-image {
+      display: block;
+      margin: 20px auto;
+      max-width: 300px;
+      filter: drop-shadow(0 0 10px #00e5ff);
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
     }
     label {
       display: block;
@@ -26,7 +46,7 @@
     input, select, button {
       padding: 12px;
       margin-top: 8px;
-      width: 320px;
+      width: 100%;
       font-size: 1em;
       background-color: #1c1f22;
       border: 1px solid #37474f;
@@ -54,22 +74,30 @@
   </style>
 </head>
 <body>
-  <h1>特斯拉叫車預約</h1>
-  <label for="distance">預估行駛距離（公里）</label>
-  <input type="number" id="distance" placeholder="例如：15" min="0" step="0.1">
+  <header>
+    <div class="intro-text">智慧叫車，科技移動</div>
+    
+    <img class="car-image" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Tesla_Model_3_parked_front.jpg/640px-Tesla_Model_3_parked_front.jpg" alt="Tesla Model 3">
+    <img class="car-image" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Tesla_Model_X_front_view.jpg/640px-Tesla_Model_X_front_view.jpg" alt="Tesla Model X">
+    
+  </header>
+  <div class="container">
+    <label for="distance">預估行駛距離（公里）</label>
+    <input type="number" id="distance" placeholder="例如：15" min="0" step="0.1">
 
-  <label for="carType">選擇車型</label>
-  <select id="carType">
-    <option value="5">五人座</option>
-    <option value="7">七人座</option>
-  </select>
+    <label for="carType">選擇車型</label>
+    <select id="carType">
+      <option value="5">五人座</option>
+      <option value="7">七人座</option>
+    </select>
 
-  <label for="rideTime">預計搭車時間</label>
-  <input type="time" id="rideTime">
+    <label for="rideTime">預計搭車時間</label>
+    <input type="time" id="rideTime">
 
-  <button onclick="calculateFare()">計算預估金額</button>
+    <button onclick="calculateFare()">計算預估金額</button>
 
-  <div id="result"></div>
+    <div id="result"></div>
+  </div>
 
   <script>
     function calculateFare() {
