@@ -111,13 +111,16 @@
             const distanceInMeters = element.distance.value; // Distance in meters
             const distanceInKm = distanceInMeters / 1000; // Convert to kilometers
 
-            // Ensure the calculation is done only after correct data
-            const base = (distanceInKm * 30 + 85) * 1.4;
-            const fare = Math.max(base * nightMultiplier, minFare).toFixed(0);
-            document.getElementById("result").innerText =
-              "距離：" + distanceInKm.toFixed(1) + " 公里，預估金額：NT$ " + fare + " 元" + (isNight ? "（含深夜加成）" : "");
+            if (distanceInKm > 0) {
+              const base = (distanceInKm * 30 + 85) * 1.4;
+              const fare = Math.max(base * nightMultiplier, minFare).toFixed(0);
+              document.getElementById("result").innerText =
+                "距離：" + distanceInKm.toFixed(1) + " 公里，預估金額：NT$ " + fare + " 元" + (isNight ? "（含深夜加成）" : "");
+            } else {
+              document.getElementById("result").innerText = "無法計算距離，請檢查輸入地址。";
+            }
           } else {
-            document.getElementById("result").innerText = "無法取得距離資料。";
+            document.getElementById("result").innerText = "無法取得距離資料，請檢查地址輸入。";
           }
         }
       });
