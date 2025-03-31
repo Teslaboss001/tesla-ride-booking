@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>特斯拉叫車預約</title>
+  <style>
+    body {
+      background-color: #0f1113;
+      font-family: 'Segoe UI', 'Roboto', sans-serif;
+      padding: 40px;
+      color: #e0e0e0;
+    }
+    h1 {
+      color: #00bcd4;
+      font-size: 2em;
+      border-bottom: 2px solid #00bcd4;
+      display: inline-block;
+      padding-bottom: 5px;
+    }
+    label {
+      display: block;
+      margin-top: 20px;
+      font-weight: 600;
+      color: #b0bec5;
+    }
+    input, select, button {
+      padding: 12px;
+      margin-top: 8px;
+      width: 320px;
+      font-size: 1em;
+      background-color: #1c1f22;
+      border: 1px solid #37474f;
+      color: #ffffff;
+      border-radius: 4px;
+    }
+    #result {
+      margin-top: 25px;
+      font-size: 1.3em;
+      font-weight: bold;
+      color: #00e5ff;
+    }
+    button {
+      background-color: #00bcd4;
+      border: none;
+      color: #000;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #26c6da;
+    }
+  </style>
+</head>
+<body>
+  <h1>特斯拉叫車預約</h1>
+  <label for="distance">預估行駛距離（公里）</label>
+  <input type="number" id="distance" placeholder="例如：15" min="0" step="0.1">
+
+  <label for="carType">選擇車型</label>
+  <select id="carType">
+    <option value="5">五人座</option>
+    <option value="7">七人座</option>
+  </select>
+
+  <label for="rideTime">預計搭車時間</label>
+  <input type="time" id="rideTime">
+
+  <button onclick="calculateFare()">計算預估金額</button>
+
+  <div id="result"></div>
+
+  <script>
+    function calculateFare() {
+      const distance = parseFloat(document.getElementById("distance").value);
+      const carType = document.getElementById("carType").value;
+      const rideTime = document.getElementById("rideTime").value;
+
+      if (isNaN(distance) || distance <= 0) {
+        document.getElementById("result").innerText = "請輸入有效的距離數字。";
+        return;
+      }
+
+      if (!rideTime) {
+        document.getElementById("result").innerText = "請輸入搭車時間。";
+        return;
+      }
+
+      const hour = parseInt(rideTime.split(":")[0]);
+      const base = (distance * 30 + 85) * 1.4;
+      const isNight = (hour >= 23 || hour < 6);
+      const nightMultiplier = isNight ? 1.2 : 1;
+      const minFare = carType === "7" ? 1000 : 500;
+      const finalFare = Math.max(base * nightMultiplier, minFare).toFixed(0);
+
+      document.getElementById("result").innerText = `預估金額：NT$ ${finalFare} 元` + (isNight ? "（含深夜加成）" : "");
+    }
+  </script>
+</body>
+</html>
