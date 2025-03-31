@@ -3,7 +3,7 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8">
-  <title>特斯拉叫車導航模式</title>
+  <title>特斯拉智慧叫車系統</title>
   <style>
     body {
       background-color: #0f1113;
@@ -46,19 +46,16 @@
       text-transform: uppercase;
       cursor: pointer;
     }
-    #mapLink {
+    #result {
       margin-top: 20px;
-      font-size: 1.1em;
-      text-align: center;
-    }
-    #mapLink a {
+      font-size: 1.2em;
       color: #00e5ff;
-      text-decoration: underline;
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
-  <h1>智慧叫車 · 科技導航</h1>
+  <h1>智慧叫車 · 科技估價</h1>
   <div class="car-caption">TeslaMarryMe</div>
 
   <div class="container">
@@ -68,22 +65,63 @@
     <label for="destination">目的地地址</label>
     <input id="destination" placeholder="例如：桃園機場">
 
-    <button onclick="generateMapLink()">產生 Google 地圖導航連結</button>
+    <label for="carType">選擇車型</label>
+    <select id="carType">
+      <option value="5">五人座</option>
+      <option value="7">七人座</option>
+    </select>
 
-    <div id="mapLink"></div>
+    <label for="rideTime">預計搭車時間</label>
+    <input type="time" id="rideTime">
+
+    <button onclick="getDistance()">計算預估金額</button>
+
+    <div id="result"></div>
   </div>
 
   <script>
-    function generateMapLink() {
+    function getDistance() {
       const origin = encodeURIComponent(document.getElementById("origin").value);
       const destination = encodeURIComponent(document.getElementById("destination").value);
+      const carType = document.getElementById("carType").value;
+      const rideTime = document.getElementById("rideTime").value;
+
       if (!origin || !destination) {
-        document.getElementById("mapLink").innerHTML = "請輸入出發地與目的地地址。";
+        document.getElementById("result").innerText = "請輸入出發地與目的地地址。";
         return;
       }
-      const mapURL = `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${destination}&travelmode=driving`;
-      document.getElementById("mapLink").innerHTML = `<a href="${mapURL}" target="_blank">→ 點我開啟 Google 地圖導航</a>`;
+
+      const hour = rideTime ? parseInt(rideTime.split(":")[0]) : 12;
+      const isNight = (hour >= 23 || hour < 6);
+      const nightMultiplier = isNight ? 1.2 : 1;
+      const minFare = carType === "7" ? 1000 : 500;
+
+      const service = new google.maps.DistanceMatrixService();
+      service.getDistanceMatrix({
+        origins: [origin],
+        destinations: [destination],
+        travelMode: 'DRIVING',
+        unitSystem: google.maps.UnitSystem.METRIC,
+      }, function(response, status) {
+        if (status !== "OK") {
+          document.getElementById("result").innerText = "距離查詢失敗：" + status;
+        } else {
+          const element = response.rows[0].elements[0];
+          if (element.status === "OK") {
+            const distanceInKm = element.distance.value / 1000;
+            const base = (distanceInKm * 30 + 85) * 1.4;
+            const fare = Math.max(base * nightMultiplier, minFare).toFixed(0);
+            document.getElementById("result").innerText =
+              "距離：" + distanceInKm.toFixed(1) + " 公里，預估金額：NT$ " + fare + " 元" + (isNight ? "（含深夜加成）" : "");
+          } else {
+            document.getElementById("result").innerText = "無法取得距離資料。";
+          }
+        }
+      });
     }
+  </script>
+  <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQkGqzY1rKDkWdSwDd8KkoBPIK-oYfeA0&libraries=places">
   </script>
 </body>
 </html>
