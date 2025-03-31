@@ -74,10 +74,10 @@
 
   <div class="container">
     <label for="origin">出發地地址</label>
-    <input id="origin" placeholder="例如：台北101" onFocus="initAutocomplete(this)" autocomplete="off">
+    <input id="origin" placeholder="例如：台北101" autocomplete="off">
 
     <label for="destination">目的地地址</label>
-    <input id="destination" placeholder="例如：桃園機場" onFocus="initAutocomplete(this)" autocomplete="off">
+    <input id="destination" placeholder="例如：桃園機場" autocomplete="off">
 
     <label for="carType">選擇車型</label>
     <select id="carType">
@@ -134,8 +134,14 @@
       });
     }
   
-    function initAutocomplete(inputElement) {
-      const autocomplete = new google.maps.places.Autocomplete(inputElement, {
+    function initAutocomplete() {
+      const originInput = document.getElementById("origin");
+      const destInput = document.getElementById("destination");
+      new google.maps.places.Autocomplete(originInput, {
+        types: ['geocode'],
+        componentRestrictions: { country: 'tw' }
+      });
+      new google.maps.places.Autocomplete(destInput, {
         types: ['geocode'],
         componentRestrictions: { country: 'tw' }
       });
@@ -145,13 +151,24 @@
   <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQkGqzY1rKDkWdSwDd8KkoBPIK-oYfeA0&libraries=places">
   
-    function initAutocomplete(inputElement) {
-      const autocomplete = new google.maps.places.Autocomplete(inputElement, {
+    function initAutocomplete() {
+      const originInput = document.getElementById("origin");
+      const destInput = document.getElementById("destination");
+      new google.maps.places.Autocomplete(originInput, {
+        types: ['geocode'],
+        componentRestrictions: { country: 'tw' }
+      });
+      new google.maps.places.Autocomplete(destInput, {
         types: ['geocode'],
         componentRestrictions: { country: 'tw' }
       });
     }
     </script>
     
+
+  <script>
+    window.onload = initAutocomplete;
+  </script>
 </body>
+
 </html>
