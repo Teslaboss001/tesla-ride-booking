@@ -2,169 +2,78 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Tesla Ride Booking</title>
-  <style>
-    body {
-      margin: 0;
-      background-color: #000;
-      font-family: "Segoe UI", sans-serif;
-      color: #fff;
-      text-align: center;
-    }
-    .container {
-      max-width: 500px;
-      margin: 0 auto;
-      padding: 0 20px;
-    }
-    .car-container {
-      position: relative;
-      margin-bottom: 10px;
-    }
-    .car-image {
-      width: 100%;
-      height: auto;
-    }
-    .headlight {
-      position: absolute;
-      width: 30px;
-      height: 30px;
-      background: white;
-      border-radius: 50%;
-      animation: breathe 2s ease-in-out infinite alternate;
-      opacity: 0.7;
-    }
-    .headlight.left {
-      top: 53%;
-      left: 24%;
-    }
-    .headlight.right {
-      top: 53%;
-      right: 24%;
-    }
-    @keyframes breathe {
-      0% { opacity: 0.3; transform: scale(1); }
-      100% { opacity: 1; transform: scale(1.2); }
-    }
-    label {
-      font-size: 1.2em;
-      display: block;
-      margin-top: 15px;
-      text-align: left;
-    }
-    input, select, button {
-      width: 100%;
-      padding: 10px;
-      font-size: 1em;
-      margin-top: 5px;
-      border: none;
-      border-radius: 5px;
-    }
-    button {
-      margin-top: 20px;
-      background-color: #00bcd4;
-      color: #fff;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    .form-group {
-      display: none;
-      animation: fadeIn 0.5s ease-in forwards;
-    }
-    .form-group.visible {
-      display: block;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <title>Tesla 智慧叫車</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: 'Segoe UI', sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .car-image-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .blinker {
+            position: absolute;
+            width: 30px;
+            height: 8px;
+            background-color: orange;
+            border-radius: 4px;
+            animation: blink 1s infinite alternate;
+        }
+
+        .left-blinker {
+            top: 90px;
+            left: 70px;
+        }
+
+        .right-blinker {
+            top: 90px;
+            right: 70px;
+        }
+
+        @keyframes blink {
+            0% { opacity: 0.1; }
+            100% { opacity: 1; }
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        label, input, select, button {
+            display: block;
+            margin: 10px auto;
+            font-size: 18px;
+        }
+
+        button {
+            background-color: #00cfff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <div class="car-container">
-      <img src="tesla_modelx_wings_open.png" class="car-image" alt="Tesla Model X" />
-      <div class="headlight left"></div>
-      <div class="headlight right"></div>
+    <div class="car-image-container">
+        <img src="tesla_modelx_with_orange_blinkers.png" alt="Tesla Model X" width="300">
+        <div class="blinker left-blinker"></div>
+        <div class="blinker right-blinker"></div>
     </div>
 
-    <form id="bookingForm">
-      <div class="form-group visible" id="group-date">
-        <label for="rideDate">搭車日期</label>
-        <input type="date" id="rideDate" required />
-      </div>
-
-      <div class="form-group" id="group-time">
-        <label for="rideTime">搭車時間</label>
-        <input type="time" id="rideTime" required />
-      </div>
-
-      <div class="form-group" id="group-origin">
-        <label for="origin">出發地</label>
-        <input type="text" id="origin" placeholder="例如：台北市信義區市府路45號" required />
-      </div>
-
-      <div class="form-group" id="group-destination">
-        <label for="destination">目的地</label>
-        <input type="text" id="destination" placeholder="例如：桃園機場" required />
-      </div>
-
-      <div class="form-group" id="group-car">
-        <label for="carType">選擇車型</label>
-        <select id="carType">
-          <option value="5">五人座</option>
-          <option value="7">七人座</option>
-        </select>
-      </div>
-
-      <div class="form-group" id="group-luggage">
-        <label for="largeLuggage">大行李數量</label>
-        <select id="largeLuggage">
-          <option value="0">0</option><option value="1">1</option><option value="2">2</option>
-          <option value="3">3</option><option value="4">4</option>
-        </select>
-        <label for="smallLuggage">小行李數量</label>
-        <select id="smallLuggage">
-          <option value="0">0</option><option value="1">1</option><option value="2">2</option>
-          <option value="3">3</option><option value="4">4</option>
-        </select>
-      </div>
-
-      <div class="form-group" id="group-receipt">
-        <label for="receipt">是否需要收據</label>
-        <select id="receipt">
-          <option value="否">否</option>
-          <option value="是">是</option>
-        </select>
-      </div>
-
-      <button type="submit">預約報價</button>
+    <form>
+        <label for="date">搭車日期</label>
+        <input type="date" id="date" name="date">
+        <button type="submit">預約報價</button>
     </form>
-  </div>
-
-  <script>
-    const formSteps = [
-      "rideDate", "rideTime", "origin", "destination", "carType",
-      "largeLuggage", "smallLuggage", "receipt"
-    ];
-
-    document.getElementById("rideDate").addEventListener("change", () => showNext("group-time"));
-    document.getElementById("rideTime").addEventListener("change", () => showNext("group-origin"));
-    document.getElementById("origin").addEventListener("input", () => showNext("group-destination"));
-    document.getElementById("destination").addEventListener("input", () => showNext("group-car"));
-    document.getElementById("carType").addEventListener("change", () => showNext("group-luggage"));
-    document.getElementById("largeLuggage").addEventListener("change", () => {
-      if (document.getElementById("group-receipt").classList.contains("visible")) return;
-      document.getElementById("group-receipt").classList.add("visible");
-    });
-
-    function showNext(id) {
-      const el = document.getElementById(id);
-      if (el && !el.classList.contains("visible")) {
-        el.classList.add("visible");
-      }
-    }
-  </script>
 </body>
 </html>
