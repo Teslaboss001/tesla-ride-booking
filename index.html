@@ -4,165 +4,130 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Tesla Ride Booking</title>
+  <title>Tesla 預約報價</title>
   <style>
     body {
       margin: 0;
       background-color: #000;
-      font-family: "Segoe UI", sans-serif;
-      color: #fff;
+      font-family: Arial, sans-serif;
+      color: white;
       text-align: center;
     }
-    .container {
-      max-width: 500px;
-      margin: 0 auto;
-      padding: 0 20px;
-    }
-    .car-container {
+    .image-container {
       position: relative;
-      margin-bottom: 10px;
+      display: inline-block;
+      margin-top: 20px;
     }
-    .car-image {
-      width: 100%;
+    .image-container img {
+      width: 90vw;
       height: auto;
+      max-width: 500px;
     }
     .headlight {
       position: absolute;
-      width: 30px;
-      height: 30px;
-      background: white;
+      width: 20px;
+      height: 20px;
+      background-color: white;
       border-radius: 50%;
-      animation: breathe 2s ease-in-out infinite alternate;
-      opacity: 0.7;
+      animation: breathing 2s infinite alternate;
+      opacity: 0.8;
     }
-    .headlight.left {
-      top: 53%;
-      left: 24%;
+    .left-light {
+      top: 44%;
+      left: 27%;
     }
-    .headlight.right {
-      top: 53%;
-      right: 24%;
+    .right-light {
+      top: 44%;
+      right: 27%;
     }
-    @keyframes breathe {
-      0% { opacity: 0.3; transform: scale(1); }
-      100% { opacity: 1; transform: scale(1.2); }
+    @keyframes breathing {
+      0% { opacity: 0.1; background-color: black; }
+      100% { opacity: 1; background-color: white; }
     }
-    label {
-      font-size: 1.2em;
-      display: block;
-      margin-top: 15px;
-      text-align: left;
+    form {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
     }
-    input, select, button {
-      width: 100%;
-      padding: 10px;
-      font-size: 1em;
-      margin-top: 5px;
-      border: none;
-      border-radius: 5px;
+    label, input, select {
+      font-size: 18px;
+      color: white;
+      background: transparent;
+    }
+    input, select {
+      padding: 8px;
+      border: 1px solid #ccc;
+      width: 80vw;
+      max-width: 400px;
     }
     button {
-      margin-top: 20px;
-      background-color: #00bcd4;
-      color: #fff;
-      font-weight: bold;
+      padding: 10px 20px;
+      font-size: 18px;
+      background-color: #00cfe8;
+      color: white;
+      border: none;
       cursor: pointer;
-    }
-    .form-group {
-      display: none;
-      animation: fadeIn 0.5s ease-in forwards;
-    }
-    .form-group.visible {
-      display: block;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+      width: 80vw;
+      max-width: 400px;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="car-container">
-      <img src="tesla_modelx_wings_open.png" class="car-image" alt="Tesla Model X" />
-      <div class="headlight left"></div>
-      <div class="headlight right"></div>
-    </div>
-
-    <form id="bookingForm">
-      <div class="form-group visible" id="group-date">
-        <label for="rideDate">搭車日期</label>
-        <input type="date" id="rideDate" required />
-      </div>
-
-      <div class="form-group" id="group-time">
-        <label for="rideTime">搭車時間</label>
-        <input type="time" id="rideTime" required />
-      </div>
-
-      <div class="form-group" id="group-origin">
-        <label for="origin">出發地</label>
-        <input type="text" id="origin" placeholder="例如：台北市信義區市府路45號" required />
-      </div>
-
-      <div class="form-group" id="group-destination">
-        <label for="destination">目的地</label>
-        <input type="text" id="destination" placeholder="例如：桃園機場" required />
-      </div>
-
-      <div class="form-group" id="group-car">
-        <label for="carType">選擇車型</label>
-        <select id="carType">
-          <option value="5">五人座</option>
-          <option value="7">七人座</option>
-        </select>
-      </div>
-
-      <div class="form-group" id="group-luggage">
-        <label for="largeLuggage">大行李數量</label>
-        <select id="largeLuggage">
-          <option value="0">0</option><option value="1">1</option><option value="2">2</option>
-          <option value="3">3</option><option value="4">4</option>
-        </select>
-        <label for="smallLuggage">小行李數量</label>
-        <select id="smallLuggage">
-          <option value="0">0</option><option value="1">1</option><option value="2">2</option>
-          <option value="3">3</option><option value="4">4</option>
-        </select>
-      </div>
-
-      <div class="form-group" id="group-receipt">
-        <label for="receipt">是否需要收據</label>
-        <select id="receipt">
-          <option value="否">否</option>
-          <option value="是">是</option>
-        </select>
-      </div>
-
-      <button type="submit">預約報價</button>
-    </form>
+  <div class="image-container">
+    <img src="tesla_modelx_wings_open.png" alt="Tesla Model X" />
+    <div class="headlight left-light"></div>
+    <div class="headlight right-light"></div>
   </div>
 
+  <form id="bookingForm">
+    <label for="rideDate">搭車日期</label>
+    <input type="date" id="rideDate" name="rideDate" required onchange="scrollToNext('rideTime')" />
+
+    <label for="rideTime">搭車時間</label>
+    <input type="time" id="rideTime" name="rideTime" required onchange="scrollToNext('origin')" />
+
+    <label for="origin">出發地</label>
+    <input type="text" id="origin" name="origin" placeholder="例如：台北市信義區市府路45號" required onchange="scrollToNext('destination')" />
+
+    <label for="destination">目的地</label>
+    <input type="text" id="destination" name="destination" placeholder="例如：桃園機場" required onchange="scrollToNext('carType')" />
+
+    <label for="carType">選擇車型</label>
+    <select id="carType" name="carType" required onchange="scrollToNext('luggageBig')">
+      <option value="五人座">五人座</option>
+      <option value="七人座">七人座</option>
+    </select>
+
+    <label for="luggageBig">大行李數量</label>
+    <select id="luggageBig" name="luggageBig" required onchange="scrollToNext('luggageSmall')">
+      <option value="0">0</option><option value="1">1</option>
+      <option value="2">2</option><option value="3">3</option>
+    </select>
+
+    <label for="luggageSmall">小行李數量</label>
+    <select id="luggageSmall" name="luggageSmall" required onchange="scrollToNext('receipt')">
+      <option value="0">0</option><option value="1">1</option>
+      <option value="2">2</option><option value="3">3</option>
+    </select>
+
+    <label for="receipt">是否需要收據</label>
+    <select id="receipt" name="receipt">
+      <option value="否" selected>否</option>
+      <option value="是">是</option>
+    </select>
+
+    <button type="submit">預約報價</button>
+  </form>
+
   <script>
-    const formSteps = [
-      "rideDate", "rideTime", "origin", "destination", "carType",
-      "largeLuggage", "smallLuggage", "receipt"
-    ];
-
-    document.getElementById("rideDate").addEventListener("change", () => showNext("group-time"));
-    document.getElementById("rideTime").addEventListener("change", () => showNext("group-origin"));
-    document.getElementById("origin").addEventListener("input", () => showNext("group-destination"));
-    document.getElementById("destination").addEventListener("input", () => showNext("group-car"));
-    document.getElementById("carType").addEventListener("change", () => showNext("group-luggage"));
-    document.getElementById("largeLuggage").addEventListener("change", () => {
-      if (document.getElementById("group-receipt").classList.contains("visible")) return;
-      document.getElementById("group-receipt").classList.add("visible");
-    });
-
-    function showNext(id) {
+    function scrollToNext(id) {
       const el = document.getElementById(id);
-      if (el && !el.classList.contains("visible")) {
-        el.classList.add("visible");
+      if (el) {
+        setTimeout(() => {
+          el.scrollIntoView({ behavior: "smooth", block: "center" });
+        }, 100);
       }
     }
   </script>
