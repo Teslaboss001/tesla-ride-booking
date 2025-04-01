@@ -27,11 +27,11 @@
             animation: blink 1s infinite ease-in-out;
         }
         .blinker-left {
-            top: 95px;
+            top: 115px;
             left: 65px;
         }
         .blinker-right {
-            top: 95px;
+            top: 115px;
             right: 65px;
         }
         @keyframes blink {
@@ -80,13 +80,16 @@
     <div style="margin-top: 10px; font-size: 28px; color: white; animation: glow 2s infinite alternate;">TeslaMarryMe</div>
     <div class="form-container">
         <button class="main-button" onclick="showOptions()">預約報價</button>
-        <div class="option-buttons" id="typeOptions">
+        <div class="option-buttons" id="typeOptions" style="margin-bottom: 10px; flex-direction: row; justify-content: center;">
             <button>一般接送</button>
             <button>結婚禮車</button>
         </div>
     </div>
     <script>
-        function showOptions() {
+        
+    function showOptions() {
+        document.querySelector(".main-button").style.display = "none";
+
             document.getElementById("typeOptions").style.display = "flex";
             document.getElementById("typeOptions").scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
