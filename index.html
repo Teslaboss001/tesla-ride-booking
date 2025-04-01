@@ -2,78 +2,126 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-    <meta charset="UTF-8">
-    <title>Tesla 智慧叫車</title>
-    <style>
-        body {
-            background-color: black;
-            color: white;
-            font-family: 'Segoe UI', sans-serif;
-            text-align: center;
-            margin: 0;
-            padding: 0;
-        }
-
-        .car-image-container {
-            position: relative;
-            display: inline-block;
-        }
-
-        .blinker {
-            position: absolute;
-            width: 30px;
-            height: 8px;
-            background-color: orange;
-            border-radius: 4px;
-            animation: blink 1s infinite alternate;
-        }
-
-        .left-blinker {
-            top: 90px;
-            left: 70px;
-        }
-
-        .right-blinker {
-            top: 90px;
-            right: 70px;
-        }
-
-        @keyframes blink {
-            0% { opacity: 0.1; }
-            100% { opacity: 1; }
-        }
-
-        form {
-            margin-top: 20px;
-        }
-
-        label, input, select, button {
-            display: block;
-            margin: 10px auto;
-            font-size: 18px;
-        }
-
-        button {
-            background-color: #00cfff;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            cursor: pointer;
-            font-size: 18px;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <title>Tesla 預約報價</title>
+  <style>
+    body {
+      background-color: #000;
+      color: white;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+    .image-container {
+      position: relative;
+      display: inline-block;
+    }
+    .blinker {
+      position: absolute;
+      width: 30px;
+      height: 6px;
+      background-color: orange;
+      animation: blink 1.5s infinite;
+      border-radius: 3px;
+    }
+    .blinker.left {
+      top: 123px;
+      left: 95px;
+    }
+    .blinker.right {
+      top: 123px;
+      right: 95px;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.2; }
+    }
+    .form-container {
+      margin-top: 20px;
+      max-width: 300px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    label, select, input {
+      display: block;
+      margin: 15px auto;
+      font-size: 18px;
+    }
+    button {
+      background-color: #00cfe8;
+      color: black;
+      border: none;
+      padding: 12px 24px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
-    <div class="car-image-container">
-        <img src="tesla_modelx_with_orange_blinkers.png" alt="Tesla Model X" width="300">
-        <div class="blinker left-blinker"></div>
-        <div class="blinker right-blinker"></div>
+  <div class="image-container">
+    <img src="tesla_modelx_updated.png" alt="Tesla Model X" width="100%">
+    <div class="blinker left"></div>
+    <div class="blinker right"></div>
+  </div>
+  <div class="form-container">
+    <button onclick="showNext('step1')">預約報價</button>
+
+    <div id="step1" style="display:none;">
+      <label for="rideDate">搭車日期</label>
+      <input type="date" id="rideDate" name="rideDate" onchange="scrollToNext('step2')">
     </div>
 
-    <form>
-        <label for="date">搭車日期</label>
-        <input type="date" id="date" name="date">
-        <button type="submit">預約報價</button>
-    </form>
+    <div id="step2" style="display:none;">
+      <label for="rideTime">搭車時間</label>
+      <input type="time" id="rideTime" name="rideTime" onchange="scrollToNext('step3')">
+    </div>
+
+    <div id="step3" style="display:none;">
+      <label for="origin">出發地</label>
+      <input type="text" id="origin" name="origin" onchange="scrollToNext('step4')">
+    </div>
+
+    <div id="step4" style="display:none;">
+      <label for="destination">目的地</label>
+      <input type="text" id="destination" name="destination" onchange="scrollToNext('step5')">
+    </div>
+
+    <div id="step5" style="display:none;">
+      <label for="bigLuggage">大行李數量</label>
+      <select id="bigLuggage" name="bigLuggage" onchange="scrollToNext('step6')">
+        <option>0</option><option>1</option><option>2</option>
+        <option>3</option><option>4</option><option>5</option><option>6</option>
+      </select>
+    </div>
+
+    <div id="step6" style="display:none;">
+      <label for="smallLuggage">小行李數量</label>
+      <select id="smallLuggage" name="smallLuggage" onchange="scrollToNext('step7')">
+        <option>0</option><option>1</option><option>2</option>
+        <option>3</option><option>4</option><option>5</option><option>6</option>
+      </select>
+    </div>
+
+    <div id="step7" style="display:none;">
+      <label for="receipt">是否需要收據</label>
+      <select id="receipt" name="receipt">
+        <option>否</option>
+        <option>是</option>
+      </select>
+    </div>
+  </div>
+
+  <script>
+    function showNext(id) {
+      document.getElementById(id).style.display = 'block';
+      document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function scrollToNext(nextId) {
+      document.getElementById(nextId).style.display = 'block';
+      document.getElementById(nextId).scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  </script>
 </body>
 </html>
