@@ -3,22 +3,28 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8">
-  <title>特斯拉智慧叫車系統</title>
+  <title>TeslaMarryMe</title>
   <style>
     body {
       background-color: #0f1113;
       font-family: 'Segoe UI', 'Roboto', sans-serif;
-      color: #e0e0e0;
+      color: white;
       padding: 20px;
     }
     h1 {
-      color: #00e5ff;
+      color: white;
       text-align: center;
+      font-size: 2em;
+      margin-bottom: 10px;
+      animation: glowText 2s ease-in-out infinite alternate;
+    }
+    @keyframes glowText {
+      0% { text-shadow: 0 0 5px #ffffff; opacity: 0.5; }
+      100% { text-shadow: 0 0 15px #ffffff; opacity: 1; }
     }
     .container {
       max-width: 600px;
       margin: auto;
-      position: relative;
     }
     label {
       margin-top: 10px;
@@ -51,11 +57,12 @@
       font-size: 1.1em;
       margin-top: 10px;
     }
+
     .car-image-container {
       position: relative;
       width: 100%;
       max-width: 600px;
-      margin: 20px auto;
+      margin: 0 auto 30px auto;
     }
     .car-image {
       width: 100%;
@@ -65,16 +72,16 @@
       position: absolute;
       width: 50px;
       height: 20px;
-      background-color: #fff;
+      background-color: #ffffff;
       border-radius: 10px;
       top: 60px;
-      left: 100px;
+      left: 90px;
       opacity: 0.3;
       animation: flash 1s infinite alternate;
       box-shadow: 0 0 20px #00e5ff;
     }
     .headlight.right {
-      left: 360px;
+      left: 370px;
     }
     @keyframes flash {
       0% { opacity: 0.3; }
@@ -83,11 +90,10 @@
   </style>
 </head>
 <body>
-  <h1>智慧叫車 · 科技估價</h1>
+  <h1>TeslaMarryMe</h1>
   <div class="container">
-
     <div class="car-image-container">
-      <img src="tesla_modelx_wings_open.png" alt="Tesla Model X 開門" class="car-image">
+      <img src="tesla_modelx_wings_open.png" alt="" class="car-image">
       <div class="headlight left"></div>
       <div class="headlight right"></div>
     </div>
