@@ -41,6 +41,29 @@
         .form-container {
             margin-top: -10px;
         }
+        .main-button {
+            background:#00cfe8;
+            color:white;
+            padding:20px 60px;
+            font-size:32px;
+            border:none;
+            border-radius:10px;
+            margin: 20px auto;
+        }
+        .option-buttons {
+            display: none;
+            justify-content: center;
+            margin-top: 20px;
+            gap: 30px;
+        }
+        .option-buttons button {
+            font-size: 28px;
+            padding: 15px 30px;
+            border-radius: 10px;
+            border: none;
+            background-color: #1e88e5;
+            color: white;
+        }
     </style>
 </head>
 <body>
@@ -50,7 +73,17 @@
         <div class="blinker blinker-right"></div>
     </div>
     <div class="form-container">
-        <button style="background:#00cfe8; color:white; padding:10px 30px; font-size:16px; border:none; border-radius:5px;">預約報價</button>
+        <button class="main-button" onclick="showOptions()">預約報價</button>
+        <div class="option-buttons" id="typeOptions">
+            <button>一般接送</button>
+            <button>結婚禮車</button>
+        </div>
     </div>
+    <script>
+        function showOptions() {
+            document.getElementById("typeOptions").style.display = "flex";
+            document.getElementById("typeOptions").scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    </script>
 </body>
 </html>
