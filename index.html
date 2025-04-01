@@ -3,7 +3,7 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8">
-  <title>TeslaMarryMe Booking</title>
+  <title>Tesla Ride Booking</title>
   <style>
     body {
       background-color: #000;
@@ -13,178 +13,108 @@
       margin: 0;
       padding: 20px;
     }
-    h1 {
-      color: white;
-      font-size: 2em;
-      margin-bottom: 20px;
-      animation: glow 2s ease-in-out infinite alternate;
-    }
-    @keyframes glow {
-      0% { text-shadow: 0 0 5px #ffffff; opacity: 0.5; }
-      100% { text-shadow: 0 0 20px #ffffff; opacity: 1; }
-    }
-    .car-container {
+    .car-image-container {
       position: relative;
-      width: 100%;
-      max-width: 500px;
-      margin: auto;
+      display: inline-block;
     }
     .car-image {
       width: 100%;
-      display: block;
+      max-width: 600px;
     }
     .headlight {
       position: absolute;
-      width: 30px;
-      height: 15px;
-      background-color: #00ffff;
-      border-radius: 50%;
-      animation: blink 1s infinite alternate;
+      width: 20px;
+      height: 10px;
+      background-color: #00e5ff;
+      border-radius: 10px;
+      animation: blink 1s infinite;
     }
-    .headlight.left {
-      top: 115px;
-      left: 90px;
+    .left-headlight {
+      top: 100px;
+      left: 100px;
     }
-    .headlight.right {
-      top: 115px;
-      right: 90px;
+    .right-headlight {
+      top: 100px;
+      right: 100px;
     }
     @keyframes blink {
-      from { opacity: 1; }
-      to { opacity: 0.2; }
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.2; }
     }
-
-    .form-section {
-      max-width: 600px;
-      margin: 30px auto;
+    form {
+      max-width: 500px;
+      margin: 30px auto 0;
       text-align: left;
     }
-
     label {
       display: block;
-      margin-top: 15px;
-      margin-bottom: 5px;
-      font-weight: bold;
-      color: #b0bec5;
+      margin-top: 10px;
     }
-
     input, select, button {
       width: 100%;
       padding: 10px;
+      margin-top: 5px;
       background-color: #121212;
-      color: white;
       border: 1px solid #444;
+      color: white;
       border-radius: 5px;
-      font-size: 16px;
     }
-
     button {
-      margin-top: 20px;
       background-color: #00bcd4;
-      border: none;
-      cursor: pointer;
       font-weight: bold;
-      text-transform: uppercase;
-    }
-
-    #result {
-      margin-top: 20px;
-      font-size: 1.2em;
-      color: #00e5ff;
-      font-weight: bold;
-      text-align: center;
+      margin-top: 15px;
     }
   </style>
 </head>
 <body>
-  <h1>TeslaMarryMe</h1>
-  <div class="car-container">
-    <div class="headlight left"></div>
-    <div class="headlight right"></div>
-    <img src="tesla_car.png" alt="Tesla Model X" class="car-image">
+  <div class="car-image-container">
+    <img src="tesla_modelx_wings_open.png" alt="Tesla Model X" class="car-image">
+    <div class="headlight left-headlight"></div>
+    <div class="headlight right-headlight"></div>
   </div>
 
-  <div class="form-section">
+  <form>
     <label for="rideDate">搭車日期</label>
-    <input type="date" id="rideDate">
+    <input type="date" id="rideDate" name="rideDate">
 
     <label for="rideTime">搭車時間</label>
-    <input type="time" id="rideTime">
+    <input type="time" id="rideTime" name="rideTime">
 
     <label for="origin">出發地</label>
-    <input id="origin" placeholder="例如：高雄市左營區大路378號">
+    <input type="text" id="origin" name="origin" placeholder="例如：高雄市左營區大路378號">
 
     <label for="destination">目的地</label>
-    <input id="destination" placeholder="例如：桃園機場">
+    <input type="text" id="destination" name="destination" placeholder="例如：桃園機場">
 
     <label for="carType">選擇車型</label>
-    <select id="carType">
+    <select id="carType" name="carType">
       <option value="5">五人座</option>
       <option value="7">七人座</option>
     </select>
 
-    <label for="luggageLarge">大行李數量</label>
-    <select id="luggageLarge">
-      <option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option>
+    <label for="largeLuggage">大行李數量</label>
+    <select id="largeLuggage" name="largeLuggage">
+      <option value="0">0</option>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
     </select>
 
-    <label for="luggageSmall">小行李數量</label>
-    <select id="luggageSmall">
-      <option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option>
+    <label for="smallLuggage">小行李數量</label>
+    <select id="smallLuggage" name="smallLuggage">
+      <option value="0">0</option>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
     </select>
 
     <label for="receipt">是否需要收據</label>
-    <select id="receipt">
-      <option value="是">是</option>
+    <select id="receipt" name="receipt">
       <option value="否" selected>否</option>
+      <option value="是">是</option>
     </select>
 
-    <button onclick="calculateFare()">預約報價</button>
-
-    <div id="result"></div>
-  </div>
-
-  <script>
-    function calculateFare() {
-      const origin = document.getElementById("origin").value;
-      const destination = document.getElementById("destination").value;
-      const carType = document.getElementById("carType").value;
-      const rideTime = document.getElementById("rideTime").value;
-
-      if (!origin || !destination) {
-        document.getElementById("result").innerText = "請輸入出發地與目的地地址。";
-        return;
-      }
-
-      const hour = rideTime ? parseInt(rideTime.split(":")[0]) : 12;
-      const isNight = (hour >= 23 || hour < 6);
-      const nightMultiplier = isNight ? 1.2 : 1;
-      const minFare = carType === "7" ? 1000 : 500;
-
-      const service = new google.maps.DistanceMatrixService();
-      service.getDistanceMatrix({
-        origins: [origin],
-        destinations: [destination],
-        travelMode: 'DRIVING',
-        unitSystem: google.maps.UnitSystem.METRIC,
-      }, function(response, status) {
-        if (status !== "OK") {
-          document.getElementById("result").innerText = "Google Maps API 呼叫錯誤: " + status;
-        } else {
-          const element = response.rows[0].elements[0];
-          if (element.status === "OK") {
-            const distanceInKm = element.distance.value / 1000;
-            const base = (distanceInKm * 30 + 85) * 1.4;
-            const fare = Math.max(base * nightMultiplier, minFare).toFixed(0);
-            document.getElementById("result").innerText =
-              "距離：" + distanceInKm.toFixed(1) + " 公里，預估金額：NT$ " + fare + " 元" + (isNight ? "（含深夜加成）" : "");
-          } else {
-            document.getElementById("result").innerText = "無法計算距離：API 返回錯誤。" + element.status;
-          }
-        }
-      });
-    }
-  </script>
-  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBYhjHSQTm68K_dnKgiiWFGRWX2RBiJMhQ"></script>
+    <button type="submit">預約報價</button>
+  </form>
 </body>
 </html>
