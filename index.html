@@ -2,107 +2,169 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-    <meta charset="UTF-8">
-    <title>Tesla Booking</title>
-    <style>
-        body {
-            background-color: #000;
-            font-family: 'Segoe UI', Roboto, sans-serif;
-            color: white;
-            margin: 0;
-            padding: 0;
-            text-align: center;
-        }
-        .container {
-            padding: 0;
-        }
-        .tesla-image {
-            position: relative;
-            width: 100%;
-            max-width: 500px;
-            margin: 0 auto -30px auto;
-            display: block;
-        }
-        .blinker {
-            position: absolute;
-            width: 40px;
-            height: 10px;
-            background-color: orange;
-            border-radius: 5px;
-            animation: blink 2s infinite ease-in-out;
-        }
-        #blinker-left {
-            top: 135px;
-            left: 110px;
-        }
-        #blinker-right {
-            top: 135px;
-            right: 110px;
-        }
-        @keyframes blink {
-            0%, 100% { opacity: 0; }
-            50% { opacity: 1; }
-        }
-        form {
-            max-width: 500px;
-            margin: 0 auto;
-            padding: 0 20px;
-            text-align: left;
-        }
-        label {
-            display: block;
-            margin-top: 25px;
-            font-size: 20px;
-        }
-        input, select, button {
-            width: 100%;
-            padding: 10px;
-            font-size: 16px;
-            margin-top: 5px;
-            border-radius: 6px;
-            border: none;
-        }
-        button {
-            background-color: #00cfff;
-            color: white;
-            margin-top: 25px;
-            font-weight: bold;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tesla Ride Booking</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: #000;
+      font-family: "Segoe UI", sans-serif;
+      color: #fff;
+      text-align: center;
+    }
+    .container {
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    .car-container {
+      position: relative;
+      margin-bottom: 10px;
+    }
+    .car-image {
+      width: 100%;
+      height: auto;
+    }
+    .headlight {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background: white;
+      border-radius: 50%;
+      animation: breathe 2s ease-in-out infinite alternate;
+      opacity: 0.7;
+    }
+    .headlight.left {
+      top: 53%;
+      left: 24%;
+    }
+    .headlight.right {
+      top: 53%;
+      right: 24%;
+    }
+    @keyframes breathe {
+      0% { opacity: 0.3; transform: scale(1); }
+      100% { opacity: 1; transform: scale(1.2); }
+    }
+    label {
+      font-size: 1.2em;
+      display: block;
+      margin-top: 15px;
+      text-align: left;
+    }
+    input, select, button {
+      width: 100%;
+      padding: 10px;
+      font-size: 1em;
+      margin-top: 5px;
+      border: none;
+      border-radius: 5px;
+    }
+    button {
+      margin-top: 20px;
+      background-color: #00bcd4;
+      color: #fff;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .form-group {
+      display: none;
+      animation: fadeIn 0.5s ease-in forwards;
+    }
+    .form-group.visible {
+      display: block;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <div style="position: relative;">
-            <img src="tesla_modelx_wings_open.png" class="tesla-image" alt="Tesla Model X">
-            <div class="blinker" id="blinker-left"></div>
-            <div class="blinker" id="blinker-right"></div>
-        </div>
-        <form id="bookingForm">
-            <label for="rideDate">搭車日期</label>
-            <input type="date" id="rideDate" name="rideDate" onchange="scrollToNext('rideTime')">
-            
-            <label for="rideTime">搭車時間</label>
-            <input type="time" id="rideTime" name="rideTime" onchange="scrollToNext('origin')">
-
-            <label for="origin">出發地</label>
-            <input type="text" id="origin" name="origin" placeholder="例如：台北市信義區市府路45號" onchange="scrollToNext('destination')">
-
-            <label for="destination">目的地</label>
-            <input type="text" id="destination" name="destination" placeholder="例如：桃園機場">
-
-            <button type="submit">預約報價</button>
-        </form>
+  <div class="container">
+    <div class="car-container">
+      <img src="tesla_modelx_wings_open.png" class="car-image" alt="Tesla Model X" />
+      <div class="headlight left"></div>
+      <div class="headlight right"></div>
     </div>
 
-    <script>
-        function scrollToNext(nextId) {
-            setTimeout(() => {
-                const element = document.getElementById(nextId);
-                if (element) {
-                    element.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                }
-            }, 300);
-        }
-    </script>
+    <form id="bookingForm">
+      <div class="form-group visible" id="group-date">
+        <label for="rideDate">搭車日期</label>
+        <input type="date" id="rideDate" required />
+      </div>
+
+      <div class="form-group" id="group-time">
+        <label for="rideTime">搭車時間</label>
+        <input type="time" id="rideTime" required />
+      </div>
+
+      <div class="form-group" id="group-origin">
+        <label for="origin">出發地</label>
+        <input type="text" id="origin" placeholder="例如：台北市信義區市府路45號" required />
+      </div>
+
+      <div class="form-group" id="group-destination">
+        <label for="destination">目的地</label>
+        <input type="text" id="destination" placeholder="例如：桃園機場" required />
+      </div>
+
+      <div class="form-group" id="group-car">
+        <label for="carType">選擇車型</label>
+        <select id="carType">
+          <option value="5">五人座</option>
+          <option value="7">七人座</option>
+        </select>
+      </div>
+
+      <div class="form-group" id="group-luggage">
+        <label for="largeLuggage">大行李數量</label>
+        <select id="largeLuggage">
+          <option value="0">0</option><option value="1">1</option><option value="2">2</option>
+          <option value="3">3</option><option value="4">4</option>
+        </select>
+        <label for="smallLuggage">小行李數量</label>
+        <select id="smallLuggage">
+          <option value="0">0</option><option value="1">1</option><option value="2">2</option>
+          <option value="3">3</option><option value="4">4</option>
+        </select>
+      </div>
+
+      <div class="form-group" id="group-receipt">
+        <label for="receipt">是否需要收據</label>
+        <select id="receipt">
+          <option value="否">否</option>
+          <option value="是">是</option>
+        </select>
+      </div>
+
+      <button type="submit">預約報價</button>
+    </form>
+  </div>
+
+  <script>
+    const formSteps = [
+      "rideDate", "rideTime", "origin", "destination", "carType",
+      "largeLuggage", "smallLuggage", "receipt"
+    ];
+
+    document.getElementById("rideDate").addEventListener("change", () => showNext("group-time"));
+    document.getElementById("rideTime").addEventListener("change", () => showNext("group-origin"));
+    document.getElementById("origin").addEventListener("input", () => showNext("group-destination"));
+    document.getElementById("destination").addEventListener("input", () => showNext("group-car"));
+    document.getElementById("carType").addEventListener("change", () => showNext("group-luggage"));
+    document.getElementById("largeLuggage").addEventListener("change", () => {
+      if (document.getElementById("group-receipt").classList.contains("visible")) return;
+      document.getElementById("group-receipt").classList.add("visible");
+    });
+
+    function showNext(id) {
+      const el = document.getElementById(id);
+      if (el && !el.classList.contains("visible")) {
+        el.classList.add("visible");
+      }
+    }
+  </script>
 </body>
 </html>
