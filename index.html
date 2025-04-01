@@ -1,98 +1,23 @@
 
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="zh-TW">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Tesla Marry Me</title>
-    <style>
-        body {
-            background-color: black;
-            color: white;
-            font-family: sans-serif;
-            margin: 0;
-            padding: 0;
-            text-align: center;
-        }
-        .image-container {
-            position: relative;
-            display: inline-block;
-        }
-        .blinker {
-            position: absolute;
-            width: 30px;
-            height: 6px;
-            background-color: orange;
-            border-radius: 3px;
-            animation: blink 1s infinite ease-in-out;
-        }
-        .blinker-left {
-            top: 115px;
-            left: 65px;
-        }
-        .blinker-right {
-            top: 115px;
-            right: 65px;
-        }
-        @keyframes blink {
-            0%, 100% { opacity: 0; }
-            50% { opacity: 1; }
-        }
-        .form-container {
-            margin-top: -10px;
-        }
-        .main-button {
-            background:#00cfe8;
-            color:white;
-            padding:20px 60px;
-            font-size:32px;
-            border:none;
-            border-radius:10px;
-            margin: 20px auto;
-        }
-        .option-buttons {
-            display: none;
-            justify-content: center;
-            margin-top: 20px;
-            gap: 30px;
-        }
-        .option-buttons button {
-            font-size: 28px;
-            padding: 15px 30px;
-            border-radius: 10px;
-            border: none;
-            background-color: #1e88e5;
-            color: white;
-        }
-    
-    @keyframes glow {
-        0% { opacity: 0.3; }
-        100% { opacity: 1; }
-    }
-    </style>
+  <meta charset="UTF-8" />
+  <title>Tesla Marry Me</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <div class="image-container">
-        <img src="tesla_modelx_final_base.png" width="100%" />
-        <div class="blinker blinker-left"></div>
-        <div class="blinker blinker-right"></div>
+  <div class="hero">
+    <img src="tesla_modelx.png" alt="Tesla Model X" class="car-image" />
+    <h1 class="title breathing">TeslaMarryMe</h1>
+    <button id="bookBtn" class="btn book-btn">預約報價</button>
+    <div id="categoryBtns" class="btn-group" style="display: none;">
+      <button class="btn category-btn">一般接送</button>
+      <button class="btn category-btn">結婚禮車</button>
     </div>
-    <div style="margin-top: 10px; font-size: 28px; color: white; animation: glow 2s infinite alternate;">TeslaMarryMe</div>
-    <div class="form-container">
-        <button class="main-button" onclick="showOptions()">預約報價</button>
-        <div class="option-buttons" id="typeOptions" style="margin-bottom: 10px; flex-direction: row; justify-content: center;">
-            <button>一般接送</button>
-            <button>結婚禮車</button>
-        </div>
-    </div>
-    <script>
-        
-    function showOptions() {
-        document.querySelector(".main-button").style.display = "none";
-
-            document.getElementById("typeOptions").style.display = "flex";
-            document.getElementById("typeOptions").scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
-    </script>
+    <div class="hazard-light left-light"></div>
+    <div class="hazard-light right-light"></div>
+  </div>
+  <script src="script.js"></script>
 </body>
 </html>
