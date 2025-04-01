@@ -1,9 +1,8 @@
-
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8">
-  <title>智慧叫車 · 科技估價</title>
+  <title>特斯拉智慧叫車系統</title>
   <style>
     body {
       background-color: #0f1113;
@@ -45,14 +44,18 @@
       color: #00e5ff;
       font-weight: bold;
     }
+    #debug-output {
+      color: red;
+      font-size: 1.1em;
+      margin-top: 10px;
+    }
   </style>
-  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_API_KEY&libraries=places"></script>
 </head>
 <body>
   <h1>智慧叫車 · 科技估價</h1>
   <div class="container">
     <label for="origin">出發地</label>
-    <input id="origin" placeholder="例如：台北市信義區市府路45號">
+    <input id="origin" placeholder="例如：高雄市左營區大路378號">
 
     <label for="destination">目的地</label>
     <input id="destination" placeholder="例如：桃園機場">
@@ -69,9 +72,26 @@
     <label for="rideTime">搭車時間</label>
     <input type="time" id="rideTime">
 
+    <label for="luggageLarge">大行李數量</label>
+    <select id="luggageLarge">
+      <option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option>
+    </select>
+
+    <label for="luggageSmall">小行李數量</label>
+    <select id="luggageSmall">
+      <option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option>
+    </select>
+
+    <label for="receipt">是否需要收據</label>
+    <select id="receipt">
+      <option value="是">是</option>
+      <option value="否">否</option>
+    </select>
+
     <button onclick="calculateFare()">預約報價</button>
 
     <div id="result"></div>
+    <div id="debug-output"></div>
   </div>
 
   <script>
@@ -79,7 +99,6 @@
       const origin = document.getElementById("origin").value;
       const destination = document.getElementById("destination").value;
       const carType = document.getElementById("carType").value;
-      const rideDate = document.getElementById("rideDate").value;
       const rideTime = document.getElementById("rideTime").value;
 
       if (!origin || !destination) {
@@ -87,24 +106,35 @@
         return;
       }
 
-      const service = new google.maps.DirectionsService();
-      service.route({
-        origin: origin,
-        destination: destination,
-        travelMode: google.maps.TravelMode.DRIVING,
+      const hour = rideTime ? parseInt(rideTime.split(":")[0]) : 12;
+      const isNight = (hour >= 23 || hour < 6);
+      const nightMultiplier = isNight ? 1.2 : 1;
+      const minFare = carType === "7" ? 1000 : 500;
+
+      const service = new google.maps.DistanceMatrixService();
+      service.getDistanceMatrix({
+        origins: [origin],
+        destinations: [destination],
+        travelMode: 'DRIVING',
         unitSystem: google.maps.UnitSystem.METRIC,
       }, function(response, status) {
-        if (status === google.maps.DirectionsStatus.OK) {
-          const distance = response.routes[0].legs[0].distance.value / 1000; // 轉換為公里
-          const baseFare = (distance * 30 + 85) * 1.4; // 基本費用計算公式
-          const fare = Math.max(baseFare, carType === '7' ? 1000 : 500).toFixed(0); // 七人座最低費用為1000，五人座最低500
-          document.getElementById("result").innerText =
-            `距離：${distance.toFixed(1)} 公里，預估金額：NT$ ${fare} 元`;
+        if (status !== "OK") {
+          document.getElementById("debug-output").innerText = "Google Maps API 呼叫錯誤: " + status;
         } else {
-          document.getElementById("result").innerText = "無法計算距離，請檢查地址是否正確。";
+          const element = response.rows[0].elements[0];
+          if (element.status === "OK") {
+            const distanceInKm = element.distance.value / 1000;
+            const base = (distanceInKm * 30 + 85) * 1.4;
+            const fare = Math.max(base * nightMultiplier, minFare).toFixed(0);
+            document.getElementById("result").innerText =
+              "距離：" + distanceInKm.toFixed(1) + " 公里，預估金額：NT$ " + fare + " 元" + (isNight ? "（含深夜加成）" : "");
+          } else {
+            document.getElementById("debug-output").innerText = "無法計算距離：API 返回錯誤。" + element.status;
+          }
         }
       });
     }
   </script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBYhjHSQTm68K_dnKgiiWFGRWX2RBiJMhQ"></script>
 </body>
 </html>
