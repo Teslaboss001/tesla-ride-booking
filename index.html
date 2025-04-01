@@ -2,119 +2,129 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="UTF-8">
-  <title>Tesla Ride Booking</title>
+  <meta charset="UTF-8" />
+  <title>Tesla Booking</title>
   <style>
     body {
       background-color: #000;
       font-family: 'Segoe UI', sans-serif;
-      color: white;
-      text-align: center;
+      color: #e0e0e0;
       margin: 0;
-      padding: 20px;
+      padding: 0;
     }
-    .car-image-container {
+
+    .container {
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 10px;
+    }
+
+    .image-container {
       position: relative;
-      display: inline-block;
+      text-align: center;
     }
-    .car-image {
+
+    .tesla-image {
       width: 100%;
-      max-width: 600px;
     }
+
     .headlight {
       position: absolute;
       width: 20px;
-      height: 10px;
-      background-color: #00e5ff;
-      border-radius: 10px;
-      animation: blink 1s infinite;
+      height: 20px;
+      background-color: white;
+      border-radius: 50%;
+      box-shadow: 0 0 20px white;
+      animation: blink 1.8s infinite ease-in-out;
     }
-    .left-headlight {
-      top: 100px;
-      left: 100px;
+
+    .left-light {
+      top: 80px;
+      left: 90px;
     }
-    .right-headlight {
-      top: 100px;
-      right: 100px;
+
+    .right-light {
+      top: 80px;
+      right: 90px;
     }
+
     @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.2; }
+      0%, 100% { opacity: 0.2; }
+      50% { opacity: 1; }
     }
+
     form {
-      max-width: 500px;
-      margin: 30px auto 0;
-      text-align: left;
+      margin-top: 20px;
     }
+
     label {
       display: block;
-      margin-top: 10px;
+      margin: 10px 0 5px;
     }
+
     input, select, button {
       width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-      background-color: #121212;
-      border: 1px solid #444;
+      padding: 8px;
+      border-radius: 4px;
+      border: none;
+      margin-bottom: 10px;
+      background: #121212;
       color: white;
-      border-radius: 5px;
     }
+
     button {
       background-color: #00bcd4;
+      color: white;
       font-weight: bold;
-      margin-top: 15px;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
-  <div class="car-image-container">
-    <img src="tesla_modelx_wings_open.png" alt="Tesla Model X" class="car-image">
-    <div class="headlight left-headlight"></div>
-    <div class="headlight right-headlight"></div>
+  <div class="container">
+    <div class="image-container">
+      <img src="tesla_modelx_wings_open.png" alt="Tesla Model X" class="tesla-image" />
+      <div class="headlight left-light"></div>
+      <div class="headlight right-light"></div>
+    </div>
+
+    <form>
+      <label for="date">搭車日期</label>
+      <input type="date" id="date" />
+
+      <label for="time">搭車時間</label>
+      <input type="time" id="time" />
+
+      <label for="origin">出發地</label>
+      <input type="text" id="origin" placeholder="例如：高雄市左營區某某路" />
+
+      <label for="destination">目的地</label>
+      <input type="text" id="destination" placeholder="例如：桃園機場" />
+
+      <label for="car">選擇車型</label>
+      <select id="car">
+        <option>五人座</option>
+        <option>七人座</option>
+      </select>
+
+      <label for="large-luggage">大行李數量</label>
+      <select id="large-luggage">
+        <option>0</option><option>1</option><option>2</option><option>3</option>
+      </select>
+
+      <label for="small-luggage">小行李數量</label>
+      <select id="small-luggage">
+        <option>0</option><option>1</option><option>2</option><option>3</option>
+      </select>
+
+      <label for="receipt">是否需要收據</label>
+      <select id="receipt">
+        <option>否</option>
+        <option>是</option>
+      </select>
+
+      <button type="button">預約報價</button>
+    </form>
   </div>
-
-  <form>
-    <label for="rideDate">搭車日期</label>
-    <input type="date" id="rideDate" name="rideDate">
-
-    <label for="rideTime">搭車時間</label>
-    <input type="time" id="rideTime" name="rideTime">
-
-    <label for="origin">出發地</label>
-    <input type="text" id="origin" name="origin" placeholder="例如：高雄市左營區大路378號">
-
-    <label for="destination">目的地</label>
-    <input type="text" id="destination" name="destination" placeholder="例如：桃園機場">
-
-    <label for="carType">選擇車型</label>
-    <select id="carType" name="carType">
-      <option value="5">五人座</option>
-      <option value="7">七人座</option>
-    </select>
-
-    <label for="largeLuggage">大行李數量</label>
-    <select id="largeLuggage" name="largeLuggage">
-      <option value="0">0</option>
-      <option value="1">1</option>
-      <option value="2">2</option>
-      <option value="3">3</option>
-    </select>
-
-    <label for="smallLuggage">小行李數量</label>
-    <select id="smallLuggage" name="smallLuggage">
-      <option value="0">0</option>
-      <option value="1">1</option>
-      <option value="2">2</option>
-      <option value="3">3</option>
-    </select>
-
-    <label for="receipt">是否需要收據</label>
-    <select id="receipt" name="receipt">
-      <option value="否" selected>否</option>
-      <option value="是">是</option>
-    </select>
-
-    <button type="submit">預約報價</button>
-  </form>
 </body>
 </html>
