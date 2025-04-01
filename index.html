@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
@@ -17,6 +18,7 @@
     .container {
       max-width: 600px;
       margin: auto;
+      position: relative;
     }
     label {
       margin-top: 10px;
@@ -49,11 +51,53 @@
       font-size: 1.1em;
       margin-top: 10px;
     }
+    .car-image-container {
+      position: relative;
+      width: 100%;
+      max-width: 600px;
+      margin: 20px auto;
+    }
+    .car-image {
+      width: 100%;
+      display: block;
+    }
+    .headlight {
+      position: absolute;
+      width: 50px;
+      height: 20px;
+      background-color: #fff;
+      border-radius: 10px;
+      top: 60px;
+      left: 100px;
+      opacity: 0.3;
+      animation: flash 1s infinite alternate;
+      box-shadow: 0 0 20px #00e5ff;
+    }
+    .headlight.right {
+      left: 360px;
+    }
+    @keyframes flash {
+      0% { opacity: 0.3; }
+      100% { opacity: 1; }
+    }
   </style>
 </head>
 <body>
   <h1>智慧叫車 · 科技估價</h1>
   <div class="container">
+
+    <div class="car-image-container">
+      <img src="tesla_modelx_wings_open.png" alt="Tesla Model X 開門" class="car-image">
+      <div class="headlight left"></div>
+      <div class="headlight right"></div>
+    </div>
+
+    <label for="rideDate">搭車日期</label>
+    <input type="date" id="rideDate">
+
+    <label for="rideTime">搭車時間</label>
+    <input type="time" id="rideTime">
+
     <label for="origin">出發地</label>
     <input id="origin" placeholder="例如：高雄市左營區大路378號">
 
@@ -65,12 +109,6 @@
       <option value="5">五人座</option>
       <option value="7">七人座</option>
     </select>
-
-    <label for="rideDate">搭車日期</label>
-    <input type="date" id="rideDate">
-
-    <label for="rideTime">搭車時間</label>
-    <input type="time" id="rideTime">
 
     <label for="luggageLarge">大行李數量</label>
     <select id="luggageLarge">
@@ -85,7 +123,7 @@
     <label for="receipt">是否需要收據</label>
     <select id="receipt">
       <option value="是">是</option>
-      <option value="否">否</option>
+      <option value="否" selected>否</option>
     </select>
 
     <button onclick="calculateFare()">預約報價</button>
