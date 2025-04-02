@@ -4,40 +4,16 @@
 <head>
   <meta charset="UTF-8" />
   <title>Tesla Marry Me</title>
-  <link rel="stylesheet" href="style_centered_v3.css" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="hero">
     <img src="tesla_modelx.png" alt="Tesla Model X" class="car-image" />
     <h1 class="title breathing">TeslaMarryMe</h1>
     <button id="bookBtn" class="btn book-btn">預約報價</button>
-    <div id="categoryBtns" class="btn-group hidden">
-      <button class="btn category-btn" data-type="normal">一般接送</button>
-      <button class="btn category-btn" data-type="wedding">結婚禮車</button>
-    </div>
-    <div id="formContainer" class="form-container hidden">
-      <form>
-        <label>車型：
-          <select>
-            <option>五人座</option>
-            <option>七人座</option>
-          </select>
-        </label>
-        <label>出發地：<input type="text" placeholder="例如：台北車站" /></label>
-        <label>目的地：<input type="text" placeholder="例如：桃園機場" /></label>
-        <label>叫車時間：<input type="datetime-local" /></label>
-        <label>大行李數量：<input type="number" min="0" /></label>
-        <label>小行李數量：<input type="number" min="0" /></label>
-        <label>是否需要收據：
-          <select>
-            <option>是</option>
-            <option>否</option>
-          </select>
-        </label>
-        <label>名字：<input type="text" /></label>
-        <label>聯繫電話：<input type="tel" /></label>
-        <button type="submit" class="btn submit-btn">送出預約</button>
-      </form>
+    <div id="categoryBtns" class="btn-group" style="display: none;">
+      <button class="btn category-btn">一般接送</button>
+      <button class="btn category-btn">結婚禮車</button>
     </div>
     <div class="hazard-light left-light"></div>
     <div class="hazard-light right-light"></div>
