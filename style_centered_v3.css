@@ -1,0 +1,87 @@
+
+body, html {
+  padding-top: 100px;
+  margin: 0;
+  padding: 0;
+  background: #000;
+}
+
+.hero {
+  position: relative;
+  width: 100%;
+}
+
+.car-image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.title {
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #FFFFFF;
+  font-size: 1.5em;
+  text-align: center;
+}
+
+@keyframes textBlink {
+  0%, 100% { opacity: 1; }
+  50%     { opacity: 0.5; }
+}
+.breathing {
+  animation: textBlink 2s infinite ease-in-out;
+}
+
+.btn {
+  padding: 10px 20px;
+  font-size: 2.4em;
+  border: none;
+  border-radius: 5px;
+  color: #FFFFFF;
+  background-color: #00BFEA;
+  cursor: pointer;
+}
+
+.book-btn {
+  position: absolute;
+  top: 65%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.btn-group {
+  position: absolute;
+  top: 42%;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+}
+.category-btn {
+  margin: 0 20px;
+  font-size: 2.4em;
+}
+
+.hazard-light {
+  position: absolute;
+  width: 8%;
+  height: 1%;
+  background: orange;
+  border-radius: 4px;
+  opacity: 0.8;
+  animation: hazardBlink 1.5s infinite ease-in-out;
+}
+@keyframes hazardBlink {
+  0%, 100% { opacity: 0.2; }
+  50%     { opacity: 1; }
+}
+.left-light {
+  top: 55%;
+  left: 27%;
+}
+.right-light {
+  top: 55%;
+  left: 67%;
+}
