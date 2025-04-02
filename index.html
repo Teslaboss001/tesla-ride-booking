@@ -1,22 +1,20 @@
 
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-Hant">
 <head>
   <meta charset="UTF-8" />
-  <title>Tesla Marry Me</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TeslaMarryMe</title>
+  <link rel="stylesheet" href="style_centered_v3.css" />
 </head>
 <body>
-  <div class="hero">
-    <img src="tesla_modelx.png" alt="Tesla Model X" class="car-image" />
-    <h1 class="title breathing">TeslaMarryMe</h1>
-    <button id="bookBtn" class="btn book-btn">預約報價</button>
-    <div id="categoryBtns" class="btn-group" style="display: none;">
-      <button class="btn category-btn">一般接送</button>
-      <button class="btn category-btn">結婚禮車</button>
-    </div>
-    <div class="hazard-light left-light"></div>
-    <div class="hazard-light right-light"></div>
+  <div class="container">
+    <img src="tesla_modelx.png" alt="Tesla Model X" class="tesla-image" />
+    <div class="blinker left"></div>
+    <div class="blinker right"></div>
+    <h1 class="title">TeslaMarryMe</h1>
+    <button id="startButton" class="start-button">預約報價</button>
+    <div id="formContainer" class="form-container"></div>
   </div>
   <script src="script.js"></script>
 </body>

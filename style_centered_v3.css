@@ -1,87 +1,60 @@
 
-body, html {
-  padding-top: 100px;
+body {
   margin: 0;
-  padding: 0;
-  background: #000;
+  background-color: black;
+  color: white;
+  font-family: 'Arial', sans-serif;
 }
 
-.hero {
-  position: relative;
-  width: 100%;
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  text-align: center;
 }
 
-.car-image {
-  display: block;
+.tesla-image {
   width: 100%;
-  height: auto;
+  max-width: 500px;
 }
 
 .title {
-  position: absolute;
-  top: 55%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: #FFFFFF;
-  font-size: 1.5em;
-  text-align: center;
+  font-size: 20px;
+  margin: 10px 0;
+  animation: blinkTitle 2s infinite;
 }
 
-@keyframes textBlink {
+@keyframes blinkTitle {
   0%, 100% { opacity: 1; }
-  50%     { opacity: 0.5; }
-}
-.breathing {
-  animation: textBlink 2s infinite ease-in-out;
+  50% { opacity: 0.4; }
 }
 
-.btn {
-  padding: 10px 20px;
-  font-size: 2.4em;
+.start-button {
+  background-color: #00cfff;
   border: none;
-  border-radius: 5px;
-  color: #FFFFFF;
-  background-color: #00BFEA;
+  color: white;
+  padding: 12px 24px;
+  font-size: 24px;
+  margin-top: 12px;
   cursor: pointer;
+  border-radius: 6px;
 }
 
-.book-btn {
+.blinker {
+  width: 40px;
+  height: 8px;
+  background-color: orange;
   position: absolute;
-  top: 65%;
-  left: 50%;
-  transform: translateX(-50%);
+  top: 230px;
+  animation: blinkerAnim 1.5s infinite ease-in-out;
 }
 
-.btn-group {
-  position: absolute;
-  top: 42%;
-  left: 50%;
-  transform: translateX(-50%);
-  text-align: center;
-}
-.category-btn {
-  margin: 0 20px;
-  font-size: 2.4em;
-}
+.blinker.left { left: 24%; }
+.blinker.right { right: 24%; }
 
-.hazard-light {
-  position: absolute;
-  width: 8%;
-  height: 1%;
-  background: orange;
-  border-radius: 4px;
-  opacity: 0.8;
-  animation: hazardBlink 1.5s infinite ease-in-out;
-}
-@keyframes hazardBlink {
-  0%, 100% { opacity: 0.2; }
-  50%     { opacity: 1; }
-}
-.left-light {
-  top: 55%;
-  left: 27%;
-}
-.right-light {
-  top: 55%;
-  left: 67%;
+@keyframes blinkerAnim {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.1; }
 }
