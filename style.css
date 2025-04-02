@@ -88,3 +88,14 @@ body, html {
   top: 62%;
   left: 71%;
 }
+
+.hidden {
+  display: none;
+}
+
+.full-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
