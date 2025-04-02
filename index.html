@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>Tesla Marry Me</title>
-  <link rel="stylesheet" href="style.css?v=5" />
+  <link rel="stylesheet" href="style.css?v=6" />
 </head>
 <body>
   <div class="hero">
@@ -24,8 +24,11 @@
     <img src="normal_ride.png" alt="一般接送示意圖" class="full-image" />
 
     <div class="form-block">
-      <label for="rideDate">選擇搭乘日期（90天內）：</label>
-      <input type="date" id="rideDate" name="rideDate" min="2025-04-02" max="2025-07-01" />
+      <label for="rideDate" class="big-label">選擇搭乘日期（90天內）：</label>
+      <input type="date" id="rideDate" name="rideDate" min="2024-04-02" max="2024-07-01" />
+      <br><br>
+      <label for="rideTime" class="big-label">選擇搭乘時間：</label>
+      <input type="time" id="rideTime" name="rideTime" />
     </div>
 
     <div class="note-block">

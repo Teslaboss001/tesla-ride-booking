@@ -4,7 +4,6 @@ body, html {
   padding: 0;
   background: #000;
   height: 100%;
-  font-family: sans-serif;
 }
 
 .hero {
@@ -101,27 +100,14 @@ body, html {
   margin: 0 auto;
 }
 
-.form-block {
-  background: #fff;
-  padding: 20px;
-  text-align: center;
-}
-.form-block label {
-  font-size: 1.2em;
-}
-.form-block input[type="date"] {
-  font-size: 1.2em;
-  padding: 5px 10px;
-  margin-top: 10px;
+
+.big-label {
+  font-size: 2.4em;
 }
 
-.note-block {
-  background: #fff;
-  color: #000;
-  padding: 20px;
-  font-size: 1em;
-  line-height: 1.6;
-}
-.note-block h2 {
-  margin-top: 0;
+.form-block input[type="date"],
+.form-block input[type="time"] {
+  font-size: 1.8em;
+  padding: 5px 10px;
+  margin-top: 10px;
 }
