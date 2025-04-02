@@ -1,87 +1,36 @@
 
-body, html {
-  padding-top: 100px;
-  margin: 0;
-  padding: 0;
-  background: #000;
+.hidden {
+  display: none;
 }
 
-.hero {
-  position: relative;
-  width: 100%;
+.form-container {
+  margin-top: 30px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 12px;
+  padding: 20px;
+  width: 80%;
+  max-width: 500px;
+  box-shadow: 0 0 20px rgba(255, 0, 128, 0.2);
 }
 
-.car-image {
-  display: block;
-  width: 100%;
-  height: auto;
+.form-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.title {
-  position: absolute;
-  top: 55%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: #FFFFFF;
-  font-size: 1.5em;
-  text-align: center;
+.form-container label {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
 }
 
-@keyframes textBlink {
-  0%, 100% { opacity: 1; }
-  50%     { opacity: 0.5; }
-}
-.breathing {
-  animation: textBlink 2s infinite ease-in-out;
-}
-
-.btn {
-  padding: 10px 20px;
-  font-size: 2.4em;
+.submit-btn {
+  background: #ff66b2;
+  color: white;
+  padding: 10px;
+  font-weight: bold;
   border: none;
-  border-radius: 5px;
-  color: #FFFFFF;
-  background-color: #00BFEA;
+  border-radius: 8px;
   cursor: pointer;
-}
-
-.book-btn {
-  position: absolute;
-  top: 65%;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.btn-group {
-  position: absolute;
-  top: 42%;
-  left: 50%;
-  transform: translateX(-50%);
-  text-align: center;
-}
-.category-btn {
-  margin: 0 20px;
-  font-size: 2.4em;
-}
-
-.hazard-light {
-  position: absolute;
-  width: 8%;
-  height: 1%;
-  background: orange;
-  border-radius: 4px;
-  opacity: 0.8;
-  animation: hazardBlink 1.5s infinite ease-in-out;
-}
-@keyframes hazardBlink {
-  0%, 100% { opacity: 0.2; }
-  50%     { opacity: 1; }
-}
-.left-light {
-  top: 55%;
-  left: 27%;
-}
-.right-light {
-  top: 55%;
-  left: 67%;
 }
