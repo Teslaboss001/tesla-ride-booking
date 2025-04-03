@@ -1,30 +1,37 @@
-document.getElementById('bookBtn').addEventListener('click', function () {
-  this.style.display = 'none';
-  document.getElementById('categoryBtns').style.display = 'flex';
-});
+document.addEventListener('DOMContentLoaded', function () {
+  alert("JS 已成功載入，互動功能啟動");
 
-document.querySelectorAll('.category-btn').forEach(btn => {
-  btn.addEventListener('click', function () {
-    if (this.textContent === '一般接送') {
-      document.querySelector('.hero').style.display = 'none';
-      document.getElementById('normalRideSection').classList.remove('hidden');
-    }
-  });
-});
-
-// 新增：偵測日期與時間是否都選擇後，跳出地圖
-window.addEventListener('DOMContentLoaded', function () {
+  const bookBtn = document.getElementById('bookBtn');
+  const categoryBtns = document.getElementById('categoryBtns');
   const rideDate = document.getElementById('rideDate');
   const rideTime = document.getElementById('rideTime');
+  const finalMap = document.getElementById('finalMap');
+  const normalSection = document.getElementById('normalRideSection');
+
+  if (bookBtn && categoryBtns) {
+    bookBtn.addEventListener('click', function () {
+      this.style.display = 'none';
+      categoryBtns.style.display = 'flex';
+    });
+  }
+
+  document.querySelectorAll('.category-btn').forEach(btn => {
+    btn.addEventListener('click', function () {
+      if (this.textContent === '一般接送') {
+        document.querySelector('.hero').style.display = 'none';
+        normalSection.classList.remove('hidden');
+      }
+    });
+  });
+
+  function checkInputsAndShowMap() {
+    if (rideDate.value && rideTime.value) {
+      document.body.querySelectorAll('.hero, #normalRideSection').forEach(el => el.style.display = 'none');
+      finalMap.classList.remove('hidden');
+    }
+  }
 
   if (rideDate && rideTime) {
-    function checkInputsAndShowMap() {
-      if (rideDate.value && rideTime.value) {
-        document.body.querySelectorAll('.hero, #normalRideSection').forEach(el => el.style.display = 'none');
-        document.getElementById('finalMap').classList.remove('hidden');
-      }
-    }
-
     rideDate.addEventListener('change', checkInputsAndShowMap);
     rideTime.addEventListener('change', checkInputsAndShowMap);
   }
