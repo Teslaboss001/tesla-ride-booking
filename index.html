@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
   <meta charset="UTF-8" />
   <title>Tesla Marry Me</title>
-  <link rel="stylesheet" href="style.css?v=5" />
+  <link rel="stylesheet" href="style.css?v=6" />
 </head>
 <body>
   <div class="hero">
@@ -22,10 +21,12 @@
   <!-- 一般接送圖片與內容 -->
   <div id="normalRideSection" class="hidden">
     <img src="normal_ride.png" alt="一般接送示意圖" class="full-image" />
-
     <div class="form-block">
-      <label for="rideDate">選擇搭乘日期：</label>
-      <input type="date" id="rideDate" name="rideDate" min="2025-04-02" max="2025-07-01" />
+      <label for="rideDate" class="form-label">選擇搭乘日期：</label>
+      <input type="date" id="rideDate" name="rideDate" />
+      <br><br>
+      <label for="rideTime" class="form-label">選擇搭乘時間：</label>
+      <input type="time" id="rideTime" name="rideTime" />
     </div>
 
     <div class="note-block">
@@ -42,6 +43,10 @@
     </div>
   </div>
 
-  <script src="script.js"></script>
+  <div id="finalMap" class="hidden">
+    <img src="A_digital_map_displays_a_Tesla_Model_S_traveling_f.png" alt="完成示意圖" class="full-image" />
+  </div>
+
+  <script src="script.js?v=20250404"></script>
 </body>
 </html>
