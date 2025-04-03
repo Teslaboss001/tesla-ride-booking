@@ -162,3 +162,28 @@ body, html {
   border-color: #FF66B2;
   box-shadow: 0 0 10px rgba(255, 102, 178, 0.4);
 }
+
+
+/* 放大與置中樣式 */
+.form-block label {
+  font-size: 2.4em;
+  font-weight: bold;
+  color: #222;
+  display: block;
+  text-align: center;
+  margin: 20px 0 10px;
+}
+
+.form-block input[type="date"],
+.form-block input[type="time"] {
+  font-size: 2em;
+  padding: 10px 20px;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+  display: block;
+  margin: 0 auto 25px;
+  border: 2px solid #00BFEA;
+  border-radius: 10px;
+  transition: 0.3s ease;
+}
