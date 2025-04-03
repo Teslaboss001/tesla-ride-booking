@@ -12,16 +12,14 @@ document.querySelectorAll('.category-btn').forEach(btn => {
   });
 });
 
-const rideDate = document.getElementById('rideDate');
-const rideTime = document.getElementById('rideTime');
-
-function checkInputsAndShowMap() {
-  if (rideDate.value && rideTime.value) {
+document.getElementById('confirmBtn')?.addEventListener('click', function () {
+  const rideDate = document.getElementById('rideDate');
+  const rideTime = document.getElementById('rideTime');
+  if (rideDate?.value && rideTime?.value) {
     document.querySelector('.hero').style.display = 'none';
     document.getElementById('normalRideSection').style.display = 'none';
     document.getElementById('finalMap').classList.remove('hidden');
+  } else {
+    alert("請先選擇日期與時間！");
   }
-}
-
-rideDate?.addEventListener('change', checkInputsAndShowMap);
-rideTime?.addEventListener('change', checkInputsAndShowMap);
+});
