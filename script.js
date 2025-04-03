@@ -12,3 +12,17 @@ document.querySelectorAll('.category-btn').forEach(btn => {
     }
   });
 });
+
+// 新增：偵測日期與時間是否都選擇後，跳出地圖
+const rideDate = document.getElementById('rideDate');
+const rideTime = document.getElementById('rideTime');
+
+function checkInputsAndShowMap() {
+  if (rideDate.value && rideTime.value) {
+    document.body.querySelectorAll('.hero, #normalRideSection').forEach(el => el.style.display = 'none');
+    document.getElementById('finalMap').classList.remove('hidden');
+  }
+}
+
+rideDate.addEventListener('change', checkInputsAndShowMap);
+rideTime.addEventListener('change', checkInputsAndShowMap);

@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>Tesla Marry Me</title>
-  <link rel="stylesheet" href="style.css?v=5" />
+  <link rel="stylesheet" href="style.css?v=6" />
 </head>
 <body>
   <div class="hero">
@@ -22,10 +22,9 @@
   <!-- 一般接送圖片與內容 -->
   <div id="normalRideSection" class="hidden">
     <img src="normal_ride.png" alt="一般接送示意圖" class="full-image" />
-
     <div class="form-block">
       <label for="rideDate">選擇搭乘日期：</label>
-      <input type="date" id="rideDate" name="rideDate" min="2025-04-02" max="2025-07-01" />
+      <input type="date" id="rideDate" name="rideDate" />
       <br><br>
       <label for="rideTime">選擇搭乘時間：</label>
       <input type="time" id="rideTime" name="rideTime" />
@@ -43,6 +42,11 @@
       <p><strong>七人座車型 - 短程低消 $800</strong><br>
       乘坐 4～6 人｜行李 2～6 件（29 吋）</p>
     </div>
+  </div>
+
+  <!-- 地圖結果圖示 -->
+  <div id="finalMap" class="hidden">
+    <img src="A_digital_map_displays_a_Tesla_Model_S_traveling_f.png" alt="完成示意圖" class="full-image" />
   </div>
 
   <script src="script.js"></script>
