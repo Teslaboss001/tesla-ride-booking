@@ -1,3 +1,4 @@
+
 document.getElementById('bookBtn').addEventListener('click', function () {
   this.style.display = 'none';
   document.getElementById('categoryBtns').style.display = 'flex';
