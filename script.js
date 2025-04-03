@@ -23,3 +23,18 @@ document.getElementById('confirmBtn')?.addEventListener('click', function () {
     alert("請先選擇日期與時間！");
   }
 });
+
+// 新增下車地址欄位功能
+document.getElementById('addStopBtn')?.addEventListener('click', function () {
+  const container = document.getElementById('extraStops');
+  const label = document.createElement('label');
+  label.textContent = '輸入下車地址（必填）';
+  const input = document.createElement('input');
+  input.type = 'text';
+  input.name = 'dropoff';
+  input.placeholder = '下車地址';
+  input.required = true;
+  input.style.marginBottom = '12px';
+  container.appendChild(label);
+  container.appendChild(input);
+});
