@@ -46,17 +46,18 @@ document.getElementById('confirmBtn')?.addEventListener('click', function () {
 function showBookingSummary(date, time, pickup, dropoffs, vehicle, passengers, luggage) {
   const summary = document.createElement("div");
   summary.style.position = "absolute";
-  summary.style.top = "65%";
+  summary.style.top = "78%";
   summary.style.left = "50%";
-  summary.style.transform = "translate(-50%, 0)";
-  summary.style.color = "white";
-  summary.style.fontSize = "1.1em";
-  summary.style.fontWeight = "normal";
+  summary.style.transform = "translate(-50%, -50%)";
+  summary.style.color = "#ffffff";
+  summary.style.fontSize = "2.4em";
+  summary.style.fontWeight = "600";
   summary.style.textAlign = "left";
-  summary.style.backgroundColor = "rgba(0,0,0,0.6)";
-  summary.style.padding = "20px";
-  summary.style.borderRadius = "12px";
+  summary.style.backgroundColor = "rgba(0,0,0,0.5)";
+  summary.style.padding = "30px";
+  summary.style.borderRadius = "16px";
   summary.style.maxWidth = "90%";
+  summary.style.lineHeight = "1.5";
 
   summary.innerHTML = `
     <div><strong>預約日期：</strong>${date}</div>
@@ -67,10 +68,41 @@ function showBookingSummary(date, time, pickup, dropoffs, vehicle, passengers, l
     <div><strong>乘車人數：</strong>${passengers} 人</div>
     <div><strong>行李數量：</strong>${luggage} 件</div>
   `;
+
+  const actions = document.createElement("div");
+  actions.style.textAlign = "center";
+  actions.style.marginTop = "30px";
+
+  const bookBtn = document.createElement("button");
+  bookBtn.textContent = "我要預約";
+  bookBtn.style.fontSize = "1em";
+  bookBtn.style.margin = "10px";
+  bookBtn.style.padding = "10px 20px";
+  bookBtn.style.borderRadius = "8px";
+  bookBtn.style.border = "none";
+  bookBtn.style.backgroundColor = "#00cc66";
+  bookBtn.style.color = "#fff";
+  bookBtn.style.cursor = "pointer";
+
+  const maybeBtn = document.createElement("button");
+  maybeBtn.textContent = "我在考慮";
+  maybeBtn.style.fontSize = "1em";
+  maybeBtn.style.margin = "10px";
+  maybeBtn.style.padding = "10px 20px";
+  maybeBtn.style.borderRadius = "8px";
+  maybeBtn.style.border = "none";
+  maybeBtn.style.backgroundColor = "#999";
+  maybeBtn.style.color = "#fff";
+  maybeBtn.style.cursor = "pointer";
+
+  actions.appendChild(bookBtn);
+  actions.appendChild(maybeBtn);
+  summary.appendChild(actions);
+
   document.getElementById("welcomeSection").appendChild(summary);
 }
 
-// 使用 Google Maps DirectionsService 計算距離與金額
+// 計算車資並顯示畫面與資訊
 document.getElementById('calculateBtn')?.addEventListener('click', async function () {
   const pickup = document.getElementById('pickup')?.value;
   const dropoffs = Array.from(document.querySelectorAll('input[name=dropoff]')).map(el => el.value).filter(Boolean);
@@ -115,10 +147,11 @@ document.getElementById('calculateBtn')?.addEventListener('click', async functio
       document.getElementById('welcomeSection')?.classList.remove('hidden');
 
       const fareBox = document.getElementById('fareAmount');
-      fareBox.style.fontSize = "3.5em";
+      fareBox.style.fontSize = "7em";
       fareBox.style.fontWeight = "bold";
       fareBox.style.color = "#00ffcc";
-      fareBox.textContent = `NT$ ${Math.round(baseFare)}`;
+      fareBox.style.marginTop = "-20px";
+      fareBox.innerHTML = "<div style='font-size: 0.4em; margin-bottom: 10px;'>預約報價費用</div>" + `NT$ ${Math.round(baseFare)}`;
 
       showBookingSummary(
         document.getElementById('rideDate')?.value,
@@ -134,40 +167,3 @@ document.getElementById('calculateBtn')?.addEventListener('click', async functio
     }
   });
 });
-
-
-// 顯示預約摘要資訊（字體放大 3 倍、強化樣式）
-function showBookingSummary(date, time, pickup, dropoffs, vehicle, passengers, luggage) {
-  const summary = document.createElement("div");
-  summary.style.position = "absolute";
-  summary.style.top = "70%";
-  summary.style.left = "50%";
-  summary.style.transform = "translate(-50%, 0)";
-  summary.style.color = "#ffffff";
-  summary.style.fontSize = "2.4em";  // 原本 1.2em → 放大 3 倍
-  summary.style.fontWeight = "600";
-  summary.style.textAlign = "left";
-  summary.style.backgroundColor = "rgba(0,0,0,0.5)";
-  summary.style.padding = "30px";
-  summary.style.borderRadius = "16px";
-  summary.style.maxWidth = "90%";
-  summary.style.lineHeight = "1.5";
-
-  summary.innerHTML = `
-    <div><strong>預約日期：</strong>${date}</div>
-    <div><strong>搭乘時間：</strong>${time}</div>
-    <div><strong>上車地點：</strong>${pickup}</div>
-    <div><strong>下車地點：</strong>${dropoffs.join(" → ")}</div>
-    <div><strong>車型：</strong>${vehicle}</div>
-    <div><strong>乘車人數：</strong>${passengers} 人</div>
-    <div><strong>行李數量：</strong>${luggage} 件</div>
-  `;
-  document.getElementById("welcomeSection").appendChild(summary);
-}
-
-// 更新金額顯示樣式（放大 2 倍 + 與上面圖拉近）
-const fareBox = document.getElementById('fareAmount');
-fareBox.style.fontSize = "7em";  // 原為 3.5em
-fareBox.style.fontWeight = "bold";
-fareBox.style.color = "#00ffcc";
-fareBox.style.marginTop = "-20px";
