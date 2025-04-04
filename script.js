@@ -89,3 +89,17 @@ document.getElementById('calculateBtn')?.addEventListener('click', async functio
     }
   });
 });
+
+document.getElementById('confirmBtn')?.addEventListener('click', function () {
+  const rideDate = document.getElementById('rideDate')?.value;
+  const rideTime = document.getElementById('rideTime')?.value;
+
+  if (!rideDate || !rideTime) {
+    alert("請先選擇日期與時間！");
+    return;
+  }
+
+  document.querySelector('.hero')?.style.setProperty("display", "none");
+  document.getElementById('normalRideSection')?.style.setProperty("display", "none");
+  document.getElementById('finalMap')?.classList.remove('hidden');
+});
