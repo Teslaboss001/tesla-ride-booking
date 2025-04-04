@@ -21,6 +21,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Step 3: 確認日期與時間後 → 顯示地圖與表單
   document.getElementById("confirmBtn")?.addEventListener("click", () => {
+  const date = document.getElementById("rideDate")?.value;
+  const time = document.getElementById("rideTime")?.value;
+
+  if (!date || !time) {
+    alert("請先選擇日期與時間！");
+    return;
+  }
+
+  document.getElementById("normalRideSection").style.display = "none";
+  document.getElementById("finalMap").classList.remove("hidden");
+});
     const date = document.getElementById("rideDate")?.value;
     const time = document.getElementById("rideTime")?.value;
 if (!pickup) {
