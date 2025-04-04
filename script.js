@@ -29,7 +29,7 @@ document.getElementById('addStopBtn')?.addEventListener('click', function () {
   container.appendChild(input);
 });
 
-// 按下「確認」後才顯示 Google 地圖表單
+// 按下「確認」後顯示 Google 表單區塊
 document.getElementById('confirmBtn')?.addEventListener('click', function () {
   const rideDate = document.getElementById('rideDate');
   const rideTime = document.getElementById('rideTime');
