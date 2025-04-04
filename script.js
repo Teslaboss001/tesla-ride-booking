@@ -23,12 +23,23 @@ document.addEventListener("DOMContentLoaded", function () {
   document.getElementById("confirmBtn")?.addEventListener("click", () => {
     const date = document.getElementById("rideDate")?.value;
     const time = document.getElementById("rideTime")?.value;
+if (!pickup) {
+  alert("請輸入上車地點！");
+  return;
+}
+if (dropoffs.length === 0) {
+  alert("請輸入至少一個下車地點！");
+  return;
+}
+if (!date || !time) {
+  alert("請選擇日期與時間！");
+  return;
+}
+if (!carType) {
+  alert("請選擇車型！");
+  return;
+}
     
-
-    if (!date || !time) {
-      alert("請先選擇日期與時間！");
-      return;
-    }
 
     document.getElementById("normalRideSection").style.display = "none";
     document.getElementById("finalMap").classList.remove("hidden");
