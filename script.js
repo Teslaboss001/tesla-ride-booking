@@ -92,3 +92,31 @@ document.getElementById('calculateBtn')?.addEventListener('click', async functio
     }
   });
 });
+
+
+// 顯示預約摘要資訊
+function showBookingSummary(date, time, pickup, dropoffs, vehicle, passengers, luggage) {
+  const summary = document.createElement("div");
+  summary.style.position = "absolute";
+  summary.style.top = "60%";
+  summary.style.left = "50%";
+  summary.style.transform = "translate(-50%, 0)";
+  summary.style.color = "white";
+  summary.style.fontSize = "1.2em";
+  summary.style.fontWeight = "normal";
+  summary.style.textAlign = "center";
+  summary.style.backgroundColor = "rgba(0,0,0,0.5)";
+  summary.style.padding = "20px";
+  summary.style.borderRadius = "12px";
+
+  summary.innerHTML = `
+    <div><strong>預約日期：</strong>${date}</div>
+    <div><strong>搭乘時間：</strong>${time}</div>
+    <div><strong>上車地點：</strong>${pickup}</div>
+    <div><strong>下車地點：</strong>${dropoffs.join(" → ")}</div>
+    <div><strong>車型：</strong>${vehicle}</div>
+    <div><strong>乘車人數：</strong>${passengers} 人</div>
+    <div><strong>行李數量：</strong>${luggage} 件</div>
+  `;
+  document.getElementById("welcomeSection").appendChild(summary);
+}
