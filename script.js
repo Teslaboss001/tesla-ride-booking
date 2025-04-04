@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-  // Step 1: 預約報價 → 顯示分類按鈕
   const bookBtn = document.getElementById("bookBtn");
   const categoryBtns = document.getElementById("categoryBtns");
   const hero = document.querySelector(".hero");
@@ -9,7 +8,6 @@ document.addEventListener("DOMContentLoaded", function () {
     categoryBtns.style.display = "flex";
   });
 
-  // Step 2: 選擇「一般接送」→ 顯示預約表單
   document.querySelectorAll(".category-btn").forEach((btn) => {
     btn.addEventListener("click", function () {
       if (this.textContent === "一般接送") {
@@ -19,7 +17,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // Step 3: 確認日期與時間後 → 顯示地圖與表單（只檢查日期與時間）
   document.getElementById("confirmBtn")?.addEventListener("click", () => {
     const date = document.getElementById("rideDate")?.value;
     const time = document.getElementById("rideTime")?.value;
@@ -33,20 +30,18 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("finalMap").classList.remove("hidden");
   });
 
-  // Step 4: 計算車資（包含欄位驗證）
   const calculateBtn = document.getElementById("calculateBtn");
 
   if (calculateBtn) {
     calculateBtn.addEventListener("click", () => {
       const pickup = document.getElementById("pickup")?.value.trim();
       const dropoffs = Array.from(document.querySelectorAll(".dropoff")).map(el => el.value.trim()).filter(Boolean);
-      const carType = document.getElementById("carType")?.value;
-      const people = document.getElementById("people")?.value;
+      const carType = document.getElementById("cartype")?.value;
+      const people = document.getElementById("passengers")?.value;
       const luggage = document.getElementById("luggage")?.value;
       const date = document.getElementById("rideDate")?.value;
       const time = document.getElementById("rideTime")?.value;
 
-      // 欄位驗證
       if (!pickup) {
         alert("請輸入上車地點！");
         return;
@@ -64,20 +59,17 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
       }
 
-      // 計算車資
-      let baseFare = carType === "seven" ? 800 : 500;
+      let baseFare = carType.includes("七") ? 800 : 500;
       const hour = parseInt(time.split(":")[0], 10);
       if ((hour >= 23 && hour <= 24) || (hour >= 0 && hour < 6)) {
         baseFare = Math.round(baseFare * 1.2);
       }
 
-      // 顯示金額
       const fareElement = document.getElementById("fare");
       if (fareElement) {
         fareElement.innerHTML = `<strong style="font-size: 2em;">預約報價費用：NT$ ${baseFare}</strong>`;
       }
 
-      // 顯示摘要資訊
       const summaryElement = document.getElementById("summary");
       if (summaryElement) {
         summaryElement.innerHTML = `
@@ -86,7 +78,7 @@ document.addEventListener("DOMContentLoaded", function () {
             日期與時間：${date} ${time}<br>
             上車地點：${pickup}<br>
             ${dropoffs.map((d, i) => `下車地點 ${i + 1}：${d}<br>`).join('')}
-            車型：${carType === "seven" ? "七人座車型" : "五座轎車型"}<br>
+            車型：${carType}<br>
             乘車人數：${people} 人<br>
             行李數量：${luggage} 件
           </div>
