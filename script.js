@@ -1,7 +1,17 @@
-// 預約報價按鈕功能
+// 預約報價按鈕 → 顯示分類按鈕
 document.getElementById('bookBtn')?.addEventListener('click', function () {
   this.style.display = 'none';
   document.getElementById('categoryBtns').style.display = 'flex';
+});
+
+// 點擊「一般接送」按鈕 → 顯示一般預約區塊
+document.querySelectorAll('.category-btn').forEach(btn => {
+  btn.addEventListener('click', function () {
+    if (this.textContent === '一般接送') {
+      document.querySelector('.hero')?.style.setProperty("display", "none");
+      document.getElementById('normalRideSection')?.classList.remove('hidden');
+    }
+  });
 });
 
 // 顯示預約摘要與美化按鈕
