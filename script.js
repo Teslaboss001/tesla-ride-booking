@@ -134,3 +134,40 @@ document.getElementById('calculateBtn')?.addEventListener('click', async functio
     }
   });
 });
+
+
+// 顯示預約摘要資訊（字體放大 3 倍、強化樣式）
+function showBookingSummary(date, time, pickup, dropoffs, vehicle, passengers, luggage) {
+  const summary = document.createElement("div");
+  summary.style.position = "absolute";
+  summary.style.top = "70%";
+  summary.style.left = "50%";
+  summary.style.transform = "translate(-50%, 0)";
+  summary.style.color = "#ffffff";
+  summary.style.fontSize = "2.4em";  // 原本 1.2em → 放大 3 倍
+  summary.style.fontWeight = "600";
+  summary.style.textAlign = "left";
+  summary.style.backgroundColor = "rgba(0,0,0,0.5)";
+  summary.style.padding = "30px";
+  summary.style.borderRadius = "16px";
+  summary.style.maxWidth = "90%";
+  summary.style.lineHeight = "1.5";
+
+  summary.innerHTML = `
+    <div><strong>預約日期：</strong>${date}</div>
+    <div><strong>搭乘時間：</strong>${time}</div>
+    <div><strong>上車地點：</strong>${pickup}</div>
+    <div><strong>下車地點：</strong>${dropoffs.join(" → ")}</div>
+    <div><strong>車型：</strong>${vehicle}</div>
+    <div><strong>乘車人數：</strong>${passengers} 人</div>
+    <div><strong>行李數量：</strong>${luggage} 件</div>
+  `;
+  document.getElementById("welcomeSection").appendChild(summary);
+}
+
+// 更新金額顯示樣式（放大 2 倍 + 與上面圖拉近）
+const fareBox = document.getElementById('fareAmount');
+fareBox.style.fontSize = "7em";  // 原為 3.5em
+fareBox.style.fontWeight = "bold";
+fareBox.style.color = "#00ffcc";
+fareBox.style.marginTop = "-20px";
