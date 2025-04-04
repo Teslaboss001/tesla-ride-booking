@@ -44,8 +44,8 @@ document.addEventListener("DOMContentLoaded", function () {
       const carType = document.getElementById("carType")?.value;
       const people = document.getElementById("people")?.value;
       const luggage = document.getElementById("luggage")?.value;
-      const date = document.getElementById("date")?.value;
-      const time = document.getElementById("time")?.value;
+      const date = document.getElementById("rideDate")?.value;
+      const time = document.getElementById("rideTime")?.value;
 
       if (!pickup || dropoffs.length === 0 || !date || !time || !carType) {
         alert("請完整填寫預約資訊！");
