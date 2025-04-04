@@ -29,7 +29,20 @@ document.getElementById('addStopBtn')?.addEventListener('click', function () {
   container.appendChild(input);
 });
 
-// 計算車資按鈕邏輯
+// 按下「確認」後才顯示 Google 地圖表單
+document.getElementById('confirmBtn')?.addEventListener('click', function () {
+  const rideDate = document.getElementById('rideDate');
+  const rideTime = document.getElementById('rideTime');
+  if (rideDate?.value && rideTime?.value) {
+    document.querySelector('.hero')?.style.setProperty("display", "none");
+    document.getElementById('normalRideSection')?.style.setProperty("display", "none");
+    document.getElementById('finalMap')?.classList.remove('hidden');
+  } else {
+    alert("請先選擇日期與時間！");
+  }
+});
+
+// 計算車資邏輯
 document.getElementById('calculateBtn')?.addEventListener('click', async function () {
   const pickup = document.getElementById('pickup')?.value;
   const dropoffs = Array.from(document.querySelectorAll('input[name=dropoff]')).map(el => el.value).filter(Boolean);
