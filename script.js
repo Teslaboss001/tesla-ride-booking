@@ -29,7 +29,7 @@ document.getElementById('addStopBtn')?.addEventListener('click', function () {
   container.appendChild(input);
 });
 
-// 按下「確認」後顯示 Google 表單區塊
+// 按下「確認」後才顯示 Google 地圖表單
 document.getElementById('confirmBtn')?.addEventListener('click', function () {
   const rideDate = document.getElementById('rideDate');
   const rideTime = document.getElementById('rideTime');
@@ -42,7 +42,7 @@ document.getElementById('confirmBtn')?.addEventListener('click', function () {
   }
 });
 
-// 計算車資邏輯
+// 使用 Google Maps DirectionsService 計算距離
 document.getElementById('calculateBtn')?.addEventListener('click', async function () {
   const pickup = document.getElementById('pickup')?.value;
   const dropoffs = Array.from(document.querySelectorAll('input[name=dropoff]')).map(el => el.value).filter(Boolean);
@@ -54,37 +54,41 @@ document.getElementById('calculateBtn')?.addEventListener('click', async functio
     return;
   }
 
-  const addresses = [pickup, ...dropoffs];
-  let totalDistance = 0;
+  const directionsService = new google.maps.DirectionsService();
+  const waypoints = dropoffs.slice(0, -1).map(address => ({ location: address, stopover: true }));
+  const origin = pickup;
+  const destination = dropoffs[dropoffs.length - 1];
 
-  for (let i = 0; i < addresses.length - 1; i++) {
-    const origin = addresses[i];
-    const destination = addresses[i + 1];
-    try {
-      const response = await fetch(`https://maps.googleapis.com/maps/api/distancematrix/json?origins=${encodeURIComponent(origin)}&destinations=${encodeURIComponent(destination)}&key=AIzaSyBYhjHSQTm68K_dnKgiiWFGRWX2RBiJMhQ`);
-      const data = await response.json();
-      if (data.rows[0].elements[0].status === "OK") {
-        const distanceInMeters = data.rows[0].elements[0].distance.value;
-        totalDistance += distanceInMeters / 1000;
+  directionsService.route({
+    origin: origin,
+    destination: destination,
+    waypoints: waypoints,
+    travelMode: google.maps.TravelMode.DRIVING
+  }, function (response, status) {
+    if (status === 'OK') {
+      let totalDistance = 0;
+      const route = response.routes[0];
+      route.legs.forEach(leg => {
+        totalDistance += leg.distance.value / 1000;
+      });
+
+      let baseFare = (totalDistance * 30 + 85) * 1.4;
+      const hour = parseInt(time.split(":")[0]);
+      if ((hour >= 23 && hour <= 24) || (hour >= 0 && hour < 6)) {
+        baseFare *= 1.2;
       }
-    } catch (error) {
-      console.error("Google Maps API 發生錯誤", error);
+
+      if (vehicle === "五人座" && baseFare < 500) baseFare = 500;
+      if (vehicle === "七人座" && baseFare < 800) baseFare = 800;
+
+      document.querySelector('.hero')?.style.setProperty("display", "none");
+      document.getElementById('normalRideSection')?.style.setProperty("display", "none");
+      document.getElementById('finalMap')?.style.setProperty("display", "none");
+      document.getElementById('welcomeSection')?.classList.remove('hidden');
+
+      document.getElementById('fareAmount').textContent = `NT$ ${Math.round(baseFare)}`;
+    } else {
+      alert("無法計算路線，請確認地址是否正確！");
     }
-  }
-
-  let baseFare = (totalDistance * 30 + 85) * 1.4;
-  const hour = parseInt(time.split(":")[0]);
-  if ((hour >= 23 && hour <= 24) || (hour >= 0 && hour < 6)) {
-    baseFare *= 1.2;
-  }
-
-  if (vehicle === "五人座" && baseFare < 500) baseFare = 500;
-  if (vehicle === "七人座" && baseFare < 800) baseFare = 800;
-
-  document.querySelector('.hero')?.style.setProperty("display", "none");
-  document.getElementById('normalRideSection')?.style.setProperty("display", "none");
-  document.getElementById('finalMap')?.style.setProperty("display", "none");
-  document.getElementById('welcomeSection')?.classList.remove('hidden');
-
-  document.getElementById('fareAmount').textContent = `NT$ ${Math.round(baseFare)}`;
+  });
 });
