@@ -19,44 +19,21 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // Step 3: 確認日期與時間後 → 顯示地圖與表單
+  // Step 3: 確認日期與時間後 → 顯示地圖與表單（只檢查日期與時間）
   document.getElementById("confirmBtn")?.addEventListener("click", () => {
-  const date = document.getElementById("rideDate")?.value;
-  const time = document.getElementById("rideTime")?.value;
-
-  if (!date || !time) {
-    alert("請先選擇日期與時間！");
-    return;
-  }
-
-  document.getElementById("normalRideSection").style.display = "none";
-  document.getElementById("finalMap").classList.remove("hidden");
-});
     const date = document.getElementById("rideDate")?.value;
     const time = document.getElementById("rideTime")?.value;
-if (!pickup) {
-  alert("請輸入上車地點！");
-  return;
-}
-if (dropoffs.length === 0) {
-  alert("請輸入至少一個下車地點！");
-  return;
-}
-if (!date || !time) {
-  alert("請選擇日期與時間！");
-  return;
-}
-if (!carType) {
-  alert("請選擇車型！");
-  return;
-}
-    
+
+    if (!date || !time) {
+      alert("請先選擇日期與時間！");
+      return;
+    }
 
     document.getElementById("normalRideSection").style.display = "none";
     document.getElementById("finalMap").classList.remove("hidden");
   });
 
-  // Step 4: 計算車資
+  // Step 4: 計算車資（包含欄位驗證）
   const calculateBtn = document.getElementById("calculateBtn");
 
   if (calculateBtn) {
@@ -69,22 +46,38 @@ if (!carType) {
       const date = document.getElementById("rideDate")?.value;
       const time = document.getElementById("rideTime")?.value;
 
-      if (!pickup || dropoffs.length === 0 || !date || !time || !carType) {
-        alert("請完整填寫預約資訊！");
+      // 欄位驗證
+      if (!pickup) {
+        alert("請輸入上車地點！");
+        return;
+      }
+      if (dropoffs.length === 0) {
+        alert("請輸入至少一個下車地點！");
+        return;
+      }
+      if (!date || !time) {
+        alert("請選擇日期與時間！");
+        return;
+      }
+      if (!carType) {
+        alert("請選擇車型！");
         return;
       }
 
+      // 計算車資
       let baseFare = carType === "seven" ? 800 : 500;
       const hour = parseInt(time.split(":")[0], 10);
       if ((hour >= 23 && hour <= 24) || (hour >= 0 && hour < 6)) {
         baseFare = Math.round(baseFare * 1.2);
       }
 
+      // 顯示金額
       const fareElement = document.getElementById("fare");
       if (fareElement) {
         fareElement.innerHTML = `<strong style="font-size: 2em;">預約報價費用：NT$ ${baseFare}</strong>`;
       }
 
+      // 顯示摘要資訊
       const summaryElement = document.getElementById("summary");
       if (summaryElement) {
         summaryElement.innerHTML = `
