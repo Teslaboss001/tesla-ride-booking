@@ -1,10 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
   <meta charset="UTF-8" />
   <title>Tesla Marry Me</title>
-  <link rel="stylesheet" href="style.css?v=6" />
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBYhjHSQTm68K_dnKgiiWFGRWX2RBiJMhQ&libraries=places"></script>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="hero">
@@ -19,59 +19,70 @@
     <div class="hazard-light right-light"></div>
   </div>
 
+  <!-- 一般接送圖片與內容 -->
   <div id="normalRideSection" class="hidden">
     <img src="normal_ride.png" alt="一般接送示意圖" class="full-image" />
     <div class="form-block">
-      <label for="rideDate" class="form-label">選擇搭乘日期：</label>
-      <input type="date" id="rideDate" name="rideDate" />
-      <br><br>
-      <label for="rideTime" class="form-label">選擇搭乘時間：</label>
-      <input type="time" id="rideTime" name="rideTime" />
-      <br><br>
-      <button id="confirmBtn" class="btn confirm-btn">確認</button>
+      <label for="rideDate">選擇搭乘日期：</label>
+      <input type="date" id="rideDate" name="rideDate" /><br><br>
+      <label for="rideTime">選擇搭乘時間：</label>
+      <input type="time" id="rideTime" name="rideTime" /><br><br>
+      <button id="confirmBtn" class="btn">確認</button>
     </div>
 
     <div class="note-block">
       <h2>如何預約搭乘？</h2>
-      <p>本系統採預約制！請勿即時叫車<br>為避免你的司機已有預約行程，<br>通常在前一天以上預約行程，保證都可以預約得到車輛哦！</p>
+      <p>本系統採預約制！請勿即時叫車<br>
+      為避免你的司機已有預約行程，<br>
+      通常在前一天以上預約行程，保證都可以預約得到車輛哦！</p>
+      <hr>
     </div>
   </div>
 
+  <!-- 地圖與表單 -->
   <div id="finalMap" class="hidden">
-    <img src="Google_with_text.png" alt="Google 地圖圖示" class="full-image" />
+    <img src="map_visual.png" alt="地圖圖示" class="full-image" />
     <div class="form-block">
-      <label for="phone">請輸入手機號碼（必填）</label>
-      <input type="tel" id="phone" name="phone" required />
-
-      <label for="pickup">輸入上車地址（必填）</label>
-      <input type="text" id="pickup" name="pickup" required />
-
-      <label for="dropoff">輸入下車地址（必填）</label>
-      <input type="text" id="dropoff" name="dropoff" required />
-      <button type="button" id="addStopBtn" class="btn add-stop-btn">+</button>
-      <div id="extraStops"></div>
-
-      <label for="cartype">車型</label>
-      <select id="cartype" name="cartype">
-        <option value="五人座">五人座</option>
-        <option value="七人座">七人座</option>
+      <input type="tel" id="phone" placeholder="請輸入手機號碼(必填)" required />
+      <input type="text" id="pickup" placeholder="輸入上車地址(必填)" required />
+      <div id="dropoffContainer">
+        <input type="text" name="dropoff" placeholder="輸入下車地址(必填)" required />
+      </div>
+      <button id="addStopBtn">＋</button>
+      <select id="cartype">
+        <option>五人座</option>
+        <option>七人座</option>
       </select>
-
-      <label for="passengers">乘車人數</label>
-      <input type="number" id="passengers" name="passengers" min="1" max="6" value="1" />
-
-      <label for="luggage">21~29 吋行李數</label>
-      <input type="number" id="luggage" name="luggage" min="0" max="6" value="0" />
-
-      <button id="calculateBtn" class="btn calculate-btn">計算車資</button>
+      <select id="passengers">
+        <option value="1">乘車人數 1 人</option>
+        <option value="2">乘車人數 2 人</option>
+        <option value="3">乘車人數 3 人</option>
+        <option value="4">乘車人數 4 人</option>
+        <option value="5">乘車人數 5 人</option>
+        <option value="6">乘車人數 6 人</option>
+      </select>
+      <select id="luggage">
+        <option value="0">21~29吋行李數 0 件</option>
+        <option value="1">1 件</option>
+        <option value="2">2 件</option>
+        <option value="3">3 件</option>
+        <option value="4">4 件</option>
+        <option value="5">5 件</option>
+        <option value="6">6 件</option>
+      </select>
+      <button id="calculateBtn" class="btn">計算車資</button>
     </div>
   </div>
 
+  <!-- 結果頁 -->
   <div id="welcomeSection" class="hidden">
     <img src="Welcome.png" alt="歡迎畫面" class="full-image" />
-    <div id="fareAmount" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 3em; font-weight: bold; color: white;"></div>
+    <h2 id="fareAmount" class="fare-display">預約報價費用</h2>
+    <div id="summary" class="summary-display"></div>
+    <button class="btn">我要預約</button>
+    <button class="btn">我在考慮</button>
   </div>
 
-  <script src="script.js?v=20250406"></script>
+  <script src="script.js?v=15"></script>
 </body>
 </html>
