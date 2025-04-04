@@ -1,3 +1,10 @@
+// 預約報價按鈕功能
+document.getElementById('bookBtn')?.addEventListener('click', function () {
+  this.style.display = 'none';
+  document.getElementById('categoryBtns').style.display = 'flex';
+});
+
+// 顯示預約摘要與美化按鈕
 function showBookingSummary(date, time, pickup, dropoffs, vehicle, passengers, luggage) {
   const summaryBlock = document.createElement("div");
   summaryBlock.style.marginTop = "40px";
@@ -19,7 +26,6 @@ function showBookingSummary(date, time, pickup, dropoffs, vehicle, passengers, l
   `;
   document.getElementById("welcomeSection").appendChild(summaryBlock);
 
-  // 美化按鈕
   document.querySelectorAll('#welcomeSection button').forEach(btn => {
     btn.style.display = "inline-block";
     btn.style.margin = "10px 15px";
