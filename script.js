@@ -123,23 +123,3 @@ fare = Math.round(fare);
     }
   });
 });
-      if (summaryElement) {
-        summaryElement.innerHTML = `
-          <div style="font-size: 1.5em; margin-top: 20px;">
-            <strong>預約資訊總結：</strong><br>
-            日期與時間：${date} ${time}<br>
-            上車地點：${pickup}<br>
-            ${dropoffs.map((d, i) => `下車地點 ${i + 1}：${d}<br>`).join('')}
-            車型：${carType}<br>
-            乘車人數：${people} 人<br>
-            行李數量：${luggage} 件
-          </div>
-          <div style="text-align: center; margin-top: 20px;">
-            <button style="font-size: 1.2em; padding: 10px 30px; margin: 10px; background-color: #4CAF50; color: white; border: none;">我要預約</button>
-            <button style="font-size: 1.2em; padding: 10px 30px; margin: 10px; background-color: #ccc; color: black; border: none;">我再考慮</button>
-          </div>
-        `;
-      }
-    });
-  }
-});
