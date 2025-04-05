@@ -123,36 +123,6 @@ fare = Math.round(fare);
     }
   });
 });
-
-      if (!pickup) {
-        alert("請輸入上車地點！");
-        return;
-      }
-      if (dropoffs.length === 0) {
-        alert("請輸入至少一個下車地點！");
-        return;
-      }
-      if (!date || !time) {
-        alert("請選擇日期與時間！");
-        return;
-      }
-      if (!carType) {
-        alert("請選擇車型！");
-        return;
-      }
-
-      let baseFare = carType.includes("七") ? 800 : 500;
-      const hour = parseInt(time.split(":")[0], 10);
-      if ((hour >= 23 && hour <= 24) || (hour >= 0 && hour < 6)) {
-        baseFare = Math.round(baseFare * 1.2);
-      }
-
-      const fareElement = document.getElementById("fare");
-      if (fareElement) {
-        fareElement.innerHTML = `<strong style="font-size: 2em;">預約報價費用：NT$ ${baseFare}</strong>`;
-      }
-
-      const summaryElement = document.getElementById("summary");
       if (summaryElement) {
         summaryElement.innerHTML = `
           <div style="font-size: 1.5em; margin-top: 20px;">
