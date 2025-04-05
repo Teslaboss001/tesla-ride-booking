@@ -94,20 +94,6 @@ fare = Math.max(fare, minFare);
 // 四捨五入
 fare = Math.round(fare);
 
-    // 深夜加成（23:00～06:00）
-    const hour = parseInt(time.split(":")[0], 10);
-    const isLateNight = (hour >= 23 || hour < 6);
-    if (isLateNight) {
-      fare *= 1.2;
-    }
-
-    // 最低費用保底
-    const minFare = carType.includes("七") ? 800 : 500;
-    fare = Math.max(fare, minFare);
-
-    // 四捨五入到個位數
-    fare = Math.round(fare);
-
     // 顯示金額
     const fareElement = document.getElementById("fare");
     if (fareElement) {
