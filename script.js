@@ -1,4 +1,3 @@
-
 document.addEventListener("DOMContentLoaded", function () {
   // 新增停靠點功能
   document.getElementById("addStopBtn")?.addEventListener("click", () => {
