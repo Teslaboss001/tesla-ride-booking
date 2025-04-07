@@ -138,5 +138,18 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       });
     });
+  // 點擊「我要預約」或「我再考慮」按鈕的處理
+document.addEventListener("click", function (e) {
+  if (e.target.textContent === "我要預約") {
+    // 開啟 LINE 官方帳號連結（另開視窗）
+    const lineURL = "https://line.me/R/ti/p/@teslamarryme";
+    window.open(lineURL, "_blank");
+  }
+
+  if (e.target.textContent === "我再考慮") {
+    // 顯示提醒訊息，然後嘗試關閉當前視窗（僅適用於 script 開啟的頁面）
+    alert("尊榮的客戶您好，我們期待下次為您服務。");
+    window.open('', '_self'); // 修正 Safari 無法關閉頁面的問題
+    window.close();
   }
 });
