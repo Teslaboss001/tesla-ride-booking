@@ -98,7 +98,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const minFare = carType.includes("七") ? 800 : 500;
         fare = Math.max(fare, minFare);
-        fare = Math.round(fare / 10) * 10; // 四捨五入至個位數
+fare = Math.round(fare / 10) * 10; // 四捨五入至個位數
+window.latestFare = fare; // 儲存金額給「我要預約」使用
 
         const fareElement = document.getElementById("fare");
         if (fareElement) {
