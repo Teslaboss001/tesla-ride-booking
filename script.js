@@ -174,8 +174,4 @@ document.addEventListener("click", async function (e) {
     window.close();
   }
 });
-  <script src="script.js?v=100" defer></script>
-  <script async
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBYhjHSQTm68K_dnKgiiWFGRWX2RBiJMhQ&libraries=places"></script>
-</body>
-</html>
+  
