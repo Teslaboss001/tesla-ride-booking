@@ -1,5 +1,8 @@
 
 document.addEventListener("DOMContentLoaded", function () {
+  console.log("DOM fully loaded"); // 新增這行
+  const bookBtn = document.getElementById("bookBtn");
+  console.log("bookBtn:", bookBtn); // 再加這行
   const calculateBtn = document.getElementById("calculateBtn");
   if (calculateBtn) {
     calculateBtn.addEventListener("click", () => {
