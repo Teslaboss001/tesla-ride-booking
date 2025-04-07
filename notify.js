@@ -6,7 +6,7 @@ export default async function handler(req, res) {
 
   const { date, time, pickup, dropoffs, carType, people, luggage, fare } = req.body;
 
-  const lineToken = '你的 Channel access token';
+  const lineToken = '+OmfPQlYnKuAnwivXmmUAmqgdUSSUID49stCDeXAi8poK183ssaNEGUc9rOYzZQIuOPN6fBwiswZ1beSCOj2aQIARLYONoxHlacIdXwZNEkMVgw2Ll6f0N79sOuxbyQogAzk3GTEfgfvGu+P9/qQYgdB04t89/1O/w1cDnyilFU=';
   const flexMessage = {
     type: 'flex',
     altText: 'Tesla 預約通知',
