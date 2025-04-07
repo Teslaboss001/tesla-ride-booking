@@ -1,20 +1,16 @@
 document.addEventListener("DOMContentLoaded", function () {
-  console.log("DOM fully loaded");
-
   const bookBtn = document.getElementById("bookBtn");
   const categoryBtns = document.getElementById("categoryBtns");
+  const hero = document.querySelector(".hero");
 
-  // 預約報價按鈕點擊
   bookBtn?.addEventListener("click", function () {
-    console.log("預約報價按鈕被點擊");
     this.style.display = "none";
     categoryBtns.style.display = "flex";
   });
 
-  // 類型選擇：一般接送 / 結婚禮車
   document.querySelectorAll(".category-btn").forEach((btn) => {
     btn.addEventListener("click", function () {
-      document.querySelector(".hero").style.display = "none";
+      hero.style.display = "none";
       if (this.textContent === "一般接送") {
         document.getElementById("normalRideSection").classList.remove("hidden");
       } else {
@@ -23,19 +19,14 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // 確認日期與時間
   document.getElementById("confirmBtn")?.addEventListener("click", () => {
     const date = document.getElementById("rideDate")?.value;
     const time = document.getElementById("rideTime")?.value;
-    if (!date || !time) {
-      alert("請選擇日期與時間！");
-      return;
-    }
+    if (!date || !time) return alert("請選擇日期與時間！");
     document.getElementById("normalRideSection").style.display = "none";
     document.getElementById("finalMap").classList.remove("hidden");
   });
 
-  // 新增停靠點
   document.getElementById("addStopBtn")?.addEventListener("click", () => {
     const container = document.getElementById("dropoffContainer");
     const newGroup = document.createElement("div");
@@ -50,11 +41,9 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // 計算車資（使用事件委派，確保綁定成功）
-  document.addEventListener("click", async function (e) {
-    if (e.target.id === "calculateBtn") {
-      console.log("計算車資按鈕被點擊");
-
+  const calculateBtn = document.getElementById("calculateBtn");
+  if (calculateBtn) {
+    calculateBtn.addEventListener("click", () => {
       const pickup = document.getElementById("pickup")?.value.trim();
       const dropoffs = Array.from(document.querySelectorAll(".dropoff")).map(el => el.value.trim()).filter(Boolean);
       const carType = document.getElementById("cartype")?.value;
@@ -74,7 +63,7 @@ document.addEventListener("DOMContentLoaded", function () {
         destinations: dropoffs,
         travelMode: google.maps.TravelMode.DRIVING,
         unitSystem: google.maps.UnitSystem.METRIC,
-      }, async function (response, status) {
+      }, function (response, status) {
         if (status !== "OK") {
           alert("無法計算距離，請確認地址正確！");
           return;
@@ -117,7 +106,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         document.getElementById("summary").scrollIntoView({ behavior: "smooth" });
 
-        // 我要預約
         setTimeout(() => {
           document.getElementById("confirmBtnGo")?.addEventListener("click", async () => {
             const res = await fetch("https://teslamarryme.vercel.app/api/notify", {
@@ -133,6 +121,6 @@ document.addEventListener("DOMContentLoaded", function () {
           });
         }, 100);
       });
-    }
-  });
+    });
+  }
 });
