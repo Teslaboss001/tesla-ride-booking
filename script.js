@@ -1,7 +1,24 @@
 document.addEventListener("DOMContentLoaded", function () {
-  // 預約報價按鈕
+  // 新增停靠點功能
+  document.getElementById("addStopBtn")?.addEventListener("click", () => {
+    const container = document.getElementById("dropoffContainer");
+    const newGroup = document.createElement("div");
+    newGroup.className = "dropoff-group";
+    newGroup.style = "display: flex; align-items: center; margin-top: 5px;";
+    newGroup.innerHTML = `
+      <input type="text" name="dropoff" class="dropoff" placeholder="輸入下車地址(必填)" required style="flex: 1; margin-right: 10px;" />
+      <button type="button" class="removeStopBtn" style="font-size: 1.2em; background: none; border: none; color: red;">－</button>
+    `;
+    container.insertBefore(newGroup, container.lastElementChild);
+
+    newGroup.querySelector(".removeStopBtn").addEventListener("click", () => {
+      container.removeChild(newGroup);
+    });
+  });
+
   const bookBtn = document.getElementById("bookBtn");
   const categoryBtns = document.getElementById("categoryBtns");
+  const hero = document.querySelector(".hero");
 
   bookBtn?.addEventListener("click", function () {
     console.log("預約報價按鈕被點了");
@@ -9,6 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
     categoryBtns.style.display = "flex";
   });
 
+  // 然後繼續你原本的 confirmBtn, calculateBtn... 等內容
   // 以下是你原本的程式碼 ...
 document.addEventListener("DOMContentLoaded", function () {
   // 新增停靠點功能
