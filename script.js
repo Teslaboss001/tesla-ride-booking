@@ -1,5 +1,42 @@
 document.addEventListener("DOMContentLoaded", function () {
-  // 新增停靠點功能
+  const bookBtn = document.getElementById("bookBtn");
+  const categoryBtns = document.getElementById("categoryBtns");
+  const hero = document.querySelector(".hero");
+
+  // 預約報價按鈕
+  bookBtn?.addEventListener("click", function () {
+    console.log("預約報價按鈕被點了");
+    this.style.display = "none";
+    categoryBtns.style.display = "flex";
+  });
+
+  // 選擇一般接送或結婚禮車
+  document.querySelectorAll(".category-btn").forEach((btn) => {
+    btn.addEventListener("click", function () {
+      hero.style.display = "none";
+      if (this.textContent === "一般接送") {
+        document.getElementById("normalRideSection").classList.remove("hidden");
+      } else if (this.textContent === "結婚禮車") {
+        document.getElementById("weddingSection")?.classList.remove("hidden");
+      }
+    });
+  });
+
+  // 確認搭乘日期與時間
+  document.getElementById("confirmBtn")?.addEventListener("click", () => {
+    const date = document.getElementById("rideDate")?.value;
+    const time = document.getElementById("rideTime")?.value;
+
+    if (!date || !time) {
+      alert("請先選擇日期與時間！");
+      return;
+    }
+
+    document.getElementById("normalRideSection").style.display = "none";
+    document.getElementById("finalMap").classList.remove("hidden");
+  });
+
+  // 新增停靠點
   document.getElementById("addStopBtn")?.addEventListener("click", () => {
     const container = document.getElementById("dropoffContainer");
     const newGroup = document.createElement("div");
@@ -16,52 +53,9 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  const bookBtn = document.getElementById("bookBtn");
-  const categoryBtns = document.getElementById("categoryBtns");
-  const hero = document.querySelector(".hero");
-
-  bookBtn?.addEventListener("click", function () {
-    console.log("預約報價按鈕被點了");
-    this.style.display = "none";
-    categoryBtns.style.display = "flex";
-  });
-
-  // 然後繼續你原本的 confirmBtn, calculateBtn... 等內容
-  // 以下是你原本的程式碼 ...
-
-  const bookBtn = document.getElementById("bookBtn");
-  const categoryBtns = document.getElementById("categoryBtns");
-  const hero = document.querySelector(".hero");
-
-  bookBtn?.addEventListener("click", function () {
-    this.style.display = "none";
-    categoryBtns.style.display = "flex";
-  });
-
-  document.querySelectorAll(".category-btn").forEach((btn) => {
-    btn.addEventListener("click", function () {
-      if (this.textContent === "一般接送") {
-        hero.style.display = "none";
-        document.getElementById("normalRideSection").classList.remove("hidden");
-      } else if (this.textContent === "結婚禮車") {
-        hero.style.display = "none";
-        document.getElementById("weddingSection")?.classList.remove("hidden");
-      }
-    });
-  });
-
-  document.getElementById("confirmBtn")?.addEventListener("click", () => {
-    const date = document.getElementById("rideDate")?.value;
-    const time = document.getElementById("rideTime")?.value;
-
-    if (!date || !time) {
-      alert("請先選擇日期與時間！");
-      return;
-    }
-
-    document.getElementById("normalRideSection").style.display = "none";
-    document.getElementById("finalMap").classList.remove("hidden");
-  });
+  // 計算車資
+  // --- 從這裡以下你原本的計算邏輯可照貼 ---
+});
 
   const calculateBtn = document.getElementById("calculateBtn");
 
