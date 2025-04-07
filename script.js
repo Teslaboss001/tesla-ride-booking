@@ -51,20 +51,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // 我要預約／我再考慮按鈕
-  document.addEventListener("click", function (e) {
-    if (e.target.textContent === "我要預約") {
-      const lineURL = "https://line.me/R/ti/p/@teslamarryme";
-      window.open(lineURL, "_blank");
-    }
-
-    if (e.target.textContent === "我再考慮") {
-      alert("尊榮的客戶您好，我們期待下次為您服務。");
-      window.open('', '_self'); // 為了 Safari
-      window.close();
-    }
-  });
-
   // 計算車資
   const calculateBtn = document.getElementById("calculateBtn");
   if (calculateBtn) {
