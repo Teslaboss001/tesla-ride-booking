@@ -5,12 +5,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // 預約報價按鈕
   bookBtn?.addEventListener("click", function () {
-    console.log("預約報價按鈕被點了");
     this.style.display = "none";
     categoryBtns.style.display = "flex";
   });
 
-  // 選擇一般接送或結婚禮車
+  // 選擇類型
   document.querySelectorAll(".category-btn").forEach((btn) => {
     btn.addEventListener("click", function () {
       hero.style.display = "none";
@@ -36,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("finalMap").classList.remove("hidden");
   });
 
-  // 新增停靠點功能
+  // 新增停靠點
   document.getElementById("addStopBtn")?.addEventListener("click", () => {
     const container = document.getElementById("dropoffContainer");
     const newGroup = document.createElement("div");
@@ -47,15 +46,27 @@ document.addEventListener("DOMContentLoaded", function () {
       <button type="button" class="removeStopBtn" style="font-size: 1.2em; background: none; border: none; color: red;">－</button>
     `;
     container.insertBefore(newGroup, container.lastElementChild);
-
     newGroup.querySelector(".removeStopBtn").addEventListener("click", () => {
       container.removeChild(newGroup);
     });
   });
 
-  // 計算車資邏輯
-  const calculateBtn = document.getElementById("calculateBtn");
+  // 我要預約／我再考慮按鈕
+  document.addEventListener("click", function (e) {
+    if (e.target.textContent === "我要預約") {
+      const lineURL = "https://line.me/R/ti/p/@teslamarryme";
+      window.open(lineURL, "_blank");
+    }
 
+    if (e.target.textContent === "我再考慮") {
+      alert("尊榮的客戶您好，我們期待下次為您服務。");
+      window.open('', '_self'); // 為了 Safari
+      window.close();
+    }
+  });
+
+  // 計算車資
+  const calculateBtn = document.getElementById("calculateBtn");
   if (calculateBtn) {
     calculateBtn.addEventListener("click", () => {
       const pickup = document.getElementById("pickup")?.value.trim();
@@ -95,19 +106,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const distanceInKm = totalDistance / 1000;
         const durationText = `約 ${Math.round(totalDuration / 60)} 分鐘`;
-
         const hour = parseInt(time.split(":")[0], 10);
         let fare = 85 + (distanceInKm * 30);
-
-        if (hour >= 23 || hour < 6) {
-          fare *= 1.2;
-        }
+        if (hour >= 23 || hour < 6) fare *= 1.2;
 
         const minFare = carType.includes("七") ? 800 : 500;
         fare = Math.max(fare, minFare);
-
-        // 四捨五入到「個位數」
-        fare = Math.round(fare / 10) * 10;
+        fare = Math.round(fare / 10) * 10; // 四捨五入至個位數
 
         const fareElement = document.getElementById("fare");
         if (fareElement) {
@@ -138,18 +143,5 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       });
     });
-  // 點擊「我要預約」或「我再考慮」按鈕的處理
-document.addEventListener("click", function (e) {
-  if (e.target.textContent === "我要預約") {
-    // 開啟 LINE 官方帳號連結（另開視窗）
-    const lineURL = "https://line.me/R/ti/p/@teslamarryme";
-    window.open(lineURL, "_blank");
-  }
-
-  if (e.target.textContent === "我再考慮") {
-    // 顯示提醒訊息，然後嘗試關閉當前視窗（僅適用於 script 開啟的頁面）
-    alert("尊榮的客戶您好，我們期待下次為您服務。");
-    window.open('', '_self'); // 修正 Safari 無法關閉頁面的問題
-    window.close();
   }
 });
