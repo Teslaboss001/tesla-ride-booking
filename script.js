@@ -1,4 +1,15 @@
+document.addEventListener("DOMContentLoaded", function () {
+  // 預約報價按鈕
+  const bookBtn = document.getElementById("bookBtn");
+  const categoryBtns = document.getElementById("categoryBtns");
 
+  bookBtn?.addEventListener("click", function () {
+    console.log("預約報價按鈕被點了");
+    this.style.display = "none";
+    categoryBtns.style.display = "flex";
+  });
+
+  // 以下是你原本的程式碼 ...
 document.addEventListener("DOMContentLoaded", function () {
   // 新增停靠點功能
   document.getElementById("addStopBtn")?.addEventListener("click", () => {
