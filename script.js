@@ -119,6 +119,11 @@ document.addEventListener("DOMContentLoaded", function () {
               <button style="font-size: 1.2em; padding: 10px 30px; margin: 10px; background-color: #ccc; color: black; border: none;">我再考慮</button>
             </div>
           `;
+          // 滾動到 summary 區塊中間
+document.getElementById("summary")?.scrollIntoView({
+  behavior: "smooth",
+  block: "center"
+});
         }
       });
     });
