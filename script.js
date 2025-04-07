@@ -145,3 +145,45 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 }); //
+document.addEventListener("click", async function (e) {
+  if (e.target.textContent === "我要預約") {
+    const date = document.getElementById("rideDate")?.value;
+    const time = document.getElementById("rideTime")?.value;
+    const pickup = document.getElementById("pickup")?.value.trim();
+    const dropoffs = Array.from(document.querySelectorAll(".dropoff"))
+      .map(el => el.value.trim())
+      .filter(Boolean);
+    const carType = document.getElementById("cartype")?.value;
+    const people = document.getElementById("passengers")?.value;
+    const luggage = document.getElementById("luggage")?.value;
+
+    if (!date || !time || !pickup || dropoffs.length === 0 || !carType) {
+      alert("預約資訊不完整，請重新確認！");
+      return;
+    }
+
+    try {
+      const res = await fetch("https://teslamarryme.vercel.app/api/notify", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ date, time, pickup, dropoffs, carType, people, luggage, fare: window.latestFare || "未提供" })
+      });
+
+      if (res.ok) {
+        // 傳送成功，開啟 LINE 官方帳號
+        window.open("https://line.me/R/ti/p/@teslamarryme", "_blank");
+      } else {
+        alert("LINE 傳送失敗，請稍後再試");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("傳送失敗，請確認網路或稍後再試");
+    }
+  }
+
+  if (e.target.textContent === "我再考慮") {
+    alert("尊榮的客戶您好，我們期待下次為您服務。");
+    window.open('', '_self');
+    window.close();
+  }
+});
