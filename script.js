@@ -171,7 +171,7 @@ document.addEventListener("click", async function (e) {
 
       if (res.ok) {
         // 傳送成功，開啟 LINE 官方帳號
-        window.open("https://line.me/R/ti/p/@teslamarryme", "_blank");
+        window.open("https://line.me/R/ti/p/@529umkeu", "_blank");
       } else {
         alert("LINE 傳送失敗，請稍後再試");
       }
