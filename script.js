@@ -93,7 +93,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const minFare = carType.includes("七") ? 800 : 500;
         fare = Math.max(fare, minFare);
-        fare = Math.round(fare);
+        fare = Math.round(fare / 10) * 10;
 
         const fareElement = document.getElementById("fare");
         if (fareElement) {
