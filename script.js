@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
     categoryBtns.style.display = "flex";
   });
 
-  // 類型選擇：一般接送 / 結婚禮車
+  // 類型選擇
   document.querySelectorAll(".category-btn").forEach((btn) => {
     btn.addEventListener("click", function () {
       document.querySelector(".hero").style.display = "none";
@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // 確認日期與時間
+  // 日期時間確認
   document.getElementById("confirmBtn")?.addEventListener("click", () => {
     const date = document.getElementById("rideDate")?.value;
     const time = document.getElementById("rideTime")?.value;
@@ -50,9 +50,9 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // 計算車資（使用事件委派，確保綁定成功）
+  // 綁定「計算車資」按鈕事件（使用 querySelector 重新抓）
   document.addEventListener("click", async function (e) {
-    if (e.target.id === "calculateBtn") {
+    if (e.target && e.target.id === "calculateBtn") {
       console.log("計算車資按鈕被點擊");
 
       const pickup = document.getElementById("pickup")?.value.trim();
@@ -74,7 +74,7 @@ document.addEventListener("DOMContentLoaded", function () {
         destinations: dropoffs,
         travelMode: google.maps.TravelMode.DRIVING,
         unitSystem: google.maps.UnitSystem.METRIC,
-      }, async function (response, status) {
+      }, function (response, status) {
         if (status !== "OK") {
           alert("無法計算距離，請確認地址正確！");
           return;
