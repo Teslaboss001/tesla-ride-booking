@@ -5,37 +5,38 @@ document.addEventListener("DOMContentLoaded", function () {
   const categoryBtns = document.getElementById("categoryBtns");
   const hero = document.querySelector(".hero");
 
+  // 預約報價按鈕點擊事件
   bookBtn?.addEventListener("click", function () {
     console.log("預約報價按鈕被點擊");
     this.style.display = "none";
     categoryBtns.style.display = "flex";
   });
 
+  // 選擇服務類型
   document.querySelectorAll(".category-btn").forEach((btn) => {
     btn.addEventListener("click", function () {
-      console.log("選擇類型：", this.textContent);
       hero.style.display = "none";
       if (this.textContent === "一般接送") {
         document.getElementById("normalRideSection").classList.remove("hidden");
       } else if (this.textContent === "結婚禮車") {
-        document.getElementById("weddingSection")?.classList.remove("hidden");
+        document.getElementById("weddingSection").classList.remove("hidden");
       }
     });
   });
 
+  // 確認搭乘時間後進入下一步
   document.getElementById("confirmBtn")?.addEventListener("click", () => {
     const date = document.getElementById("rideDate")?.value;
     const time = document.getElementById("rideTime")?.value;
-
     if (!date || !time) {
       alert("請先選擇日期與時間！");
       return;
     }
-
     document.getElementById("normalRideSection").style.display = "none";
     document.getElementById("finalMap").classList.remove("hidden");
   });
 
+  // 新增停靠點
   document.getElementById("addStopBtn")?.addEventListener("click", () => {
     const container = document.getElementById("dropoffContainer");
     const newGroup = document.createElement("div");
@@ -47,10 +48,11 @@ document.addEventListener("DOMContentLoaded", function () {
     `;
     container.insertBefore(newGroup, container.lastElementChild);
     newGroup.querySelector(".removeStopBtn").addEventListener("click", () => {
-      container.removeChild(newGroup);
+      container.remove();
     });
   });
 
+  // 計算車資
   const calculateBtn = document.getElementById("calculateBtn");
   if (calculateBtn) {
     calculateBtn.addEventListener("click", () => {
@@ -82,7 +84,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         let totalDistance = 0;
         let totalDuration = 0;
-
         response.rows[0].elements.forEach(el => {
           if (el.status === "OK") {
             totalDistance += el.distance.value;
@@ -95,7 +96,6 @@ document.addEventListener("DOMContentLoaded", function () {
         const hour = parseInt(time.split(":")[0], 10);
         let fare = 85 + (distanceInKm * 30);
         if (hour >= 23 || hour < 6) fare *= 1.2;
-
         const minFare = carType.includes("七") ? 800 : 500;
         fare = Math.max(fare, minFare);
         fare = Math.round(fare / 10) * 10;
@@ -131,7 +131,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // 預約按鈕送資料到 LINE
+  // 我要預約／我再考慮
   document.addEventListener("click", async function (e) {
     if (e.target.textContent === "我要預約") {
       const date = document.getElementById("rideDate")?.value;
