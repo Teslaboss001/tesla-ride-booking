@@ -4,16 +4,15 @@ document.addEventListener("DOMContentLoaded", function () {
   const bookBtn = document.getElementById("bookBtn");
   const categoryBtns = document.getElementById("categoryBtns");
 
-  // 加上這段！處理預約報價按鈕點擊
+  // 預約報價按鈕點擊事件
   bookBtn?.addEventListener("click", function () {
     console.log("預約報價按鈕被點擊");
     this.style.display = "none";
     categoryBtns.style.display = "flex";
   });
 
-  // ...（你原本的 calculateBtn、google maps、fare 計算等都保留）
-
-});
+  // 計算車資按鈕點擊事件
+  const calculateBtn = document.getElementById("calculateBtn");
   if (calculateBtn) {
     calculateBtn.addEventListener("click", () => {
       const pickup = document.getElementById("pickup")?.value.trim();
