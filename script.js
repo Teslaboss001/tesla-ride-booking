@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("finalMap").classList.remove("hidden");
   });
 
-  // 新增停靠點
+  // 新增停靠點功能
   document.getElementById("addStopBtn")?.addEventListener("click", () => {
     const container = document.getElementById("dropoffContainer");
     const newGroup = document.createElement("div");
@@ -53,10 +53,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // 計算車資
-  // --- 從這裡以下你原本的計算邏輯可照貼 ---
-});
-
+  // 計算車資邏輯
   const calculateBtn = document.getElementById("calculateBtn");
 
   if (calculateBtn) {
@@ -75,70 +72,71 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       const service = new google.maps.DistanceMatrixService();
-service.getDistanceMatrix({
-  origins: [pickup],
-  destinations: dropoffs,
-  travelMode: google.maps.TravelMode.DRIVING,
-  unitSystem: google.maps.UnitSystem.METRIC,
-}, function (response, status) {
-  if (status !== "OK") {
-    alert("無法計算距離，請確認地址正確！");
-    return;
+      service.getDistanceMatrix({
+        origins: [pickup],
+        destinations: dropoffs,
+        travelMode: google.maps.TravelMode.DRIVING,
+        unitSystem: google.maps.UnitSystem.METRIC,
+      }, function (response, status) {
+        if (status !== "OK") {
+          alert("無法計算距離，請確認地址正確！");
+          return;
+        }
+
+        let totalDistance = 0;
+        let totalDuration = 0;
+
+        response.rows[0].elements.forEach(el => {
+          if (el.status === "OK") {
+            totalDistance += el.distance.value;
+            totalDuration += el.duration.value;
+          }
+        });
+
+        const distanceInKm = totalDistance / 1000;
+        const durationText = `約 ${Math.round(totalDuration / 60)} 分鐘`;
+
+        const hour = parseInt(time.split(":")[0], 10);
+        let fare = 85 + (distanceInKm * 30);
+
+        if (hour >= 23 || hour < 6) {
+          fare *= 1.2;
+        }
+
+        const minFare = carType.includes("七") ? 800 : 500;
+        fare = Math.max(fare, minFare);
+
+        // 四捨五入到「個位數」
+        fare = Math.round(fare / 10) * 10;
+
+        const fareElement = document.getElementById("fare");
+        if (fareElement) {
+          fareElement.innerHTML = `<strong style="font-size: 2em;">預約報價費用：NT$ ${fare}</strong><br><span style="font-size: 1.2em;">預估距離：${distanceInKm.toFixed(1)} 公里，預估時間：${durationText}</span>`;
+        }
+
+        const summaryElement = document.getElementById("summary");
+        if (summaryElement) {
+          summaryElement.innerHTML = `
+            <div style="font-size: 1.5em; margin-top: 20px;">
+              <strong>預約資訊總結：</strong><br>
+              日期與時間：${date} ${time}<br>
+              上車地點：${pickup}<br>
+              ${dropoffs.map((d, i) => `下車地點 ${i + 1}：${d}<br>`).join('')}
+              車型：${carType}<br>
+              乘車人數：${people} 人<br>
+              行李數量：${luggage} 件<br>
+              距離：${distanceInKm.toFixed(1)} 公里 / 時間：${durationText}<br>
+              <strong>預估金額：NT$ ${fare}</strong>
+            </div>
+            <div style="text-align: center; margin-top: 20px;">
+              <button style="font-size: 1.2em; padding: 10px 30px; margin: 10px; background-color: #4CAF50; color: white; border: none;">我要預約</button>
+              <button style="font-size: 1.2em; padding: 10px 30px; margin: 10px; background-color: #ccc; color: black; border: none;">我再考慮</button>
+            </div>
+          `;
+
+          summaryElement.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+      });
+    });
   }
-
-  let totalDistance = 0;
-  let totalDuration = 0;
-
-  response.rows[0].elements.forEach(el => {
-    if (el.status === "OK") {
-      totalDistance += el.distance.value;
-      totalDuration += el.duration.value;
-    }
-  });
-
-  const distanceInKm = totalDistance / 1000;
-  const durationText = `約 ${Math.round(totalDuration / 60)} 分鐘`;
-
-  const hour = parseInt(time.split(":")[0], 10);
-  let fare = 85 + (distanceInKm * 30);
-
-  if (hour >= 23 || hour < 6) {
-    fare *= 1.2;
-  }
-
-  const minFare = carType.includes("七") ? 800 : 500;
-  fare = Math.max(fare, minFare);
-
-  // 四捨五入到「個位數」（如 1234 ➜ 1230，1235 ➜ 1240）
-  fare = Math.round(fare / 10) * 10;
-
-  const fareElement = document.getElementById("fare");
-  if (fareElement) {
-    fareElement.innerHTML = `<strong style="font-size: 2em;">預約報價費用：NT$ ${fare}</strong><br><span style="font-size: 1.2em;">預估距離：${distanceInKm.toFixed(1)} 公里，預估時間：${durationText}</span>`;
-  }
-
-  const summaryElement = document.getElementById("summary");
-  if (summaryElement) {
-    summaryElement.innerHTML = `
-      <div style="font-size: 1.5em; margin-top: 20px;">
-        <strong>預約資訊總結：</strong><br>
-        日期與時間：${date} ${time}<br>
-        上車地點：${pickup}<br>
-        ${dropoffs.map((d, i) => `下車地點 ${i + 1}：${d}<br>`).join('')}
-        車型：${carType}<br>
-        乘車人數：${people} 人<br>
-        行李數量：${luggage} 件<br>
-        距離：${distanceInKm.toFixed(1)} 公里 / 時間：${durationText}<br>
-        <strong>預估金額：NT$ ${fare}</strong>
-      </div>
-      <div style="text-align: center; margin-top: 20px;">
-        <button style="font-size: 1.2em; padding: 10px 30px; margin: 10px; background-color: #4CAF50; color: white; border: none;">我要預約</button>
-        <button style="font-size: 1.2em; padding: 10px 30px; margin: 10px; background-color: #ccc; color: black; border: none;">我再考慮</button>
-      </div>
-    `;
-
-    // 滾動到 summary 區塊
-    summaryElement.scrollIntoView({ behavior: "smooth", block: "center" });
-  }
-});
 });
