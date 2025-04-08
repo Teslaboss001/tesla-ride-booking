@@ -1,6 +1,4 @@
 function initApp() {
-  console.log("Google Maps 載入完成，開始初始化");
-
   const bookBtn = document.getElementById("bookBtn");
   const categoryBtns = document.getElementById("categoryBtns");
 
@@ -12,7 +10,7 @@ function initApp() {
   document.querySelectorAll(".category-btn").forEach((btn) => {
     btn.addEventListener("click", function () {
       document.querySelector(".hero").style.display = "none";
-      if (this.textContent === "一般接送") {
+      if (this.textContent.includes("一般")) {
         document.getElementById("normalRideSection").classList.remove("hidden");
       } else {
         document.getElementById("weddingSection").classList.remove("hidden");
@@ -23,11 +21,8 @@ function initApp() {
   document.getElementById("confirmBtn")?.addEventListener("click", () => {
     const date = document.getElementById("rideDate").value;
     const time = document.getElementById("rideTime").value;
-    if (!date || !time) {
-      alert("請選擇日期與時間！");
-      return;
-    }
-    document.getElementById("normalRideSection").style.display = "none";
+    if (!date || !time) return alert("請選擇日期與時間！");
+    document.getElementById("normalRideSection").classList.add("hidden");
     document.getElementById("finalMap").classList.remove("hidden");
   });
 
@@ -35,11 +30,9 @@ function initApp() {
     const container = document.getElementById("dropoffContainer");
     const newGroup = document.createElement("div");
     newGroup.className = "dropoff-group";
-    newGroup.style = "display: flex; align-items: center; margin-top: 5px;";
     newGroup.innerHTML = `
-      <input type="text" class="dropoff" placeholder="輸入下車地址(必填)" required style="flex: 1; margin-right: 10px;" />
-      <button type="button" class="removeStopBtn" style="font-size: 1.2em; background: none; border: none; color: red;">－</button>
-    `;
+      <input type="text" class="dropoff" placeholder="輸入下車地址(必填)" required />
+      <button type="button" class="removeStopBtn">－</button>`;
     container.insertBefore(newGroup, container.lastElementChild);
     newGroup.querySelector(".removeStopBtn").addEventListener("click", () => {
       container.removeChild(newGroup);
@@ -47,8 +40,6 @@ function initApp() {
   });
 
   document.getElementById("calculateBtn")?.addEventListener("click", () => {
-    console.log("點擊計算車資");
-
     const pickup = document.getElementById("pickup").value.trim();
     const dropoffs = Array.from(document.querySelectorAll(".dropoff")).map(el => el.value.trim()).filter(Boolean);
     const carType = document.getElementById("cartype").value;
@@ -71,63 +62,30 @@ function initApp() {
     }, function (response, status) {
       if (status !== "OK") {
         alert("無法計算距離，請確認地址正確！");
-        console.error("DistanceMatrix 回傳錯誤：", status, response);
         return;
       }
 
       let totalDistance = 0;
-      let totalDuration = 0;
-
       response.rows[0].elements.forEach(el => {
-        if (el.status === "OK") {
-          totalDistance += el.distance.value;
-          totalDuration += el.duration.value;
-        }
+        if (el.status === "OK") totalDistance += el.distance.value;
       });
 
-      const distanceInKm = totalDistance / 1000;
+      const km = totalDistance / 1000;
       const hour = parseInt(time.split(":")[0], 10);
-      let fare = 85 + (distanceInKm * 30);
+      let fare = 85 + km * 30;
       if (hour >= 23 || hour < 6) fare *= 1.2;
-
-      const minFare = carType.includes("七") ? 800 : 500;
-      fare = Math.max(fare, minFare);
+      fare = Math.max(fare, carType.includes("七") ? 800 : 500);
       fare = Math.round(fare / 10) * 10;
       window.latestFare = fare;
 
-      document.getElementById("fare").innerHTML =
-        `<strong style="font-size: 2em;">預約報價費用：NT$ ${fare}</strong><br>
-         <span style="font-size: 1.2em;">距離 ${distanceInKm.toFixed(1)} 公里</span>`;
+      document.getElementById("fare").innerHTML = `費用：NT$ ${fare}<br>距離：約 ${km.toFixed(1)} 公里`;
 
       document.getElementById("summary").innerHTML = `
-        <div style="font-size: 1.3em;">
-          日期時間：${date} ${time}<br>
-          上車地點：${pickup}<br>
-          ${dropoffs.map((d, i) => `下車地點 ${i + 1}：${d}`).join("<br>")}<br>
-          車型：${carType}｜人數：${people}｜行李：${luggage}<br>
-          <strong>報價：NT$ ${fare}</strong>
-        </div>
-        <div style="margin-top: 20px;">
-          <button class="btn" id="confirmBtnGo">我要預約</button>
-          <button class="btn" onclick="window.close()">我再考慮</button>
-        </div>`;
-
-      document.getElementById("summary").scrollIntoView({ behavior: "smooth" });
-
-      setTimeout(() => {
-        document.getElementById("confirmBtnGo")?.addEventListener("click", async () => {
-          const res = await fetch("https://teslamarryme.vercel.app/api/notify", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ date, time, pickup, dropoffs, carType, people, luggage, fare })
-          });
-          if (res.ok) {
-            window.open("https://line.me/R/ti/p/@529umkeu", "_blank");
-          } else {
-            alert("預約傳送失敗！");
-          }
-        });
-      }, 100);
+        <div>預約時間：${date} ${time}</div>
+        <div>上車地點：${pickup}</div>
+        ${dropoffs.map((d, i) => `<div>下車地點 ${i+1}：${d}</div>`).join("")}
+        <div>車型：${carType}｜人數：${people}｜行李：${luggage}</div>
+        <strong>總價：NT$ ${fare}</strong>`;
     });
   });
 }
