@@ -68,7 +68,10 @@
     </div>
   </div>
 
-  <script src="script.js"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBYhjHSQTm68K_dnKgiiWFGRWX2RBiJMhQ&libraries=places&callback=initApp" async defer></script>
+  <!-- script.js 不要 defer -->
+  <script src="script.js?v=999"></script>
+
+  <!-- Google Maps API 加 callback -->
+  <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBYhjHSQTm68K_dnKgiiWFGRWX2RBiJMhQ&libraries=places&callback=initApp"></script>
 </body>
 </html>
