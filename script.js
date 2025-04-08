@@ -1,5 +1,5 @@
-document.addEventListener("DOMContentLoaded", function () {
-  console.log("頁面載入完成");
+function initApp() {
+  console.log("Google Maps 載入完成，開始初始化");
 
   const bookBtn = document.getElementById("bookBtn");
   const categoryBtns = document.getElementById("categoryBtns");
@@ -130,4 +130,4 @@ document.addEventListener("DOMContentLoaded", function () {
       }, 100);
     });
   });
-});
+}
