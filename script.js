@@ -1,10 +1,10 @@
 document.addEventListener("DOMContentLoaded", function () {
-  console.log("DOM fully loaded");
+  console.log("頁面已完全載入");
 
+  // 預約報價
   const bookBtn = document.getElementById("bookBtn");
   const categoryBtns = document.getElementById("categoryBtns");
 
-  // 預約報價按鈕點擊
   bookBtn?.addEventListener("click", function () {
     console.log("預約報價按鈕被點擊");
     this.style.display = "none";
@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // 日期時間確認
+  // 確認搭乘時間
   document.getElementById("confirmBtn")?.addEventListener("click", () => {
     const date = document.getElementById("rideDate")?.value;
     const time = document.getElementById("rideTime")?.value;
@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // 計算車資（使用事件委派，確保綁定成功）
+  // 安全綁定「計算車資」按鈕
   document.addEventListener("click", async function (e) {
     if (e.target && e.target.id === "calculateBtn") {
       console.log("計算車資按鈕被點擊");
@@ -62,15 +62,6 @@ document.addEventListener("DOMContentLoaded", function () {
       const luggage = document.getElementById("luggage")?.value;
       const date = document.getElementById("rideDate")?.value;
       const time = document.getElementById("rideTime")?.value;
-
-      // debug 輸出
-      console.log("pickup:", pickup);
-      console.log("dropoffs:", dropoffs);
-      console.log("carType:", carType);
-      console.log("people:", people);
-      console.log("luggage:", luggage);
-      console.log("date:", date);
-      console.log("time:", time);
 
       if (!pickup || dropoffs.length === 0 || !date || !time || !carType) {
         alert("請完整填寫所有欄位！");
@@ -85,7 +76,6 @@ document.addEventListener("DOMContentLoaded", function () {
         unitSystem: google.maps.UnitSystem.METRIC,
       }, function (response, status) {
         if (status !== "OK") {
-          console.error("Google Maps API 回傳錯誤：", status, response);
           alert("無法計算距離，請確認地址正確！");
           return;
         }
