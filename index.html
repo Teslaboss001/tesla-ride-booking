@@ -22,27 +22,21 @@
     <img src="normal_ride.png" alt="一般接送示意圖" class="full-image" />
     <div class="form-block">
       <label for="rideDate">選擇搭乘日期：</label>
-      <input type="date" id="rideDate" /><br><br>
+      <input type="date" id="rideDate" />
       <label for="rideTime">選擇搭乘時間：</label>
-      <input type="time" id="rideTime" /><br><br>
+      <input type="time" id="rideTime" />
       <button id="confirmBtn" class="btn">確認</button>
-    </div>
-    <div class="note-block">
-      <h2>如何預約搭乘？</h2>
-      <p>本系統採預約制！請勿即時叫車<br>通常在前一天以上預約，保證都能安排到車輛！</p>
-      <hr>
     </div>
   </div>
 
   <div id="finalMap" class="hidden">
-    <img src="map_visual.png" alt="地圖圖示" class="full-image" />
     <div class="form-block">
       <input type="tel" id="phone" placeholder="請輸入手機號碼(必填)" required />
       <input type="text" id="pickup" placeholder="輸入上車地址(必填)" required />
       <div id="dropoffContainer">
-        <div class="dropoff-group" style="display: flex; align-items: center;">
-          <input type="text" class="dropoff" placeholder="輸入下車地址(必填)" required style="flex: 1; margin-right: 10px;" />
-          <button id="addStopBtn" type="button" style="font-size: 1.5em; background: none; border: none; color: #007bff;">＋</button>
+        <div class="dropoff-group">
+          <input type="text" class="dropoff" placeholder="輸入下車地址(必填)" required />
+          <button id="addStopBtn" type="button">＋</button>
         </div>
         <p style="color: #007bff; font-size: 0.9em;">請利用＋號設置停靠點</p>
       </div>
@@ -51,40 +45,30 @@
         <option>七人座</option>
       </select>
       <select id="passengers">
-        <option value="1">乘車人數 1 人</option>
+        <option value="1">1 人</option>
         <option value="2">2 人</option>
         <option value="3">3 人</option>
         <option value="4">4 人</option>
-        <option value="5">5 人</option>
-        <option value="6">6 人</option>
       </select>
       <select id="luggage">
-        <option value="0">行李 0 件</option>
+        <option value="0">0 件</option>
         <option value="1">1 件</option>
         <option value="2">2 件</option>
-        <option value="3">3 件</option>
-        <option value="4">4 件</option>
-        <option value="5">5 件</option>
-        <option value="6">6 件</option>
       </select>
       <button id="calculateBtn" class="btn">計算車資</button>
-      <div id="fare" style="margin-top: 20px;"></div>
-      <div id="summary" style="margin-top: 20px;"></div>
+      <div id="fare"></div>
+      <div id="summary"></div>
     </div>
   </div>
 
   <div id="weddingSection" class="hidden">
-    <div class="form-block" style="text-align: center; padding: 60px 20px;">
+    <div class="form-block" style="text-align: center;">
       <h2>結婚禮車功能尚未開放</h2>
-      <p>我們正在為您打造更浪漫的禮車預約體驗，敬請期待！</p>
+      <p>敬請期待</p>
     </div>
   </div>
 
-  <div id="welcomeSection" class="hidden">
-    <img src="Welcome.png" alt="歡迎畫面" class="full-image" />
-  </div>
-
-    <script src="script.js?v=999"></script>
-  <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBYhjHSQTm68K_dnKgiiWFGRWX2RBiJMhQ&libraries=places&callback=initApp"></script>
+  <script src="script.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBYhjHSQTm68K_dnKgiiWFGRWX2RBiJMhQ&libraries=places&callback=initApp" async defer></script>
 </body>
 </html>
