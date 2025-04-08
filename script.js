@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // 綁定「計算車資」按鈕事件（使用 querySelector 重新抓）
+  // 計算車資（使用事件委派，確保綁定成功）
   document.addEventListener("click", async function (e) {
     if (e.target && e.target.id === "calculateBtn") {
       console.log("計算車資按鈕被點擊");
@@ -62,6 +62,15 @@ document.addEventListener("DOMContentLoaded", function () {
       const luggage = document.getElementById("luggage")?.value;
       const date = document.getElementById("rideDate")?.value;
       const time = document.getElementById("rideTime")?.value;
+
+      // debug 輸出
+      console.log("pickup:", pickup);
+      console.log("dropoffs:", dropoffs);
+      console.log("carType:", carType);
+      console.log("people:", people);
+      console.log("luggage:", luggage);
+      console.log("date:", date);
+      console.log("time:", time);
 
       if (!pickup || dropoffs.length === 0 || !date || !time || !carType) {
         alert("請完整填寫所有欄位！");
@@ -76,6 +85,7 @@ document.addEventListener("DOMContentLoaded", function () {
         unitSystem: google.maps.UnitSystem.METRIC,
       }, function (response, status) {
         if (status !== "OK") {
+          console.error("Google Maps API 回傳錯誤：", status, response);
           alert("無法計算距離，請確認地址正確！");
           return;
         }
