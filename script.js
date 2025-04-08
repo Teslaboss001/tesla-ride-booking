@@ -67,6 +67,7 @@ function initApp() {
       travelMode: google.maps.TravelMode.DRIVING,
       unitSystem: google.maps.UnitSystem.METRIC,
     }, function (response, status) {
+      console.log("Google Maps 回傳狀態：", status, response);
       if (status !== "OK") {
         alert("無法計算距離，請確認地址正確！");
         console.error("Google Maps API 錯誤：", status);
