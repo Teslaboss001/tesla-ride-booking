@@ -1,16 +1,14 @@
 document.addEventListener("DOMContentLoaded", function () {
-  console.log("頁面已完全載入");
+  console.log("頁面載入完成");
 
   const bookBtn = document.getElementById("bookBtn");
   const categoryBtns = document.getElementById("categoryBtns");
 
-  // 預約報價按鈕
   bookBtn?.addEventListener("click", function () {
     this.style.display = "none";
     categoryBtns.style.display = "flex";
   });
 
-  // 選擇類型
   document.querySelectorAll(".category-btn").forEach((btn) => {
     btn.addEventListener("click", function () {
       document.querySelector(".hero").style.display = "none";
@@ -22,10 +20,9 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // 確認搭乘時間
   document.getElementById("confirmBtn")?.addEventListener("click", () => {
-    const date = document.getElementById("rideDate")?.value;
-    const time = document.getElementById("rideTime")?.value;
+    const date = document.getElementById("rideDate").value;
+    const time = document.getElementById("rideTime").value;
     if (!date || !time) {
       alert("請選擇日期與時間！");
       return;
@@ -34,7 +31,6 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("finalMap").classList.remove("hidden");
   });
 
-  // 新增停靠點
   document.getElementById("addStopBtn")?.addEventListener("click", () => {
     const container = document.getElementById("dropoffContainer");
     const newGroup = document.createElement("div");
@@ -42,25 +38,24 @@ document.addEventListener("DOMContentLoaded", function () {
     newGroup.style = "display: flex; align-items: center; margin-top: 5px;";
     newGroup.innerHTML = `
       <input type="text" class="dropoff" placeholder="輸入下車地址(必填)" required style="flex: 1; margin-right: 10px;" />
-      <button type="button" class="removeStopBtn" style="font-size: 1.2em; background: none; border: none; color: red;">－</button>`;
+      <button type="button" class="removeStopBtn" style="font-size: 1.2em; background: none; border: none; color: red;">－</button>
+    `;
     container.insertBefore(newGroup, container.lastElementChild);
     newGroup.querySelector(".removeStopBtn").addEventListener("click", () => {
       container.removeChild(newGroup);
     });
   });
 
-  // 綁定計算車資按鈕（正常方式）
-  const calculateBtn = document.getElementById("calculateBtn");
-  calculateBtn?.addEventListener("click", () => {
-    console.log("計算車資按鈕被點擊");
+  document.getElementById("calculateBtn")?.addEventListener("click", () => {
+    console.log("點擊計算車資");
 
-    const pickup = document.getElementById("pickup")?.value.trim();
+    const pickup = document.getElementById("pickup").value.trim();
     const dropoffs = Array.from(document.querySelectorAll(".dropoff")).map(el => el.value.trim()).filter(Boolean);
-    const carType = document.getElementById("cartype")?.value;
-    const people = document.getElementById("passengers")?.value;
-    const luggage = document.getElementById("luggage")?.value;
-    const date = document.getElementById("rideDate")?.value;
-    const time = document.getElementById("rideTime")?.value;
+    const carType = document.getElementById("cartype").value;
+    const people = document.getElementById("passengers").value;
+    const luggage = document.getElementById("luggage").value;
+    const date = document.getElementById("rideDate").value;
+    const time = document.getElementById("rideTime").value;
 
     if (!pickup || dropoffs.length === 0 || !date || !time || !carType) {
       alert("請完整填寫所有欄位！");
@@ -76,11 +71,13 @@ document.addEventListener("DOMContentLoaded", function () {
     }, function (response, status) {
       if (status !== "OK") {
         alert("無法計算距離，請確認地址正確！");
+        console.error("DistanceMatrix 回傳錯誤：", status, response);
         return;
       }
 
       let totalDistance = 0;
       let totalDuration = 0;
+
       response.rows[0].elements.forEach(el => {
         if (el.status === "OK") {
           totalDistance += el.distance.value;
@@ -90,8 +87,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
       const distanceInKm = totalDistance / 1000;
       const hour = parseInt(time.split(":")[0], 10);
-      let fare = 85 + distanceInKm * 30;
+      let fare = 85 + (distanceInKm * 30);
       if (hour >= 23 || hour < 6) fare *= 1.2;
+
       const minFare = carType.includes("七") ? 800 : 500;
       fare = Math.max(fare, minFare);
       fare = Math.round(fare / 10) * 10;
