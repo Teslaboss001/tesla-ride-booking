@@ -1,5 +1,5 @@
 function initApp() {
-  console.log("Google Maps 載入完畢");
+  console.log("Google Maps API 載入成功，initApp 執行");
 
   const bookBtn = document.getElementById("bookBtn");
   const categoryBtns = document.getElementById("categoryBtns");
@@ -47,6 +47,8 @@ function initApp() {
   });
 
   document.getElementById("calculateBtn")?.addEventListener("click", () => {
+    console.log("點擊計算車資");
+
     const pickup = document.getElementById("pickup").value.trim();
     const dropoffs = Array.from(document.querySelectorAll(".dropoff")).map(el => el.value.trim()).filter(Boolean);
     const carType = document.getElementById("cartype").value;
@@ -67,15 +69,15 @@ function initApp() {
       travelMode: google.maps.TravelMode.DRIVING,
       unitSystem: google.maps.UnitSystem.METRIC,
     }, function (response, status) {
-      console.log("Google Maps 回傳狀態：", status, response);
       if (status !== "OK") {
         alert("無法計算距離，請確認地址正確！");
-        console.error("Google Maps API 錯誤：", status);
+        console.error("DistanceMatrix 回傳錯誤：", status, response);
         return;
       }
 
       let totalDistance = 0;
       let totalDuration = 0;
+
       response.rows[0].elements.forEach(el => {
         if (el.status === "OK") {
           totalDistance += el.distance.value;
@@ -85,8 +87,9 @@ function initApp() {
 
       const distanceInKm = totalDistance / 1000;
       const hour = parseInt(time.split(":")[0], 10);
-      let fare = 85 + distanceInKm * 30;
+      let fare = 85 + (distanceInKm * 30);
       if (hour >= 23 || hour < 6) fare *= 1.2;
+
       const minFare = carType.includes("七") ? 800 : 500;
       fare = Math.max(fare, minFare);
       fare = Math.round(fare / 10) * 10;
