@@ -1,12 +1,9 @@
 function initApp() {
   console.log("Google Maps API 載入成功，initApp 執行");
 
-  const bookBtn = document.getElementById("bookBtn");
-  const categoryBtns = document.getElementById("categoryBtns");
-
-  bookBtn?.addEventListener("click", function () {
+  document.getElementById("bookBtn")?.addEventListener("click", function () {
     this.style.display = "none";
-    categoryBtns.style.display = "flex";
+    document.getElementById("categoryBtns").style.display = "flex";
   });
 
   document.querySelectorAll(".category-btn").forEach((btn) => {
@@ -47,8 +44,6 @@ function initApp() {
   });
 
   document.getElementById("calculateBtn")?.addEventListener("click", () => {
-    console.log("點擊計算車資");
-
     const pickup = document.getElementById("pickup").value.trim();
     const dropoffs = Array.from(document.querySelectorAll(".dropoff")).map(el => el.value.trim()).filter(Boolean);
     const carType = document.getElementById("cartype").value;
@@ -68,67 +63,54 @@ function initApp() {
       destinations: dropoffs,
       travelMode: google.maps.TravelMode.DRIVING,
       unitSystem: google.maps.UnitSystem.METRIC,
-    }, async function (response, status) {
+    }, function (response, status) {
       if (status !== "OK") {
         alert("無法計算距離，請確認地址正確！");
-        console.error("DistanceMatrix 回傳錯誤：", status, response);
         return;
       }
 
       let totalDistance = 0;
-      let totalDuration = 0;
-
       response.rows[0].elements.forEach(el => {
-        if (el.status === "OK") {
-          totalDistance += el.distance.value;
-          totalDuration += el.duration.value;
-        }
+        if (el.status === "OK") totalDistance += el.distance.value;
       });
 
       const distanceInKm = totalDistance / 1000;
       const hour = parseInt(time.split(":")[0], 10);
       let fare = 85 + (distanceInKm * 30);
       if (hour >= 23 || hour < 6) fare *= 1.2;
-
       const minFare = carType.includes("七") ? 800 : 500;
       fare = Math.max(fare, minFare);
       fare = Math.round(fare / 10) * 10;
-      window.latestFare = fare;
 
-      document.getElementById("fare").innerHTML =
-        `<strong style="font-size: 2em;">預約報價費用：NT$ ${fare}</strong><br>
-         <span style="font-size: 1.2em;">距離 ${distanceInKm.toFixed(1)} 公里</span>`;
+      // 建立浮層遮罩與彈窗
+      const modal = document.createElement("div");
+      modal.style = `
+        position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+        background: rgba(0, 0, 0, 0.6); display: flex;
+        justify-content: center; align-items: center; z-index: 9999;
+      `;
+      const popup = document.createElement("div");
+      popup.style = `
+        background: white; padding: 30px; border-radius: 12px; max-width: 500px; width: 90%;
+        text-align: center; font-size: 1.2em;
+      `;
+      popup.innerHTML = `
+        <h2>預約資訊總結</h2>
+        <p>日期時間：${date} ${time}</p>
+        <p>上車地點：${pickup}</p>
+        ${dropoffs.map((d, i) => `<p>下車地點 ${i + 1}：${d}</p>`).join("")}
+        <p>車型：${carType}｜人數：${people}｜行李：${luggage}</p>
+        <p style="font-weight: bold; color: #27AC00;">報價：NT$ ${fare}</p>
+        <p style="color: red; font-weight: bold;">請截圖預約資訊並傳送</p>
+        <button id="screenshotDone" class="btn" style="margin-top: 20px;">已截圖</button>
+      `;
+      modal.appendChild(popup);
+      document.body.appendChild(modal);
 
-      document.getElementById("summary").innerHTML = `
-        <div style="font-size: 1.3em;">
-          日期時間：${date} ${time}<br>
-          上車地點：${pickup}<br>
-          ${dropoffs.map((d, i) => `下車地點 ${i + 1}：${d}`).join("<br>")}<br>
-          車型：${carType}｜人數：${people}｜行李：${luggage}<br>
-          <strong>報價：NT$ ${fare}</strong>
-        </div>
-        <div style="margin-top: 20px;">
-          <button class="btn" id="confirmBtnGo">我要預約</button>
-          <button class="btn" onclick="window.close()">我再考慮</button>
-        </div>`;
-
-      document.getElementById("summary").scrollIntoView({ behavior: "smooth" });
-
-      // 點擊「我要預約」
-      setTimeout(() => {
-        document.getElementById("confirmBtnGo")?.addEventListener("click", async () => {
-          const res = await fetch("/api/notify", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ date, time, pickup, dropoffs, carType, people, luggage, fare })
-          });
-          if (res.ok) {
-            window.open("https://line.me/R/ti/p/@529umkeu", "_blank");
-          } else {
-            alert("預約傳送失敗！");
-          }
-        });
-      }, 100);
+      document.getElementById("screenshotDone")?.addEventListener("click", () => {
+        window.open("https://line.me/R/ti/p/@teslamarryme", "_blank");
+        modal.remove();
+      });
     });
   });
 }
