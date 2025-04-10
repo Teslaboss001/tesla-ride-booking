@@ -1,4 +1,3 @@
-
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ message: 'Method Not Allowed' });
@@ -6,7 +5,8 @@ export default async function handler(req, res) {
 
   const { date, time, pickup, dropoffs, carType, people, luggage, fare } = req.body;
 
-  const lineToken = '+OmfPQlYnKuAnwivXmmUAmqgdUSSUID49stCDeXAi8poK183ssaNEGUc9rOYzZQIuOPN6fBwiswZ1beSCOj2aQIARLYONoxHlacIdXwZNEkMVgw2Ll6f0N79sOuxbyQogAzk3GTEfgfvGu+P9/qQYgdB04t89/1O/w1cDnyilFU=';
+  const lineToken = '你的 LINE Channel access token'; // <<< 請替換成你自己的 token
+
   const flexMessage = {
     type: 'flex',
     altText: 'Tesla 預約通知',
@@ -52,11 +52,13 @@ export default async function handler(req, res) {
 
     if (!response.ok) {
       const error = await response.json();
+      console.error('LINE 發送失敗', error);
       return res.status(500).json({ message: 'LINE 發送失敗', error });
     }
 
     return res.status(200).json({ message: 'LINE 發送成功' });
   } catch (err) {
+    console.error('伺服器錯誤', err);
     return res.status(500).json({ message: '伺服器錯誤', error: err.message });
   }
 }
