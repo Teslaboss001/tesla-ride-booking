@@ -1,11 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <title>Tesla Marry Me</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="hero">
+    <img src="tesla_modelx.png" alt="Tesla Model X" class="car-image" />
+    <h1 class="title breathing">TeslaMarryMe</h1>
+    <button id="bookBtn" class="btn book-btn">預約報價</button>
+    <div id="categoryBtns" class="btn-group" style="display: none;">
+      <button class="btn category-btn">一般接送</button>
+      <button class="btn category-btn" id="weddingBtn">結婚禮車</button>
+    </div>
+    <div class="hazard-light left-light"></div>
+    <div class="hazard-light right-light"></div>
+  </div>
 
-<!-- Wedding Section -->
-<div id="weddingSection" class="hidden">
-  <div style="position: relative;">
-    <img src="A_colorful,_flat-style_digital_illustration_depict.png" alt="結婚禮車卡通圖" class="full-image" />
-    <div style="position: absolute; top: 52%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
-      <label for="weddingDate" style="font-size: 1.2em; color: white;">選擇結婚日期</label><br>
-      <input type="date" id="weddingDate" style="padding: 10px; font-size: 1.1em; border-radius: 5px; border: none;">
+  <!-- 結婚禮車區塊 -->
+  <div id="weddingRideSection" class="hidden">
+    <img src="wedding_ride_image.png" alt="結婚禮車" class="full-image" />
+    <div class="form-block">
+      <label for="weddingRideDate">選擇結婚日期：</label>
+      <input type="date" id="weddingRideDate" /><br><br>
+      <button id="confirmWeddingBtn" class="btn">確認結婚禮車</button>
     </div>
   </div>
-</div>
+
+  <!-- 結婚禮車的最終地圖顯示區域 -->
+  <div id="finalWeddingMap" class="hidden">
+    <img src="final_wedding_map.png" alt="結婚禮車地圖" class="full-image" />
+  </div>
+
+  <!-- 一般接送區塊 -->
+  <div id="normalRideSection" class="hidden">
+    <img src="normal_ride.png" alt="一般接送示意圖" class="full-image" />
+    <div class="form-block">
+      <label for="rideDate">選擇搭乘日期：</label>
+      <input type="date" id="rideDate" /><br><br>
+      <label for="rideTime">選擇搭乘時間：</label>
+      <input type="time" id="rideTime" /><br><br>
+      <button id="confirmBtn" class="btn">確認</button>
+    </div>
+    <div class="note-block">
+      <h2>如何預約搭乘？</h2>
+      <p>本系統採預約制！請勿即時叫車<br>通常在前一天以上預約，保證都能安排到車輛！</p>
+      <hr>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("weddingBtn").addEventListener("click", function () {
+      document.getElementById("categoryBtns").style.display = "none"; // 隱藏選項
+      document.getElementById("weddingRideSection").classList.remove("hidden"); // 顯示結婚禮車區塊
+    });
+
+    document.getElementById("confirmWeddingBtn").addEventListener("click", function () {
+      const weddingDate = document.getElementById("weddingRideDate").value;
+      if (!weddingDate) {
+        alert("請選擇結婚日期！");
+        return;
+      }
+      document.getElementById("weddingRideSection").style.display = "none";
+      document.getElementById("finalWeddingMap").classList.remove("hidden"); // 顯示結婚禮車的最終地圖
+    });
+  </script>
+</body>
+</html>
