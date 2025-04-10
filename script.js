@@ -68,7 +68,7 @@ function initApp() {
       destinations: dropoffs,
       travelMode: google.maps.TravelMode.DRIVING,
       unitSystem: google.maps.UnitSystem.METRIC,
-    }, function (response, status) {
+    }, async function (response, status) {
       if (status !== "OK") {
         alert("無法計算距離，請確認地址正確！");
         console.error("DistanceMatrix 回傳錯誤：", status, response);
@@ -114,9 +114,10 @@ function initApp() {
 
       document.getElementById("summary").scrollIntoView({ behavior: "smooth" });
 
+      // 點擊「我要預約」
       setTimeout(() => {
         document.getElementById("confirmBtnGo")?.addEventListener("click", async () => {
-          const res = await fetch("https://teslamarryme.vercel.app/api/notify", {
+          const res = await fetch("/api/notify", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ date, time, pickup, dropoffs, carType, people, luggage, fare })
