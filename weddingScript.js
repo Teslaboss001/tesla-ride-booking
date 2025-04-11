@@ -49,6 +49,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
+ document.addEventListener("DOMContentLoaded", function () {
   // 點擊“確認”按鈕後顯示浮出視窗
   document.getElementById("confirmWeddingBtn").addEventListener("click", function () {
     const weddingDate = document.getElementById("weddingRideDate").value;
