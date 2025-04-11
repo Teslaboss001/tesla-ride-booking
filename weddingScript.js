@@ -44,26 +44,19 @@ document.addEventListener("DOMContentLoaded", function () {
   const confirmWeddingBtn = document.getElementById("confirmWeddingBtn");
   if (confirmWeddingBtn) {
     confirmWeddingBtn.addEventListener("click", function () {
-      // 可以進行相應的後續處理，跳轉到最終確認或是送出預約等
-      alert("您已選擇結婚禮車，請繼續下一步!");
+      const weddingDate = document.getElementById("weddingRideDate").value;
+      if (!weddingDate) {
+        alert("請選擇結婚日期！");
+        return;
+      }
+
+      // 隱藏結婚禮車區塊
+      document.getElementById("weddingRideSection").style.display = "none";
+
+      // 顯示地址輸入浮出視窗
+      document.getElementById("addressModal").classList.remove("hidden");
     });
   }
-
- document.addEventListener("DOMContentLoaded", function () {
-  // 點擊“確認”按鈕後顯示浮出視窗
-  document.getElementById("confirmWeddingBtn").addEventListener("click", function () {
-    const weddingDate = document.getElementById("weddingRideDate").value;
-    if (!weddingDate) {
-      alert("請選擇結婚日期！");
-      return;
-    }
-
-    // 隱藏結婚禮車區塊
-    document.getElementById("weddingRideSection").style.display = "none";
-
-    // 顯示地址輸入浮出視窗
-    document.getElementById("addressModal").classList.remove("hidden");
-  });
 
   // 設置停靠點邏輯
   document.getElementById("addStopBtn").addEventListener("click", function () {
