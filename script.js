@@ -163,3 +163,40 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 });
+// 顯示輸入地址的浮出視窗
+document.getElementById("confirmWeddingBtn").addEventListener("click", function () {
+  const weddingDate = document.getElementById("weddingRideDate").value;
+  if (!weddingDate) {
+    alert("請選擇結婚日期！");
+    return;
+  }
+  // 隱藏結婚禮車區塊，顯示地址輸入浮出視窗
+  document.getElementById("weddingRideSection").style.display = "none";
+  document.getElementById("addressModal").classList.remove("hidden");
+});
+
+// 關閉浮出視窗
+document.getElementById("closeModalBtn").addEventListener("click", function () {
+  document.getElementById("addressModal").classList.add("hidden");
+});
+
+// 提交輸入的地址
+document.getElementById("submitAddressBtn").addEventListener("click", function () {
+  const pickup = document.getElementById("pickup").value.trim();
+  const dropoff1 = document.getElementById("dropoff1").value.trim();
+  const dropoff2 = document.getElementById("dropoff2").value.trim();
+
+  if (!pickup || !dropoff1 || !dropoff2) {
+    alert("請輸入所有必填的地址！");
+    return;
+  }
+
+  // 您可以在此處處理輸入的地址，例如將地址發送到 Google Maps API 進行計算。
+  alert(`您輸入的地址：\n男方家：${pickup}\n女方家：${dropoff1}\n婚宴館：${dropoff2}`);
+
+  // 提交後關閉浮出視窗
+  document.getElementById("addressModal").classList.add("hidden");
+
+  // 顯示最終確認地圖
+  document.getElementById("finalWeddingMap").classList.remove("hidden");
+});
