@@ -20,7 +20,6 @@
 
   <!-- 結婚禮車區塊 -->
   <div id="weddingRideSection" class="hidden">
-    <!-- 修改後：只顯示 wedding_image.png -->
     <img src="wedding_image.png" alt="結婚禮車" class="full-image" />
     <div class="form-block">
       <label for="weddingRideDate">選擇結婚日期：</label>
@@ -36,6 +35,27 @@
     <img src="wedding_image.png" alt="結婚禮車地圖" class="full-image" />
   </div>
 
+  <!-- 浮出視窗：輸入地址 -->
+  <div id="addressModal" class="modal hidden">
+    <div class="modal-content">
+      <h2>禮車迎娶路徑</h2>
+      <label for="pickup">男方家（出發地）：</label>
+      <input type="text" id="pickup" placeholder="請輸入男方家地址" /><br><br>
+
+      <label for="dropoff1">女方家：</label>
+      <input type="text" id="dropoff1" placeholder="請輸入女方家地址" /><br><br>
+
+      <label for="dropoff2">婚宴館：</label>
+      <input type="text" id="dropoff2" placeholder="請輸入婚宴館地址" /><br><br>
+
+      <button id="addStopBtn" type="button" class="btn">＋設置停靠點</button><br><br>
+
+      <p>備注：請正確輸入地址或大概路徑地址，以便系統算出迎娶路線所花費時間，這有助於您考量整個流程時間表。</p>
+
+      <button id="submitAddressBtn" class="btn">提交</button>
+      <button id="closeModalBtn" class="btn">取消</button>
+    </div>
+  </div>
   <div id="normalRideSection" class="hidden">
     <img src="normal_ride.png" alt="一般接送示意圖" class="full-image" />
     <div class="form-block">
