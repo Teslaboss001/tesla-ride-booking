@@ -11,10 +11,12 @@ document.addEventListener("DOMContentLoaded", function () {
         const normalRideSection = document.getElementById("normalRideSection");
 
         if (weddingRideSection && normalRideSection) {
-          console.log('Before removing hidden:', weddingRideSection.classList);
+          // 移除 hidden 類別
           weddingRideSection.classList.remove("hidden");
-          console.log('After removing hidden:', weddingRideSection.classList);
           normalRideSection.classList.add("hidden");
+
+          // 強制顯示元素
+          weddingRideSection.style.display = "block";  // 顯示該元素
         }
       }
     });
@@ -28,10 +30,12 @@ document.addEventListener("DOMContentLoaded", function () {
       const finalWeddingMap = document.getElementById("finalWeddingMap");
 
       if (weddingRideSection && finalWeddingMap) {
-        console.log('Before removing hidden from finalWeddingMap:', finalWeddingMap.classList);
-        weddingRideSection.style.display = "none";
+        // 隱藏結婚禮車選擇頁面，顯示最終確認地圖
+        weddingRideSection.style.display = "none";  // 隱藏該元素
         finalWeddingMap.classList.remove("hidden");
-        console.log('After removing hidden from finalWeddingMap:', finalWeddingMap.classList);
+
+        // 強制顯示 finalWeddingMap 元素
+        finalWeddingMap.style.display = "block";  // 顯示該元素
       }
     });
   }
