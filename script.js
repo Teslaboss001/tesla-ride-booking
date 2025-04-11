@@ -116,7 +116,6 @@ function initApp() {
 }
 // 其他 JavaScript 邏輯...
 
-// 放置新加入的結婚禮車邏輯代碼
 document.addEventListener("DOMContentLoaded", function () {
   console.log("結婚禮車頁面載入");
 
@@ -133,21 +132,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // 當結婚日期選擇後，跳轉到下一頁
-  const weddingRideDate = document.getElementById("weddingRideDate");
-  if (weddingRideDate) {
-    weddingRideDate.addEventListener("change", function () {
-      const weddingRideSection = document.getElementById("weddingRideSection");
-      const finalWeddingMap = document.getElementById("finalWeddingMap");
-
-      if (weddingRideSection && finalWeddingMap) {
-        // 隱藏結婚禮車選擇頁面，顯示最終確認地圖
-        weddingRideSection.style.display = "none";
-        finalWeddingMap.classList.remove("hidden");
-      }
-    });
-  }
-
   // 點擊「確認結婚禮車」按鈕後，處理後續動作
   const confirmWeddingBtn = document.getElementById("confirmWeddingBtn");
   if (confirmWeddingBtn) {
@@ -157,46 +141,50 @@ document.addEventListener("DOMContentLoaded", function () {
         alert("請選擇結婚日期！");
         return;
       }
-      // 隱藏結婚禮車區塊，顯示最終地圖區塊
+      // 隱藏結婚禮車區塊，顯示地址輸入浮出視窗
       document.getElementById("weddingRideSection").style.display = "none";
-      document.getElementById("finalWeddingMap").classList.remove("hidden");
+      document.getElementById("addressModal").classList.remove("hidden");
     });
   }
-});
-// 顯示輸入地址的浮出視窗
-document.getElementById("confirmWeddingBtn").addEventListener("click", function () {
-  const weddingDate = document.getElementById("weddingRideDate").value;
-  if (!weddingDate) {
-    alert("請選擇結婚日期！");
-    return;
-  }
-  // 隱藏結婚禮車區塊，顯示地址輸入浮出視窗
-  document.getElementById("weddingRideSection").style.display = "none";
-  document.getElementById("addressModal").classList.remove("hidden");
-});
 
-// 關閉浮出視窗
-document.getElementById("closeModalBtn").addEventListener("click", function () {
-  document.getElementById("addressModal").classList.add("hidden");
-});
+  // 提交輸入的地址
+  document.getElementById("submitAddressBtn").addEventListener("click", function () {
+    const pickup = document.getElementById("pickup").value.trim();
+    const dropoff1 = document.getElementById("dropoff1").value.trim();
+    const dropoff2 = document.getElementById("dropoff2").value.trim();
 
-// 提交輸入的地址
-document.getElementById("submitAddressBtn").addEventListener("click", function () {
-  const pickup = document.getElementById("pickup").value.trim();
-  const dropoff1 = document.getElementById("dropoff1").value.trim();
-  const dropoff2 = document.getElementById("dropoff2").value.trim();
+    if (!pickup || !dropoff1 || !dropoff2) {
+      alert("請填寫所有地址欄位！");
+      return;
+    }
 
-  if (!pickup || !dropoff1 || !dropoff2) {
-    alert("請輸入所有必填的地址！");
-    return;
-  }
+    // 顯示最終地圖區塊
+    document.getElementById("addressModal").classList.add("hidden");
+    document.getElementById("finalWeddingMap").classList.remove("hidden");
 
-  // 您可以在此處處理輸入的地址，例如將地址發送到 Google Maps API 進行計算。
-  alert(`您輸入的地址：\n男方家：${pickup}\n女方家：${dropoff1}\n婚宴館：${dropoff2}`);
+    // 使用 Google API 計算路徑時間
+    const service = new google.maps.DistanceMatrixService();
+    service.getDistanceMatrix({
+      origins: [pickup],
+      destinations: [dropoff1, dropoff2],
+      travelMode: google.maps.TravelMode.DRIVING,
+      unitSystem: google.maps.UnitSystem.METRIC
+    }, function (response, status) {
+      if (status === "OK") {
+        let totalDistance = 0;
+        response.rows[0].elements.forEach(el => {
+          if (el.status === "OK") totalDistance += el.distance.value;
+        });
+        const distanceInKm = totalDistance / 1000;
+        alert(`總路程距離：${distanceInKm.toFixed(1)} 公里`);
+      } else {
+        alert("無法計算路徑，請檢查地址是否正確！");
+      }
+    });
+  });
 
-  // 提交後關閉浮出視窗
-  document.getElementById("addressModal").classList.add("hidden");
-
-  // 顯示最終確認地圖
-  document.getElementById("finalWeddingMap").classList.remove("hidden");
+  // 點擊取消按鈕
+  document.getElementById("closeModalBtn").addEventListener("click", function () {
+    document.getElementById("addressModal").classList.add("hidden");
+  });
 });
