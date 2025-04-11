@@ -7,6 +7,7 @@
 </head>
 <body>
   <div class="hero">
+    <!-- 確保圖片顯示且位於浮層之下 -->
     <img src="wedding_image.png" alt="結婚禮車" class="full-image" />
     <h1 class="title breathing">TeslaMarryMe</h1>
     <button id="bookBtn" class="btn book-btn">預約報價</button>
@@ -20,6 +21,7 @@
 
   <!-- 結婚禮車區塊 -->
   <div id="weddingRideSection" class="hidden">
+    <img src="wedding_image.png" alt="結婚禮車" class="full-image" />
     <div class="form-block">
       <label for="weddingRideDate">選擇結婚日期：</label>
       <input type="date" id="weddingRideDate" class="wedding-date" /><br><br>
@@ -54,8 +56,6 @@
     <img src="wedding_image.png" alt="結婚禮車地圖" class="full-image" />
   </div>
 
-  <!-- 其他程式碼 -->
-  <script src="script.js?v=999"></script>
-  <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBYhjHSQTm68K_dnKgiiWFGRWX2RBiJMhQ&libraries=places&callback=initApp"></script>
+  <script src="wedding.js"></script>
 </body>
 </html>
