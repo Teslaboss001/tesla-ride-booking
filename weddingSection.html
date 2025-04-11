@@ -56,15 +56,18 @@
       document.getElementById("weddingRideSection").classList.remove("hidden"); // 顯示結婚禮車區塊
     });
 
-    document.getElementById("confirmWeddingBtn").addEventListener("click", function () {
-      const weddingDate = document.getElementById("weddingRideDate").value;
-      if (!weddingDate) {
-        alert("請選擇結婚日期！");
-        return;
-      }
-      document.getElementById("weddingRideSection").style.display = "none";
-      document.getElementById("finalWeddingMap").classList.remove("hidden"); // 顯示結婚禮車的最終地圖
-    });
-  </script>
-</body>
-</html>
+   document.getElementById("confirmWeddingBtn").addEventListener("click", function () {
+  const weddingDate = document.getElementById("weddingRideDate").value;
+
+  // 檢查是否已選擇日期
+  if (!weddingDate) {
+    alert("請選擇結婚日期！");
+    return; // 如果沒選日期，則不進行任何操作
+  }
+
+  // 隱藏結婚禮車區塊
+  document.getElementById("weddingRideSection").style.display = "none";
+
+  // 顯示地址輸入模態視窗
+  document.getElementById("addressModal").classList.remove("hidden");
+});
