@@ -125,7 +125,6 @@ body, html {
   margin-top: 0;
 }
 
-
 /* 表單樣式強化 */
 
 .form-block {
@@ -213,52 +212,6 @@ body, html {
 .calculate-btn:hover {
   background-color: #009fc7;
 }
-/* 浮出視窗的樣式 */
-.modal {
-  display: none; /* 初始為隱藏 */
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.6); /* 背景透明 */
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
-}
-
-.modal-content {
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
-  max-width: 500px;
-  width: 90%;
-  text-align: center;
-}
-
-.modal input {
-  width: 80%;
-  padding: 10px;
-  margin: 10px 0;
-  border-radius: 8px;
-  border: 2px solid #00bfea;
-}
-
-.modal button {
-  padding: 10px 20px;
-  margin-top: 20px;
-  background-color: #00bfea;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.modal button:hover {
-  background-color: #009fc7;
-}
-
-/* 其他 CSS 樣式 */
 
 /* 浮出視窗的樣式 */
 .modal {
@@ -304,53 +257,3 @@ body, html {
 .modal button:hover {
   background-color: #009fc7;
 }
-
-/* 其他 CSS 樣式 */
-/* 其他樣式 */
-
-/* 浮出視窗的樣式 */
-.modal {
-  display: none; /* 初始為隱藏 */
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.6); /* 背景透明 */
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
-}
-
-.modal-content {
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
-  max-width: 500px;
-  width: 90%;
-  text-align: center;
-}
-
-.modal input {
-  width: 80%;
-  padding: 10px;
-  margin: 10px 0;
-  border-radius: 8px;
-  border: 2px solid #00bfea;
-}
-
-.modal button {
-  padding: 10px 20px;
-  margin-top: 20px;
-  background-color: #00bfea;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.modal button:hover {
-  background-color: #009fc7;
-}
-
-/* 如果有其他樣式，可以繼續在這裡加 */
