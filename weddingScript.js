@@ -11,7 +11,9 @@ document.addEventListener("DOMContentLoaded", function () {
         const normalRideSection = document.getElementById("normalRideSection");
 
         if (weddingRideSection && normalRideSection) {
+          console.log('Before removing hidden:', weddingRideSection.classList);
           weddingRideSection.classList.remove("hidden");
+          console.log('After removing hidden:', weddingRideSection.classList);
           normalRideSection.classList.add("hidden");
         }
       }
@@ -26,9 +28,10 @@ document.addEventListener("DOMContentLoaded", function () {
       const finalWeddingMap = document.getElementById("finalWeddingMap");
 
       if (weddingRideSection && finalWeddingMap) {
-        // 隱藏結婚禮車選擇頁面，顯示最終確認地圖
+        console.log('Before removing hidden from finalWeddingMap:', finalWeddingMap.classList);
         weddingRideSection.style.display = "none";
         finalWeddingMap.classList.remove("hidden");
+        console.log('After removing hidden from finalWeddingMap:', finalWeddingMap.classList);
       }
     });
   }
