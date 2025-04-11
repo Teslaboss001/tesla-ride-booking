@@ -213,6 +213,16 @@ body, html {
   background-color: #009fc7;
 }
 
+/* 確保背景圖片層級較低 */
+.full-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  position: relative;  /* 使圖片的層級比浮層低 */
+  z-index: 1;  /* 讓圖片顯示在浮層之下 */
+}
+
 /* 浮出視窗的樣式 */
 .modal {
   display: none; /* 初始為隱藏 */
@@ -227,6 +237,7 @@ body, html {
   z-index: 9999;  /* 確保浮層在最上方 */
 }
 
+/* 浮出視窗內容 */
 .modal-content {
   background: white;
   padding: 20px;
