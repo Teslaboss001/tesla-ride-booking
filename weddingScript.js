@@ -11,10 +11,12 @@ document.addEventListener("DOMContentLoaded", function () {
         const normalRideSection = document.getElementById("normalRideSection");
 
         if (weddingRideSection && normalRideSection) {
+          // 移除 hidden 類別
           weddingRideSection.classList.remove("hidden");
           normalRideSection.classList.add("hidden");
 
-          weddingRideSection.style.display = "block"; // 顯示該元素
+          // 強制顯示元素
+          weddingRideSection.style.display = "block";  // 顯示該元素
         }
       }
     });
@@ -28,9 +30,12 @@ document.addEventListener("DOMContentLoaded", function () {
       const finalWeddingMap = document.getElementById("finalWeddingMap");
 
       if (weddingRideSection && finalWeddingMap) {
-        weddingRideSection.style.display = "none"; // 隱藏結婚禮車選擇頁面
+        // 隱藏結婚禮車選擇頁面，顯示最終確認地圖
+        weddingRideSection.style.display = "none";  // 隱藏該元素
         finalWeddingMap.classList.remove("hidden");
-        finalWeddingMap.style.display = "block"; // 顯示最終確認地圖
+
+        // 強制顯示 finalWeddingMap 元素
+        finalWeddingMap.style.display = "block";  // 顯示該元素
       }
     });
   }
@@ -46,7 +51,10 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       // 隱藏結婚禮車區塊
-      document.getElementById("weddingRideSection").style.display = "none";
+      const weddingRideSection = document.getElementById("weddingRideSection");
+      if (weddingRideSection) {
+        weddingRideSection.style.display = "none";
+      }
 
       // 顯示地址輸入浮出視窗
       const addressModal = document.getElementById("addressModal");
@@ -86,8 +94,14 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // 顯示最終地圖區塊
-    document.getElementById("addressModal").classList.add("hidden");
-    document.getElementById("finalWeddingMap").classList.remove("hidden");
+    const addressModal = document.getElementById("addressModal");
+    if (addressModal) {
+      addressModal.classList.add("hidden");
+    }
+    const finalWeddingMap = document.getElementById("finalWeddingMap");
+    if (finalWeddingMap) {
+      finalWeddingMap.classList.remove("hidden");
+    }
 
     // 使用 Google API 計算路徑時間
     const service = new google.maps.DistanceMatrixService();
@@ -112,6 +126,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // 點擊取消按鈕關閉浮出視窗
   document.getElementById("closeModalBtn").addEventListener("click", function () {
-    document.getElementById("addressModal").classList.add("hidden");
+    const addressModal = document.getElementById("addressModal");
+    if (addressModal) {
+      addressModal.classList.add("hidden");
+    }
   });
 });
