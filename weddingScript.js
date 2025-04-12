@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-  // 點擊確認結婚日期後
+  // 點擊確認結婚日期後才跳轉
   document.getElementById("confirmWeddingBtn").addEventListener("click", function () {
     const weddingDate = document.getElementById("weddingRideDate").value;
     if (!weddingDate) {
@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("addressFormSection").classList.remove("hidden");
   });
 
-  // 新增停靠點
+  // 新增停靠點欄位
   document.getElementById("addStopBtn")?.addEventListener("click", () => {
     const container = document.getElementById("extraStops");
     const newInput = document.createElement("input");
@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
     container.appendChild(newInput);
   });
 
-  // 確認迎娶路線按鈕
+  // 確認迎娶路線並用 Google Maps 規劃路徑
   document.getElementById("submitAddressBtn").addEventListener("click", function () {
     const pickup = document.getElementById("pickup").value.trim();
     const dropoff1 = document.getElementById("dropoff1").value.trim();
