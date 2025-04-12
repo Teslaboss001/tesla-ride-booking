@@ -23,12 +23,13 @@
     <img src="wedding_image.png" alt="結婚禮車" class="full-image" />
     <div class="form-block">
       <label for="weddingRideDate">選擇結婚日期：</label>
-      <!-- 移動至車型 Logo 旁邊的位置 -->
       <input type="date" id="weddingRideDate" class="wedding-date" /><br><br>
-      <!-- 按鈕文字修改 -->
       <button id="confirmWeddingBtn" class="btn">確認</button>
     </div>
   </div>
+
+  <!-- 測試用按鈕，點擊後顯示浮層 -->
+  <button onclick="document.getElementById('addressModal').style.display='block';">顯示浮層</button>
 
   <!-- 結婚禮車的最終地圖顯示區域 -->
   <div id="finalWeddingMap" class="hidden">
@@ -56,6 +57,10 @@
       <button id="closeModalBtn" class="btn">取消</button>
     </div>
   </div>
+
+  <script src="wedding.js"></script>
+</body>
+</html>
   <div id="normalRideSection" class="hidden">
     <img src="normal_ride.png" alt="一般接送示意圖" class="full-image" />
     <div class="form-block">
