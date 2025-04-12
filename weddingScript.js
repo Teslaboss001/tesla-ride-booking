@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-  // 结婚礼车确认按钮点击事件
+  // 當點擊確認按鈕時，檢查結婚日期並顯示地址表單
   document.getElementById("confirmWeddingBtn").addEventListener("click", function () {
     const weddingDate = document.getElementById("weddingRideDate").value;
     if (!weddingDate) {
@@ -7,26 +7,25 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
 
-    // 隐藏结婚礼车区块，显示最终地图
+    // 隱藏結婚禮車區塊，顯示地址輸入表單
     document.getElementById("weddingRideSection").style.display = "none";
-    document.getElementById("finalWeddingMap").classList.remove("hidden");  // 显示最终地图
-    document.getElementById("finalWeddingMap").classList.add("visible");  // 显示并应用平滑过渡
+    document.getElementById("addressFormSection").classList.remove("hidden");
   });
 
-  // 点击确认按钮后，显示地址输入浮层
-  document.getElementById("confirmWeddingBtn").addEventListener("click", function () {
-    // 隐藏结婚礼车区块
-    document.getElementById("weddingRideSection").style.display = "none";
+  // 提交地址並顯示計算結果
+  document.getElementById("submitAddressBtn").addEventListener("click", function () {
+    const pickup = document.getElementById("pickup").value.trim();
+    const dropoff1 = document.getElementById("dropoff1").value.trim();
+    const dropoff2 = document.getElementById("dropoff2").value.trim();
 
-    // 显示地址输入浮层，并应用平滑过渡
-    document.getElementById("addressModal").classList.remove("hidden");
-    document.getElementById("addressModal").classList.add("visible");
-  });
+    if (!pickup || !dropoff1 || !dropoff2) {
+      alert("請填寫所有地址欄位！");
+      return;
+    }
 
-  // 点击取消按钮关闭浮层
-  document.getElementById("closeModalBtn").addEventListener("click", function () {
-    // 隐藏浮层
-    document.getElementById("addressModal").classList.remove("visible");
-    document.getElementById("addressModal").classList.add("hidden");
+    // 顯示計算結果（這裡假設是顯示路徑、計算結果等）
+    alert(`上車地點：${pickup}\n女方家：${dropoff1}\n婚宴館：${dropoff2}`);
+
+    // 你可以在這裡加上 Google Maps API 或其他邏輯來計算路程
   });
 });
