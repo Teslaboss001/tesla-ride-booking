@@ -98,6 +98,8 @@ body, html {
   height: auto;
   display: block;
   margin: 0 auto;
+  position: relative;
+  z-index: 1;  /* 確保圖片顯示在浮層之下 */
 }
 
 .form-block {
@@ -214,16 +216,6 @@ body, html {
 }
 
 /* 確保圖片顯示且位於浮層之下 */
-.full-image {
-  width: 100%;
-  height: auto;
-  display: block;
-  margin: 0 auto;
-  position: relative;  /* 確保圖片位置不會被浮層影響 */
-  z-index: 1;  /* 讓圖片顯示在浮層之下 */
-}
-
-/* 浮出視窗的樣式 */
 .modal {
   display: none; /* 初始為隱藏 */
   position: fixed;
@@ -231,7 +223,7 @@ body, html {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.6); /* 背景透明 */
+  background: rgba(0, 0, 0, 0.6);
   justify-content: center;
   align-items: center;
   z-index: 9999;  /* 確保浮層在最上方 */
