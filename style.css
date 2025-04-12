@@ -171,3 +171,16 @@ body, html {
 .modal button:hover {
   background-color: #009fc7;
 }
+/* 让元素初始化为不可见，但占据空间 */
+.hidden {
+  opacity: 0;
+  pointer-events: none;  /* 禁用鼠标事件，确保元素不再响应任何点击 */
+  transition: opacity 0.5s ease-in-out;  /* 添加渐变效果 */
+}
+
+/* 元素显示时的样式 */
+.visible {
+  opacity: 1;
+  pointer-events: auto;  /* 允许鼠标事件 */
+  transition: opacity 0.5s ease-in-out;  /* 平滑过渡 */
+}
