@@ -5,26 +5,46 @@ document.addEventListener("DOMContentLoaded", function () {
   const categoryBtns = document.querySelectorAll(".category-btn");
   categoryBtns.forEach((btn) => {
     btn.addEventListener("click", function () {
+      console.log("選擇了結婚禮車");
       if (this.textContent === "結婚禮車") {
-        // 隱藏「一般接送」區塊，顯示「結婚禮車」區塊
-        document.getElementById("normalRideSection").classList.add("hidden");
-        document.getElementById("weddingRideSection").classList.remove("hidden");
+        // 顯示結婚禮車的選擇畫面
+        const weddingRideSection = document.getElementById("weddingRideSection");
+        const normalRideSection = document.getElementById("normalRideSection");
+
+        if (weddingRideSection && normalRideSection) {
+          // 移除 hidden 類別
+          weddingRideSection.classList.remove("hidden");
+          normalRideSection.classList.add("hidden");
+        }
       }
     });
   });
 
-  // 點擊「確認結婚禮車」按鈕後，處理後續動作
+  // 點擊“確認”按鈕後顯示浮出視窗
   const confirmWeddingBtn = document.getElementById("confirmWeddingBtn");
   if (confirmWeddingBtn) {
     confirmWeddingBtn.addEventListener("click", function () {
       const weddingDate = document.getElementById("weddingRideDate").value;
+      console.log("確認按鈕被點擊，結婚日期為：", weddingDate);
+
       if (!weddingDate) {
         alert("請選擇結婚日期！");
         return;
       }
-      // 隱藏結婚禮車區塊，顯示地址輸入浮出視窗
-      document.getElementById("weddingRideSection").style.display = "none";
-      document.getElementById("addressModal").classList.remove("hidden");
+
+      // 隱藏結婚禮車區塊
+      const weddingRideSection = document.getElementById("weddingRideSection");
+      if (weddingRideSection) {
+        weddingRideSection.style.display = "none";
+        console.log("結婚禮車區塊已隱藏");
+      }
+
+      // 顯示地址輸入浮出視窗
+      const addressModal = document.getElementById("addressModal");
+      if (addressModal) {
+        addressModal.classList.remove("hidden");
+        console.log("地址浮出視窗顯示");
+      }
     });
   }
 
@@ -46,7 +66,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // 提交輸入的地址
+  // 提交地址並計算路徑
   document.getElementById("submitAddressBtn").addEventListener("click", function () {
     const pickup = document.getElementById("pickup").value.trim();
     const dropoff1 = document.getElementById("dropoff1").value.trim();
@@ -58,8 +78,16 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // 顯示最終地圖區塊
-    document.getElementById("addressModal").classList.add("hidden");
-    document.getElementById("finalWeddingMap").classList.remove("hidden");
+    const addressModal = document.getElementById("addressModal");
+    if (addressModal) {
+      addressModal.classList.add("hidden");
+      console.log("地址浮出視窗已隱藏");
+    }
+    const finalWeddingMap = document.getElementById("finalWeddingMap");
+    if (finalWeddingMap) {
+      finalWeddingMap.classList.remove("hidden");
+      console.log("最終地圖顯示");
+    }
 
     // 使用 Google API 計算路徑時間
     const service = new google.maps.DistanceMatrixService();
@@ -84,6 +112,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // 點擊取消按鈕
   document.getElementById("closeModalBtn").addEventListener("click", function () {
-    document.getElementById("addressModal").classList.add("hidden");
+    const addressModal = document.getElementById("addressModal");
+    if (addressModal) {
+      addressModal.classList.add("hidden");
+      console.log("地址浮出視窗已關閉");
+    }
   });
 });
