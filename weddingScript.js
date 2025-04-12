@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-  // 當點擊確認按鈕時，檢查結婚日期並顯示地址表單
+  // 點擊確認結婚日期後
   document.getElementById("confirmWeddingBtn").addEventListener("click", function () {
     const weddingDate = document.getElementById("weddingRideDate").value;
     if (!weddingDate) {
@@ -7,25 +7,56 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
 
-    // 隱藏結婚禮車區塊，顯示地址輸入表單
+    // 顯示 wedding_map.png
     document.getElementById("weddingRideSection").style.display = "none";
+    document.getElementById("finalWeddingMap").classList.remove("hidden");
+
+    // 顯示地址輸入區塊
     document.getElementById("addressFormSection").classList.remove("hidden");
   });
 
-  // 提交地址並顯示計算結果
+  // 新增停靠點
+  document.getElementById("addStopBtn")?.addEventListener("click", () => {
+    const container = document.getElementById("extraStops");
+    const newInput = document.createElement("input");
+    newInput.type = "text";
+    newInput.placeholder = "額外停靠點地址";
+    newInput.className = "stop-input";
+    newInput.style = "display: block; margin-top: 10px; width: 100%;";
+    container.appendChild(newInput);
+  });
+
+  // 確認迎娶路線按鈕
   document.getElementById("submitAddressBtn").addEventListener("click", function () {
     const pickup = document.getElementById("pickup").value.trim();
     const dropoff1 = document.getElementById("dropoff1").value.trim();
     const dropoff2 = document.getElementById("dropoff2").value.trim();
+    const dropoff3 = document.getElementById("dropoff3").value.trim();
+    const extraStops = Array.from(document.querySelectorAll(".stop-input"))
+      .map(el => el.value.trim()).filter(Boolean);
 
-    if (!pickup || !dropoff1 || !dropoff2) {
-      alert("請填寫所有地址欄位！");
+    if (!pickup || !dropoff1 || !dropoff2 || !dropoff3) {
+      alert("請填寫所有主要地址欄位！");
       return;
     }
 
-    // 顯示計算結果（這裡假設是顯示路徑、計算結果等）
-    alert(`上車地點：${pickup}\n女方家：${dropoff1}\n婚宴館：${dropoff2}`);
+    const allStops = [pickup, dropoff1, dropoff2, dropoff3, ...extraStops];
+    const directionsService = new google.maps.DirectionsService();
 
-    // 你可以在這裡加上 Google Maps API 或其他邏輯來計算路程
+    directionsService.route({
+      origin: allStops[0],
+      destination: allStops[allStops.length - 1],
+      waypoints: allStops.slice(1, -1).map(loc => ({ location: loc, stopover: true })),
+      travelMode: google.maps.TravelMode.DRIVING
+    }, (result, status) => {
+      if (status === "OK") {
+        alert("迎娶路線規劃成功！");
+        console.log("總路線：", result);
+      } else {
+        alert("無法規劃路線，請檢查地址！");
+      }
+    });
+
+    document.getElementById("routeNote").classList.remove("hidden");
   });
 });
