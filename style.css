@@ -213,13 +213,13 @@ body, html {
   background-color: #009fc7;
 }
 
-/* 確保背景圖片層級較低 */
+/* 確保圖片顯示且位於浮層之下 */
 .full-image {
   width: 100%;
   height: auto;
   display: block;
   margin: 0 auto;
-  position: relative;  /* 使圖片的層級比浮層低 */
+  position: relative;  /* 確保圖片位置不會被浮層影響 */
   z-index: 1;  /* 讓圖片顯示在浮層之下 */
 }
 
@@ -237,7 +237,6 @@ body, html {
   z-index: 9999;  /* 確保浮層在最上方 */
 }
 
-/* 浮出視窗內容 */
 .modal-content {
   background: white;
   padding: 20px;
@@ -267,14 +266,4 @@ body, html {
 
 .modal button:hover {
   background-color: #009fc7;
-}
-
-/* 確保圖片會一直顯示 */
-.full-image {
-  width: 100%;
-  height: auto;
-  display: block;
-  margin: 0 auto;
-  position: relative;  /* 確保圖片位置不會被浮層影響 */
-  z-index: 1;  /* 讓圖片顯示在浮層之下 */
 }
