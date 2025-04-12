@@ -7,14 +7,20 @@
 </head>
 <body>
   <div class="hero">
-    <!-- 確保圖片顯示且位於浮層之下 -->
-    <img src="wedding_image.png" alt="結婚禮車" class="full-image" id="weddingImage"/>
+    <img src="tesla_modelx.png" alt="Tesla Model X" class="car-image" />
     <h1 class="title breathing">TeslaMarryMe</h1>
     <button id="bookBtn" class="btn book-btn">預約報價</button>
+    <div id="categoryBtns" class="btn-group" style="display: none;">
+      <button class="btn category-btn">一般接送</button>
+      <button class="btn category-btn">結婚禮車</button>
+    </div>
+    <div class="hazard-light left-light"></div>
+    <div class="hazard-light right-light"></div>
   </div>
 
   <!-- 結婚禮車區塊 -->
   <div id="weddingRideSection" class="hidden">
+    <img src="wedding_image.png" alt="結婚禮車" class="full-image" />
     <div class="form-block">
       <label for="weddingRideDate">選擇結婚日期：</label>
       <input type="date" id="weddingRideDate" class="wedding-date" /><br><br>
@@ -23,23 +29,90 @@
   </div>
 
   <!-- 浮出視窗：輸入地址 -->
-<div id="addressModal" class="modal hidden">
-  <div class="modal-content">
-    <h2>禮車迎娶路徑</h2>
-    <label for="pickup">男方家（出發地）：</label>
-    <input type="text" id="pickup" placeholder="請輸入男方家地址" /><br><br>
+  <div id="addressModal" class="modal hidden">
+    <div class="modal-content">
+      <h2>禮車迎娶路徑</h2>
+      <label for="pickup">男方家（出發地）：</label>
+      <input type="text" id="pickup" placeholder="請輸入男方家地址" /><br><br>
 
-    <label for="dropoff1">女方家：</label>
-    <input type="text" id="dropoff1" placeholder="請輸入女方家地址" /><br><br>
+      <label for="dropoff1">女方家：</label>
+      <input type="text" id="dropoff1" placeholder="請輸入女方家地址" /><br><br>
 
-    <label for="dropoff2">婚宴館：</label>
-    <input type="text" id="dropoff2" placeholder="請輸入婚宴館地址" /><br><br>
+      <label for="dropoff2">婚宴館：</label>
+      <input type="text" id="dropoff2" placeholder="請輸入婚宴館地址" /><br><br>
 
-    <button id="addStopBtn" type="button" class="btn">＋設置停靠點</button><br><br>
+      <button id="addStopBtn" type="button" class="btn">＋設置停靠點</button><br><br>
 
-    <p>備注：請正確輸入地址或大概路徑地址，以便系統算出迎娶路線所花費時間，這有助於您考量整個流程時間表。</p>
+      <p>備注：請正確輸入地址或大概路徑地址，以便系統算出迎娶路線所花費時間，這有助於您考量整個流程時間表。</p>
 
-    <button id="submitAddressBtn" class="btn">提交</button>
-    <button id="closeModalBtn" class="btn">取消</button>
+      <button id="submitAddressBtn" class="btn">提交</button>
+      <button id="closeModalBtn" class="btn">取消</button>
+    </div>
   </div>
-</div>
+
+  <script src="wedding.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // 結婚日期確認按鈕點擊事件
+      document.getElementById("confirmWeddingBtn").addEventListener("click", function () {
+        const weddingDate = document.getElementById("weddingRideDate").value;
+
+        if (!weddingDate) {
+          alert("請選擇結婚日期！");
+          return;
+        }
+
+        // 隱藏結婚禮車區塊
+        document.getElementById("weddingRideSection").classList.add("hidden");
+
+        // 顯示地址輸入浮層
+        document.getElementById("addressModal").classList.remove("hidden");
+        document.getElementById("addressModal").style.display = "flex";
+      });
+
+      // 點擊浮層取消按鈕關閉浮層
+      document.getElementById("closeModalBtn").addEventListener("click", function () {
+        document.getElementById("addressModal").classList.add("hidden");
+        document.getElementById("addressModal").style.display = "none";
+      });
+
+      // 提交地址並計算路徑
+      document.getElementById("submitAddressBtn").addEventListener("click", function () {
+        const pickup = document.getElementById("pickup").value.trim();
+        const dropoff1 = document.getElementById("dropoff1").value.trim();
+        const dropoff2 = document.getElementById("dropoff2").value.trim();
+
+        if (!pickup || !dropoff1 || !dropoff2) {
+          alert("請填寫所有地址欄位！");
+          return;
+        }
+
+        // 顯示最終地圖區塊
+        document.getElementById("addressModal").classList.add("hidden");
+        document.getElementById("finalWeddingMap").classList.remove("hidden");
+
+        // 使用 Google API 計算路徑時間
+        const service = new google.maps.DistanceMatrixService();
+        service.getDistanceMatrix({
+          origins: [pickup],
+          destinations: [dropoff1, dropoff2],
+          travelMode: google.maps.TravelMode.DRIVING,
+          unitSystem: google.maps.UnitSystem.METRIC
+        }, function (response, status) {
+          if (status === "OK") {
+            let totalDistance = 0;
+            response.rows[0].elements.forEach(el => {
+              if (el.status === "OK") totalDistance += el.distance.value;
+            });
+            const distanceInKm = totalDistance / 1000;
+            alert(`總路程距離：${distanceInKm.toFixed(1)} 公里`);
+          } else {
+            alert("無法計算路徑，請檢查地址是否正確！");
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
