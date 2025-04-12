@@ -34,6 +34,7 @@ body, html {
   0%, 100% { opacity: 1; }
   50%     { opacity: 0.5; }
 }
+
 .breathing {
   animation: textBlink 2s infinite ease-in-out;
 }
@@ -62,6 +63,7 @@ body, html {
   transform: translateX(-50%);
   text-align: center;
 }
+
 .category-btn {
   margin: 0 20px;
   font-size: 2.4em;
@@ -76,111 +78,60 @@ body, html {
   opacity: 0.8;
   animation: hazardBlink 1.5s infinite ease-in-out;
 }
+
 @keyframes hazardBlink {
   0%, 100% { opacity: 0.2; }
   50%     { opacity: 1; }
 }
+
 .left-light {
   top: 62%;
   left: 23%;
 }
+
 .right-light {
   top: 62%;
   left: 71%;
 }
 
-.hidden {
-  display: none;
-}
-
-.full-image {
-  width: 100%;
-  height: auto;
-  display: block;
-  margin: 0 auto;
-  position: relative;
-  z-index: 1;  /* 確保圖片顯示在浮層之下 */
-}
-
+/* 表单的样式 */
 .form-block {
   background: #fff;
   padding: 20px;
   text-align: center;
+  margin-top: 50px;  /* 可以调整表单的上边距 */
 }
+
 .form-block label {
   font-size: 1.2em;
+  color: #222;
+  font-weight: bold;
+  margin-bottom: 10px;
 }
-.form-block input[type="date"] {
+
+.form-block input {
   font-size: 1.2em;
   padding: 5px 10px;
-  margin-top: 10px;
-}
-
-.note-block {
-  background: #fff;
-  color: #000;
-  padding: 20px;
-  font-size: 1em;
-  line-height: 1.6;
-}
-.note-block h2 {
-  margin-top: 0;
-}
-
-/* 浮出視窗的樣式 */
-.modal {
-  display: none; /* 預設隱藏 */
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.6); /* 背景透明 */
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;  /* 確保浮層在最上方 */
-}
-
-.modal-content {
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
-  max-width: 500px;
-  width: 90%;
-  text-align: center;
-}
-
-.modal input {
-  width: 80%;
-  padding: 10px;
   margin: 10px 0;
+  width: 80%;
   border-radius: 8px;
-  border: 2px solid #00bfea;
+  border: 2px solid #00BFEA;
 }
 
-.modal button {
+/* 提交按钮的样式 */
+.form-block .btn {
   padding: 10px 20px;
-  margin-top: 20px;
-  background-color: #00bfea;
+  background-color: #00BFEA;
   color: white;
   border: none;
-  border-radius: 8px;
+  border-radius: 5px;
   cursor: pointer;
 }
 
-.modal button:hover {
+.form-block .btn:hover {
   background-color: #009fc7;
 }
-/* 让元素初始化为不可见，但占据空间 */
-.hidden {
-  opacity: 0;
-  pointer-events: none;  /* 禁用鼠标事件，确保元素不再响应任何点击 */
-  transition: opacity 0.5s ease-in-out;  /* 添加渐变效果 */
-}
 
-/* 元素显示时的样式 */
-.visible {
-  opacity: 1;
-  pointer-events: auto;  /* 允许鼠标事件 */
-  transition: opacity 0.5s ease-in-out;  /* 平滑过渡 */
+.hidden {
+  display: none;
 }
