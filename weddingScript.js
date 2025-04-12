@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
+  // 结婚礼车确认按钮点击事件
   document.getElementById("confirmWeddingBtn").addEventListener("click", function () {
     const weddingDate = document.getElementById("weddingRideDate").value;
     if (!weddingDate) {
@@ -6,20 +7,26 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
 
-    // 隱藏結婚禮車區塊
+    // 隐藏结婚礼车区块，显示最终地图
     document.getElementById("weddingRideSection").style.display = "none";
-
-    // 顯示最終地圖
-    document.getElementById("finalWeddingMap").classList.remove("hidden");  // 顯示最終地圖
-    document.getElementById("finalWeddingMap").style.display = "block";  // 設置顯示
-
-    // 顯示地址輸入浮出視窗
-    document.getElementById("addressModal").classList.remove("hidden");  // 顯示浮層
-    document.getElementById("addressModal").style.display = "flex";  // 設定顯示
+    document.getElementById("finalWeddingMap").classList.remove("hidden");  // 显示最终地图
+    document.getElementById("finalWeddingMap").classList.add("visible");  // 显示并应用平滑过渡
   });
 
-  // 點擊取消按鈕關閉浮出視窗
+  // 点击确认按钮后，显示地址输入浮层
+  document.getElementById("confirmWeddingBtn").addEventListener("click", function () {
+    // 隐藏结婚礼车区块
+    document.getElementById("weddingRideSection").style.display = "none";
+
+    // 显示地址输入浮层，并应用平滑过渡
+    document.getElementById("addressModal").classList.remove("hidden");
+    document.getElementById("addressModal").classList.add("visible");
+  });
+
+  // 点击取消按钮关闭浮层
   document.getElementById("closeModalBtn").addEventListener("click", function () {
-    document.getElementById("addressModal").style.display = "none";  // 隱藏浮層
+    // 隐藏浮层
+    document.getElementById("addressModal").classList.remove("visible");
+    document.getElementById("addressModal").classList.add("hidden");
   });
 });
