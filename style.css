@@ -34,7 +34,6 @@ body, html {
   0%, 100% { opacity: 1; }
   50%     { opacity: 0.5; }
 }
-
 .breathing {
   animation: textBlink 2s infinite ease-in-out;
 }
@@ -63,7 +62,6 @@ body, html {
   transform: translateX(-50%);
   text-align: center;
 }
-
 .category-btn {
   margin: 0 20px;
   font-size: 2.4em;
@@ -78,60 +76,140 @@ body, html {
   opacity: 0.8;
   animation: hazardBlink 1.5s infinite ease-in-out;
 }
-
 @keyframes hazardBlink {
   0%, 100% { opacity: 0.2; }
   50%     { opacity: 1; }
 }
-
 .left-light {
   top: 62%;
   left: 23%;
 }
-
 .right-light {
   top: 62%;
   left: 71%;
 }
 
-/* 表单的样式 */
+.hidden {
+  display: none;
+}
+
+.full-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
 .form-block {
   background: #fff;
   padding: 20px;
   text-align: center;
-  margin-top: 50px;  /* 可以调整表单的上边距 */
+}
+.form-block label {
+  font-size: 1.2em;
+}
+.form-block input[type="date"] {
+  font-size: 1.2em;
+  padding: 5px 10px;
+  margin-top: 10px;
+}
+
+.note-block {
+  background: #fff;
+  color: #000;
+  padding: 20px;
+  font-size: 1em;
+  line-height: 1.6;
+}
+.note-block h2 {
+  margin-top: 0;
+}
+
+
+/* 表單樣式強化 */
+
+.form-block {
+  background: #fff;
+  padding: 30px;
+  text-align: center;
 }
 
 .form-block label {
-  font-size: 1.2em;
+  font-size: 1.6em;
+  display: block;
   color: #222;
   font-weight: bold;
   margin-bottom: 10px;
 }
 
-.form-block input {
-  font-size: 1.2em;
-  padding: 5px 10px;
-  margin: 10px 0;
-  width: 80%;
-  border-radius: 8px;
+.form-block input[type="date"],
+.form-block input[type="time"] {
+  font-size: 1.4em;
+  padding: 10px 15px;
+  margin-bottom: 25px;
   border: 2px solid #00BFEA;
+  border-radius: 8px;
+  outline: none;
+  width: 80%;
+  max-width: 300px;
+  text-align: center;
+  transition: 0.3s;
 }
 
-/* 提交按钮的样式 */
-.form-block .btn {
-  padding: 10px 20px;
-  background-color: #00BFEA;
-  color: white;
+.form-block input[type="date"]:focus,
+.form-block input[type="time"]:focus {
+  border-color: #FF66B2;
+  box-shadow: 0 0 10px rgba(255, 102, 178, 0.4);
+}
+
+/* 表單區塊美化 */
+.form-block {
+  max-width: 600px;
+  margin: 30px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+}
+
+.form-block label {
+  font-size: 1.4em;
+  font-weight: 600;
+  display: block;
+  margin: 15px 0 5px;
+  text-align: center;
+}
+
+.form-block input,
+.form-block select {
+  width: 100%;
+  padding: 10px 15px;
+  font-size: 1.2em;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-sizing: border-box;
+  margin-bottom: 15px;
+}
+
+.form-block .note {
+  font-size: 0.9em;
+  text-align: center;
+  margin-bottom: 20px;
+  color: #888;
+}
+
+.calculate-btn {
+  width: 100%;
+  background-color: #00bfea;
+  color: #fff;
   border: none;
-  border-radius: 5px;
+  font-size: 1.3em;
+  padding: 12px;
+  border-radius: 10px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-.form-block .btn:hover {
+.calculate-btn:hover {
   background-color: #009fc7;
-}
-
-.hidden {
-  display: none;
 }
