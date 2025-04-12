@@ -8,20 +8,13 @@
 <body>
   <div class="hero">
     <!-- 確保圖片顯示且位於浮層之下 -->
-    <img src="wedding_image.png" alt="結婚禮車" class="full-image" />
+    <img src="wedding_image.png" alt="結婚禮車" class="full-image" id="weddingImage"/>
     <h1 class="title breathing">TeslaMarryMe</h1>
     <button id="bookBtn" class="btn book-btn">預約報價</button>
-    <div id="categoryBtns" class="btn-group" style="display: none;">
-      <button class="btn category-btn">一般接送</button>
-      <button class="btn category-btn">結婚禮車</button>
-    </div>
-    <div class="hazard-light left-light"></div>
-    <div class="hazard-light right-light"></div>
   </div>
 
   <!-- 結婚禮車區塊 -->
   <div id="weddingRideSection" class="hidden">
-    <img src="wedding_image.png" alt="結婚禮車" class="full-image" />
     <div class="form-block">
       <label for="weddingRideDate">選擇結婚日期：</label>
       <input type="date" id="weddingRideDate" class="wedding-date" /><br><br>
@@ -42,18 +35,9 @@
       <label for="dropoff2">婚宴館：</label>
       <input type="text" id="dropoff2" placeholder="請輸入婚宴館地址" /><br><br>
 
-      <button id="addStopBtn" type="button" class="btn">＋設置停靠點</button><br><br>
-
-      <p>備注：請正確輸入地址或大概路徑地址，以便系統算出迎娶路線所花費時間，這有助於您考量整個流程時間表。</p>
-
       <button id="submitAddressBtn" class="btn">提交</button>
       <button id="closeModalBtn" class="btn">取消</button>
     </div>
-  </div>
-
-  <!-- 最終地圖顯示區域 -->
-  <div id="finalWeddingMap" class="hidden">
-    <img src="wedding_image.png" alt="結婚禮車地圖" class="full-image" />
   </div>
 
   <script src="wedding.js"></script>
