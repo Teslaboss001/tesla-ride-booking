@@ -28,7 +28,8 @@ function initApp() {
     document.getElementById("finalMap").classList.remove("hidden");
   });
 
-  document.getElementById("addStopBtn")?.addEventListener("click", () => {
+  document.addEventListener("click", function (e) {
+  if (e.target && e.target.id === "addStopBtn") {
     const container = document.getElementById("dropoffContainer");
     const newGroup = document.createElement("div");
     newGroup.className = "dropoff-group";
@@ -38,11 +39,13 @@ function initApp() {
       <button type="button" class="removeStopBtn" style="font-size: 1.2em; background: none; border: none; color: red;">－</button>
     `;
     container.insertBefore(newGroup, container.lastElementChild);
+
+    // 動態掛上移除按鈕
     newGroup.querySelector(".removeStopBtn").addEventListener("click", () => {
       container.removeChild(newGroup);
     });
-  });
-
+  }
+});
   document.getElementById("calculateBtn")?.addEventListener("click", () => {
     const pickup = document.getElementById("pickup").value.trim();
     const dropoffs = Array.from(document.querySelectorAll(".dropoff")).map(el => el.value.trim()).filter(Boolean);
