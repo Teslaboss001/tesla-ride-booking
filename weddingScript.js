@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
       alert("請選擇結婚日期！");
       return;
     }
+
     document.getElementById("weddingRideSection").style.display = "none";
     document.getElementById("finalWeddingMap").classList.remove("hidden");
     document.getElementById("addressFormSection").classList.remove("hidden");
@@ -26,24 +27,30 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // 確認迎娶路線
   document.getElementById("submitAddressBtn").addEventListener("click", function () {
-    const pickup = document.getElementById("pickup").value.trim();
-    const dropoff1 = document.getElementById("dropoff1").value.trim();
-    const dropoff2 = document.getElementById("dropoff2").value.trim();
-    const dropoff3 = document.getElementById("dropoff3").value.trim();
-    const extraStops = Array.from(document.querySelectorAll(".stop-input"))
-      .map(el => el.value.trim()).filter(Boolean);
+    const rawStops = [
+      document.getElementById("pickup").value.trim(),
+      document.getElementById("dropoff1").value.trim(),
+      document.getElementById("dropoff2").value.trim(),
+      document.getElementById("dropoff3").value.trim(),
+      ...Array.from(document.querySelectorAll(".stop-input")).map(el => el.value.trim())
+    ];
 
-    const allStops = [pickup, dropoff1, dropoff2, dropoff3, ...extraStops].filter(Boolean);
+    const allStops = rawStops.filter(Boolean);
+
     if (allStops.length < 2) {
       alert("請至少填寫兩個地點以規劃路線");
       return;
     }
 
+    const origin = allStops[0];
+    const destination = allStops[allStops.length - 1];
+    const waypoints = allStops.slice(1, -1).map(loc => ({ location: loc, stopover: true }));
+
     const directionsService = new google.maps.DirectionsService();
     directionsService.route({
-      origin: allStops[0],
-      destination: allStops[allStops.length - 1],
-      waypoints: allStops.slice(1, -1).map(loc => ({ location: loc, stopover: true })),
+      origin,
+      destination,
+      waypoints,
       travelMode: google.maps.TravelMode.DRIVING
     }, (result, status) => {
       if (status === "OK") {
