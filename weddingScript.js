@@ -84,3 +84,29 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("routeNote").classList.remove("hidden");
   });
 });
+document.addEventListener("DOMContentLoaded", function () {
+  const confirmBtn = document.getElementById("confirmRouteBtn");
+  const summaryContainer = document.getElementById("routeSummaryContainer");
+
+  confirmBtn.addEventListener("click", async function () {
+    // 清空舊的總結資訊
+    summaryContainer.innerHTML = "";
+
+    // 模擬資料（請換成你自己的邏輯）
+    const routeData = await getUpdatedRouteSummary(); // 改為實際函數
+
+    // 建立新總結區塊
+    const summaryHTML = `
+      <div class="route-summary">
+        <h3>迎娶路線資訊總結</h3>
+        <p>總里程：${routeData.distance} 公里</p>
+        <p>預估行車時間：${routeData.duration} 分鐘</p>
+        <p style="color: red;">備註：總行程花費時間僅為參考，實際當天流程與行車時間多半稍有延遲。</p>
+      </div>
+    `;
+    summaryContainer.innerHTML = summaryHTML;
+
+    // 捲動到總結區域
+    summaryContainer.scrollIntoView({ behavior: 'smooth' });
+  });
+});
