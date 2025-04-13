@@ -104,7 +104,7 @@ function initApp() {
         ${dropoffs.map((d, i) => `<p>下車地點 ${i + 1}：${d}</p>`).join("")}
         <p>車型：${carType}｜人數：${people}｜行李：${luggage}</p>
         <p style="font-weight: bold; color: #27AC00;">報價：NT$ ${fare}</p>
-        <p style="color: red; font-weight: bold;">請截圖預約資訊並傳送</p>
+        <p style="color: red; font-weight: bold;">請截圖內容，並按「已截圖」傳送我們</p>
         <button id="screenshotDone" class="btn" style="margin-top: 20px;">已截圖</button>
       `;
       modal.appendChild(popup);
