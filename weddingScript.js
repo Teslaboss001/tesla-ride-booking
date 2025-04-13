@@ -154,23 +154,22 @@ document.addEventListener("DOMContentLoaded", function () {
   if (mY > 0) modelList += `<li>Model Y：${mY} 輛</li>`;
   if (mX > 0) modelList += `<li>Model X：${mX} 輛</li>`;
 
-  document.getElementById("totalCostDisplay").innerHTML = `
-    <div style="border: 2px solid #ccc; padding: 20px; background: #fff0f5; border-radius: 10px; text-align: left; position: relative;">
-      <img src="0322_nobg_4x.png" style="position: absolute; top: 15px; right: 15px; height: 160px;" />
-      <h3 style="color: #d63384; text-align: center; font-size: 1.6em;">TeslaMarryMe 線上報價單</h3>
-      <p><strong>結婚日期：</strong>${weddingDate}</p>
-      <p><strong>地址行程：</strong>${pickup} → ${dropoff1} → ${dropoff2} → ${dropoff3}</p>
-      <p><strong>預估行車時間：</strong>${minutes} 分鐘</p>
-      <ul style="padding-left: 20px; font-size: 1.1em;">${modelList}</ul>
-      <p><strong>儀式物品捆綁：</strong>${bundle > 0 ? "是（+1000元）" : "否"}</p>
-      ${comboName ? `<p style="color: green; font-weight: bold;">${comboName}</p>` : ""}
-      <p style="font-size: 1.3em; color: darkgreen; font-weight: bold;">
-        總費用：NT$ ${total.toLocaleString()}
-      </p>
-    </div>
-  `;
-});
-              <button onclick="downloadQuote()" style="margin-top: 20px; font-size: 1em;" class="btn">
+ document.getElementById("totalCostDisplay").innerHTML = `
+  <div style="border: 2px solid #ccc; padding: 20px; background: #fff0f5; border-radius: 10px; text-align: left; position: relative;">
+    <img src="0322_nobg_4x.png" style="position: absolute; top: 15px; right: 15px; height: 160px;" />
+    <h3 style="color: #d63384; text-align: center; font-size: 1.6em;">TeslaMarryMe 線上報價單</h3>
+    <p><strong>結婚日期：</strong>${weddingDate}</p>
+    <p><strong>地址行程：</strong>${pickup} → ${dropoff1} → ${dropoff2} → ${dropoff3}</p>
+    <p><strong>預估行車時間：</strong>${minutes} 分鐘</p>
+    <ul style="padding-left: 20px; font-size: 1.1em;">${modelList}</ul>
+    <p><strong>儀式物品捆綁：</strong>${bundle > 0 ? "是（+1000元）" : "否"}</p>
+    ${comboName ? `<p style="color: green; font-weight: bold;">${comboName}</p>` : ""}
+    <p style="font-size: 1.3em; color: darkgreen; font-weight: bold;">
+      總費用：NT$ ${total.toLocaleString()}
+    </p>
+
+    <!-- ✅ 一鍵儲存按鈕應放在這裡 -->
+    <button onclick="downloadQuote()" style="margin-top: 20px; font-size: 1em;" class="btn">
       儲存這張報價單圖片
     </button>
   </div>
