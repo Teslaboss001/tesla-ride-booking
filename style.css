@@ -5,7 +5,10 @@ body, html {
   height: 100%;
   font-family: sans-serif;
 }
-
+/* 專屬結婚禮車區塊的背景顏色 */
+#weddingRideSection {
+  background-color: #ffe6f0;
+}
 .hero {
   position: absolute;
   top: 50%;
