@@ -1,29 +1,28 @@
-document.addEventListener("DOMContentLoaded", function () {
-  // 點擊確認結婚日期後才跳轉
-  document.getElementById("confirmWeddingBtn").addEventListener("click", function () {
-    const weddingDate = document.getElementById("weddingRideDate").value;
-    if (!weddingDate) {
-      alert("請選擇結婚日期！");
-      return;
+document.getElementById("confirmWeddingBtn").addEventListener("click", function () {
+  const weddingDate = document.getElementById("weddingRideDate").value;
+  if (!weddingDate) {
+    alert("請選擇結婚日期！");
+    return;
+  }
+
+  // 顯示 wedding_map.PNG
+  document.getElementById("weddingRideSection").style.display = "none";
+  document.getElementById("finalWeddingMap").classList.remove("hidden");
+
+  // 顯示地址輸入區塊
+  document.getElementById("addressFormSection").classList.remove("hidden");
+});
+  // 新增停靠點
+  document.addEventListener("click", function (e) {
+    if (e.target && e.target.id === "addStopBtn") {
+      const container = document.getElementById("extraStops");
+      const newInput = document.createElement("input");
+      newInput.type = "text";
+      newInput.placeholder = "額外停靠點地址";
+      newInput.className = "stop-input";
+      newInput.style = "display: block; margin-top: 10px; width: 100%;";
+      container.appendChild(newInput);
     }
-
-    // 顯示 wedding_map.png
-    document.getElementById("weddingRideSection").style.display = "none";
-    document.getElementById("finalWeddingMap").classList.remove("hidden");
-
-    // 顯示地址輸入區塊
-    document.getElementById("addressFormSection").classList.remove("hidden");
-  });
-
-  // 新增停靠點欄位
-  document.getElementById("addStopBtn")?.addEventListener("click", () => {
-    const container = document.getElementById("extraStops");
-    const newInput = document.createElement("input");
-    newInput.type = "text";
-    newInput.placeholder = "額外停靠點地址";
-    newInput.className = "stop-input";
-    newInput.style = "display: block; margin-top: 10px; width: 100%;";
-    container.appendChild(newInput);
   });
 
   // 確認迎娶路線並用 Google Maps 規劃路徑
