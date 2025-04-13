@@ -165,14 +165,15 @@ document.addEventListener("DOMContentLoaded", function () {
     <p><strong>儀式物品捆綁：</strong>${bundle > 0 ? "是（+1000元）" : "否"}</p>
     ${comboName ? `<p style="color: green; font-weight: bold;">${comboName}</p>` : ""}
     <p style="font-size: 1.3em; color: darkgreen; font-weight: bold;">
-      總費用：NT$ ${total.toLocaleString()}
-    </p>
+  總費用：NT$ ${total.toLocaleString()}
+</p>
 
-    <!-- ✅ 一鍵儲存按鈕應放在這裡 -->
-    <button onclick="downloadQuote()" style="margin-top: 20px; font-size: 1em;" class="btn">
-      儲存這張報價單圖片
-    </button>
-  </div>
+<!-- ✅ 正確放法 -->
+<button onclick="downloadQuote()" style="margin-top: 20px; font-size: 1em;" class="btn">
+  儲存這張報價單圖片
+</button>
+
+</div>
 `;
             });
           }, 300);
