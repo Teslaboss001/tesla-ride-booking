@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
   // 點擊確認結婚日期後才跳轉
   const confirmWeddingBtn = document.getElementById("confirmWeddingBtn");
+ console.log("抓到 confirmWeddingBtn？", document.getElementById("confirmWeddingBtn"));
   if (confirmWeddingBtn) {
     confirmWeddingBtn.addEventListener("click", function () {
       const weddingDate = document.getElementById("weddingRideDate").value;
