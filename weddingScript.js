@@ -152,15 +152,18 @@ document.addEventListener("DOMContentLoaded", function () {
   if (mX > 0) modelList += `<li>Model X：${mX} 輛</li>`;
 
   document.getElementById("totalCostDisplay").innerHTML = `
-    <div style="border: 2px solid #ccc; padding: 20px; background: #fdfdfd; border-radius: 10px; text-align: left;">
-      <h3 style="color: #d63384;">結算結果</h3>
+    <div style="border: 2px solid #ccc; padding: 20px; background: #fff0f5; border-radius: 10px; text-align: left; position: relative;">
+      <h3 style="color: #d63384; text-align: center; font-size: 1.6em;">TeslaMarryMe 線上報價單</h3>
       <p><strong>結婚日期：</strong>${weddingDate}</p>
       <p><strong>地址行程：</strong>${pickup} → ${dropoff1} → ${dropoff2} → ${dropoff3}</p>
       <p><strong>預估行車時間：</strong>${minutes} 分鐘</p>
       <ul style="padding-left: 20px; font-size: 1.1em;">${modelList}</ul>
       <p><strong>儀式物品捆綁：</strong>${bundle > 0 ? "是（+1000元）" : "否"}</p>
       ${comboName ? `<p style="color: green; font-weight: bold;">${comboName}</p>` : ""}
-      <p style="font-size: 1.3em; color: darkgreen;"><strong>總費用：NT$ ${total.toLocaleString()}</strong></p>
+      <p style="font-size: 1.3em; color: darkgreen; font-weight: bold;">
+        總費用：NT$ ${total.toLocaleString()}
+        <img src="0322.png" style="height: 40px; float: right; margin-left: 10px;" />
+      </p>
     </div>
   `;
 });
