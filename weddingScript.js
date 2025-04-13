@@ -188,13 +188,13 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 function downloadQuote() {
-  const target = document.querySelector("#totalCostDisplay > div"); // 報價單容器
+  const target = document.querySelector("#totalCostDisplay > div");
   if (!target) {
     alert("無法找到報價單內容！");
     return;
   }
 
-  html2canvas(target).then(canvas => {
+  html2canvas(target).then(function (canvas) {
     const link = document.createElement("a");
     link.download = "Tesla報價單.png";
     link.href = canvas.toDataURL("image/png");
