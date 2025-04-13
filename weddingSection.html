@@ -2,24 +2,13 @@
 <html lang="zh-TW">
 <head>
   <meta charset="UTF-8" />
-  <title>Tesla Marry Me</title>
+  <title>Tesla Marry Me - 結婚禮車預約</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="hero">
-    <img src="tesla_modelx.png" alt="Tesla Model X" class="car-image" />
-    <h1 class="title breathing">TeslaMarryMe</h1>
-    <button id="bookBtn" class="btn book-btn">預約報價</button>
-    <div id="categoryBtns" class="btn-group" style="display: none;">
-      <button class="btn category-btn">一般接送</button>
-      <button class="btn category-btn">結婚禮車</button>
-    </div>
-    <div class="hazard-light left-light"></div>
-    <div class="hazard-light right-light"></div>
-  </div>
 
   <!-- 結婚禮車區塊 -->
-  <div id="weddingRideSection" class="hidden">
+  <div id="weddingRideSection">
     <img src="wedding_image.png" alt="結婚禮車" class="full-image" />
     <div class="form-block">
       <label for="weddingRideDate">選擇結婚日期：</label>
@@ -61,3 +50,7 @@
     </div>
   </div>
 
+  <script src="weddingScript.js"></script>
+  <script async src="https://maps.googleapis.com/maps/api/js?key=你的API金鑰&libraries=places"></script>
+</body>
+</html>
