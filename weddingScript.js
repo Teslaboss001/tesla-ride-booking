@@ -170,6 +170,11 @@ document.addEventListener("DOMContentLoaded", function () {
     </div>
   `;
 });
+              <button onclick="downloadQuote()" style="margin-top: 20px; font-size: 1em;" class="btn">
+      儲存這張報價單圖片
+    </button>
+  </div>
+`;
             });
           }, 300);
         } else {
