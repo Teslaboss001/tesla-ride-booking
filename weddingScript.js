@@ -6,16 +6,12 @@ document.addEventListener("DOMContentLoaded", function () {
       alert("請選擇結婚日期！");
       return;
     }
-
-    // 顯示 wedding_map.png
     document.getElementById("weddingRideSection").style.display = "none";
     document.getElementById("finalWeddingMap").classList.remove("hidden");
-
-    // 顯示地址輸入區塊
     document.getElementById("addressFormSection").classList.remove("hidden");
   });
 
-  // 新增停靠點（使用事件代理）
+  // 新增停靠點
   document.addEventListener("click", function (e) {
     if (e.target && e.target.id === "addStopBtn") {
       const container = document.getElementById("extraStops");
@@ -28,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // 確認迎娶路線並用 Google Maps 規劃路徑
+  // 確認迎娶路線
   document.getElementById("submitAddressBtn").addEventListener("click", function () {
     const pickup = document.getElementById("pickup").value.trim();
     const dropoff1 = document.getElementById("dropoff1").value.trim();
@@ -37,14 +33,13 @@ document.addEventListener("DOMContentLoaded", function () {
     const extraStops = Array.from(document.querySelectorAll(".stop-input"))
       .map(el => el.value.trim()).filter(Boolean);
 
-    if (!pickup || !dropoff1 || !dropoff2 || !dropoff3) {
-      alert("請填寫所有主要地址欄位！");
+    const allStops = [pickup, dropoff1, dropoff2, dropoff3, ...extraStops].filter(Boolean);
+    if (allStops.length < 2) {
+      alert("請至少填寫兩個地點以規劃路線");
       return;
     }
 
-    const allStops = [pickup, dropoff1, dropoff2, dropoff3, ...extraStops];
     const directionsService = new google.maps.DirectionsService();
-
     directionsService.route({
       origin: allStops[0],
       destination: allStops[allStops.length - 1],
@@ -52,10 +47,30 @@ document.addEventListener("DOMContentLoaded", function () {
       travelMode: google.maps.TravelMode.DRIVING
     }, (result, status) => {
       if (status === "OK") {
-        alert("迎娶路線規劃成功！");
-        console.log("總路線：", result);
+        let totalDistance = 0;
+        let totalDuration = 0;
+        const legs = result.routes[0].legs;
+
+        legs.forEach(leg => {
+          totalDistance += leg.distance.value;
+          totalDuration += leg.duration.value;
+        });
+
+        const km = (totalDistance / 1000).toFixed(1);
+        const minutes = Math.round(totalDuration / 60);
+
+        const summaryBox = document.createElement("div");
+        summaryBox.style = "background: #fff; padding: 20px; margin-top: 20px; border-radius: 10px; text-align: center; font-size: 1.2em;";
+        summaryBox.innerHTML = `
+          <h3>迎娶路線資訊總結</h3>
+          <p>總里程：<strong>${km} 公里</strong></p>
+          <p>預估行車時間：<strong>${minutes} 分鐘</strong></p>
+          <p style="color: red; font-size: 0.9em; margin-top: 10px;">備註：總行程花費時間僅為參考，實際當天流程與行車時間多半稍有延遲。</p>
+        `;
+
+        document.getElementById("addressFormSection").appendChild(summaryBox);
       } else {
-        alert("無法規劃路線，請檢查地址！");
+        alert("無法規劃路線，請確認地址是否正確！");
       }
     });
 
