@@ -1,18 +1,21 @@
-document.getElementById("confirmWeddingBtn").addEventListener("click", function () {
-  const weddingDate = document.getElementById("weddingRideDate").value;
-  if (!weddingDate) {
-    alert("請選擇結婚日期！");
-    return;
-  }
+document.addEventListener("DOMContentLoaded", function () {
+  // 點擊確認結婚日期後才跳轉
+  document.getElementById("confirmWeddingBtn").addEventListener("click", function () {
+    const weddingDate = document.getElementById("weddingRideDate").value;
+    if (!weddingDate) {
+      alert("請選擇結婚日期！");
+      return;
+    }
 
-  // 顯示 wedding_map.PNG
-  document.getElementById("weddingRideSection").style.display = "none";
-  document.getElementById("finalWeddingMap").classList.remove("hidden");
+    // 顯示 wedding_map.png
+    document.getElementById("weddingRideSection").style.display = "none";
+    document.getElementById("finalWeddingMap").classList.remove("hidden");
 
-  // 顯示地址輸入區塊
-  document.getElementById("addressFormSection").classList.remove("hidden");
-});
-  // 新增停靠點
+    // 顯示地址輸入區塊
+    document.getElementById("addressFormSection").classList.remove("hidden");
+  });
+
+  // 新增停靠點（使用事件代理）
   document.addEventListener("click", function (e) {
     if (e.target && e.target.id === "addStopBtn") {
       const container = document.getElementById("extraStops");
