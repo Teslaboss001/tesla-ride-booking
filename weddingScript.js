@@ -89,6 +89,45 @@ document.addEventListener("DOMContentLoaded", function () {
           const formSection = document.getElementById("addressFormSection");
           formSection.insertBefore(summaryBox, formSection.firstChild);
 
+setTimeout(() => {
+  window.scrollTo({
+    top: summaryBox.offsetTop - 20,
+    behavior: "smooth"
+  });
+}, 200);
+
+// 綁定「我知道了」按鈕功能
+setTimeout(() => {
+  const ackBtn = document.getElementById("acknowledgeBtn");
+  ackBtn?.addEventListener("click", () => {
+    const container = document.getElementById("carSelectionContainer");
+    container.innerHTML = `
+      <img src="marrycar.png" alt="Tesla 結婚車隊" style="width: 100%; max-width: 800px; display: block; margin: 0 auto 30px;" />
+      
+      <div style="display: flex; justify-content: space-around; flex-wrap: wrap; text-align: center;">
+        <div>
+          <label>Model 3 數量</label><br>
+          <select>
+            ${[...Array(7).keys()].map(i => `<option value="${i}">${i} 輛</option>`).join('')}
+          </select>
+        </div>
+        <div>
+          <label>Model Y 數量</label><br>
+          <select>
+            ${[...Array(7).keys()].map(i => `<option value="${i}">${i} 輛</option>`).join('')}
+          </select>
+        </div>
+        <div>
+          <label>Model X 數量</label><br>
+          <select>
+            ${[...Array(7).keys()].map(i => `<option value="${i}">${i} 輛</option>`).join('')}
+          </select>
+        </div>
+      </div>
+    `;
+  });
+}, 300);
+        
           // 捲動到該區塊
           setTimeout(() => {
             window.scrollTo({
