@@ -162,7 +162,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     <p style="text-align:right; font-size: 0.9em; color: #888; margin-bottom: 5px;">報價有效期限：民國 ${year} 年 ${month} 月 ${day} 日</p>
                     <img src="0322_nobg_4x.png" style="display: block; margin-left: auto; margin-right: 0; height: 120px;" />
                     <div style="text-align: center;">
-                      <button onclick="downloadQuote()" class="btn" style="margin-top: 20px;">儲存這張報價單圖片</button>
+                        <button onclick="downloadQuote()" class="btn" style="margin-top: 20px;">儲存</button>
                       <a href="https://line.me/R/ti/p/@teslamarryme" target="_blank">
                       <button class="btn">將報價單傳送我們</button>
                       </a>
