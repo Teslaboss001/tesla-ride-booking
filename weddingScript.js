@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-  // 點擊確認結婚日期後才跳轉
   const confirmWeddingBtn = document.getElementById("confirmWeddingBtn");
   if (confirmWeddingBtn) {
     confirmWeddingBtn.addEventListener("click", function () {
@@ -8,14 +7,12 @@ document.addEventListener("DOMContentLoaded", function () {
         alert("請選擇結婚日期！");
         return;
       }
-
       document.getElementById("weddingRideSection").style.display = "none";
       document.getElementById("finalWeddingMap").classList.remove("hidden");
       document.getElementById("addressFormSection").classList.remove("hidden");
     });
   }
 
-  // 新增停靠點
   document.addEventListener("click", function (e) {
     if (e.target && e.target.id === "addStopBtn") {
       const container = document.getElementById("extraStops");
@@ -66,10 +63,6 @@ document.addEventListener("DOMContentLoaded", function () {
           const km = (totalDistance / 1000).toFixed(1);
           const minutes = Math.round(totalDuration / 60);
 
-          const formSection = document.getElementById("addressFormSection");
-          const existing = document.getElementById("routeSummaryBox");
-          if (existing) existing.remove();
-
           const summaryBox = document.createElement("div");
           summaryBox.id = "routeSummaryBox";
           summaryBox.style = "background: #fff; padding: 20px; margin-top: 20px; border-radius: 10px; text-align: center; font-size: 1.2em;";
@@ -81,6 +74,9 @@ document.addEventListener("DOMContentLoaded", function () {
             <button id="acknowledgeBtn" class="btn" style="margin-top: 15px;">我知道了</button>
             <div id="carSelectionContainer" style="margin-top: 30px;"></div>
           `;
+          const formSection = document.getElementById("addressFormSection");
+          const existing = document.getElementById("routeSummaryBox");
+          if (existing) existing.remove();
           formSection.insertBefore(summaryBox, formSection.firstChild);
           window.scrollTo({ top: summaryBox.offsetTop - 20, behavior: "smooth" });
 
@@ -90,24 +86,13 @@ document.addEventListener("DOMContentLoaded", function () {
               container.innerHTML = `
                 <img src="marrycar.png" alt="Tesla 結婚車隊" style="width: 100%; max-width: 800px; display: block; margin: 0 auto 30px;" />
                 <div style="display: flex; justify-content: space-around; flex-wrap: wrap; text-align: center;">
-                  <div>
-                    <label>Model 3 數量</label><br>
-                    <select id="model3Qty" style="font-size: 1.5em;">
-                      ${[...Array(7).keys()].map(i => `<option value="${i}">${i} 輛</option>`).join('')}
-                    </select>
-                  </div>
-                  <div>
-                    <label>Model Y 數量</label><br>
-                    <select id="modelYQty" style="font-size: 1.5em;">
-                      ${[...Array(7).keys()].map(i => `<option value="${i}">${i} 輛</option>`).join('')}
-                    </select>
-                  </div>
-                  <div>
-                    <label>Model X 數量</label><br>
-                    <select id="modelXQty" style="font-size: 1.5em;">
-                      ${[...Array(7).keys()].map(i => `<option value="${i}">${i} 輛</option>`).join('')}
-                    </select>
-                  </div>
+                  ${["3", "Y", "X"].map(model => `
+                    <div>
+                      <label>Model ${model} 數量</label><br>
+                      <select id="model${model}Qty" style="font-size: 1.5em;">
+                        ${[...Array(7).keys()].map(i => `<option value="${i}">${i} 輛</option>`).join('')}
+                      </select>
+                    </div>`).join("")}
                 </div>
                 <div style="text-align:center; margin-top:20px;">
                   <label>是否需要捆綁甘蔗 / 儀式物品？</label>
@@ -121,10 +106,10 @@ document.addEventListener("DOMContentLoaded", function () {
               `;
 
               document.getElementById("calculateTotal").addEventListener("click", () => {
-                const m3 = parseInt(document.getElementById("model3Qty").value);
-                const mY = parseInt(document.getElementById("modelYQty").value);
-                const mX = parseInt(document.getElementById("modelXQty").value);
-                const bundle = parseInt(document.getElementById("bundleOption").value);
+                const m3 = +document.getElementById("model3Qty").value;
+                const mY = +document.getElementById("modelYQty").value;
+                const mX = +document.getElementById("modelXQty").value;
+                const bundle = +document.getElementById("bundleOption").value;
 
                 let total = 0;
                 let comboName = "";
@@ -146,20 +131,27 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 if (bundle > 0) total += bundle;
 
-                const weddingDate = document.getElementById("weddingRideDate").value;
                 const pickup = document.getElementById("pickup").value.trim();
                 const dropoff1 = document.getElementById("dropoff1").value.trim();
                 const dropoff2 = document.getElementById("dropoff2").value.trim();
                 const dropoff3 = document.getElementById("dropoff3").value.trim();
+                const weddingDate = document.getElementById("weddingRideDate").value;
 
-                let modelList = "";
-                if (m3 > 0) modelList += `<li>Model 3：${m3} 輛</li>`;
-                if (mY > 0) modelList += `<li>Model Y：${mY} 輛</li>`;
-                if (mX > 0) modelList += `<li>Model X：${mX} 輛</li>`;
+                const modelList = [
+                  m3 > 0 ? `<li>Model 3：${m3} 輛</li>` : '',
+                  mY > 0 ? `<li>Model Y：${mY} 輛</li>` : '',
+                  mX > 0 ? `<li>Model X：${mX} 輛</li>` : ''
+                ].join('');
+
+                const validUntil = new Date();
+                validUntil.setDate(validUntil.getDate() + 30);
+                const year = validUntil.getFullYear() - 1911;
+                const month = String(validUntil.getMonth() + 1).padStart(2, '0');
+                const day = String(validUntil.getDate()).padStart(2, '0');
 
                 document.getElementById("totalCostDisplay").innerHTML = `
                   <div style="border: 2px solid #ccc; padding: 20px; background: #fff0f5; border-radius: 10px; text-align: left; position: relative;">
-                    <img src="0322_nobg_4x.png" style="position: absolute; top: 15px; right: 15px; height: 160px;" />
+                    <img src="0322_nobg_4x.png" style="position: absolute; bottom: 15px; right: 15px; height: 120px;" />
                     <h3 style="color: #d63384; text-align: center; font-size: 1.6em;">TeslaMarryMe 線上報價單</h3>
                     <p><strong>結婚日期：</strong>${weddingDate}</p>
                     <p><strong>地址行程：</strong>${pickup} → ${dropoff1} → ${dropoff2} → ${dropoff3}</p>
@@ -167,14 +159,13 @@ document.addEventListener("DOMContentLoaded", function () {
                     <ul style="padding-left: 20px; font-size: 1.1em;">${modelList}</ul>
                     <p><strong>儀式物品捆綁：</strong>${bundle > 0 ? "是（+1000元）" : "否"}</p>
                     ${comboName ? `<p style="color: green; font-weight: bold;">${comboName}</p>` : ""}
-                    <p style="font-size: 1.3em; color: darkgreen; font-weight: bold;">
-                      總費用：NT$ ${total.toLocaleString()}
-                    </p>
-                    <button onclick="downloadQuote()" style="margin-top: 20px; font-size: 1em;" class="btn">
-                      儲存這張報價單圖片
-                    </button>
-                  </div>
-                `;
+                    <p style="font-size: 1.3em; color: darkgreen; font-weight: bold;">總費用：NT$ ${total.toLocaleString()}</p>
+                    <p style="text-align:right; font-size: 0.9em; color: #888; margin-top: 10px;">報價有效期限：民國 ${year} 年 ${month} 月 ${day} 日</p>
+                    <div style="text-align: center;">
+                      <button onclick="downloadQuote()" class="btn" style="margin-top: 20px;">儲存這張報價單圖片</button>
+                      <a href="https://lin.ee/C7A0bOW" target="_blank" class="btn" style="margin-top: 20px; margin-left: 10px; display: inline-block;">將報價單傳送我們</a>
+                    </div>
+                  </div>`;
               });
             });
           }, 300);
@@ -188,14 +179,12 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
-// 一鍵下載圖片
 function downloadQuote() {
   const target = document.querySelector("#totalCostDisplay > div");
   if (!target) {
     alert("無法找到報價單內容！");
     return;
   }
-
   html2canvas(target).then(canvas => {
     const link = document.createElement("a");
     link.download = "Tesla報價單.png";
