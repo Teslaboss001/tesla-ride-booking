@@ -137,8 +137,11 @@ document.addEventListener("DOMContentLoaded", function () {
     total = 38888;
     comboName = "【組合價】Model X × 6";
   } else {
-    total = m3 * 5000 + mY * 6000 + mX * 8000 + bundle;
+    total = m3 * 5000 + mY * 6000 + mX * 8000;
   }
+
+  // 儀式物品費用加總
+  if (bundle > 0) total += bundle;
 
   const weddingDate = document.getElementById("weddingRideDate").value;
   const pickup = document.getElementById("pickup").value.trim();
@@ -153,6 +156,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   document.getElementById("totalCostDisplay").innerHTML = `
     <div style="border: 2px solid #ccc; padding: 20px; background: #fff0f5; border-radius: 10px; text-align: left; position: relative;">
+      <img src="0322_nobg_4x.png" style="position: absolute; top: 15px; right: 15px; height: 160px;" />
       <h3 style="color: #d63384; text-align: center; font-size: 1.6em;">TeslaMarryMe 線上報價單</h3>
       <p><strong>結婚日期：</strong>${weddingDate}</p>
       <p><strong>地址行程：</strong>${pickup} → ${dropoff1} → ${dropoff2} → ${dropoff3}</p>
@@ -162,7 +166,6 @@ document.addEventListener("DOMContentLoaded", function () {
       ${comboName ? `<p style="color: green; font-weight: bold;">${comboName}</p>` : ""}
       <p style="font-size: 1.3em; color: darkgreen; font-weight: bold;">
         總費用：NT$ ${total.toLocaleString()}
-        <img src="0322.png" style="height: 40px; float: right; margin-left: 10px;" />
       </p>
     </div>
   `;
