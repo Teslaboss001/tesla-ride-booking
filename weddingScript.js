@@ -79,12 +79,13 @@ document.addEventListener("DOMContentLoaded", function () {
           summaryBox.id = "routeSummaryBox";
           summaryBox.style = "background: #fff; padding: 20px; margin-top: 20px; border-radius: 10px; text-align: center; font-size: 1.2em;";
           summaryBox.innerHTML = `
-            <h3>迎娶路線資訊總結</h3>
-            <p>總里程：<strong>${km} 公里</strong></p>
-            <p>預估行車時間：<strong>${minutes} 分鐘</strong></p>
-            <p style="color: red; font-size: 0.9em; margin-top: 10px;">備註：總行程花費時間僅為參考，實際當天流程與行車時間多半稍有延遲。</p>
-          `;
-
+  <h3>迎娶路線資訊總結</h3>
+  <p>總里程：<strong>${km} 公里</strong></p>
+  <p>預估行車時間：<strong>${minutes} 分鐘</strong></p>
+  <p style="color: red; font-size: 0.9em; margin-top: 10px;">備註：總行程花費時間僅為參考，實際當天流程與行車時間多半稍有延遲。</p>
+  <button id="acknowledgeBtn" class="btn" style="margin-top: 15px;">我知道了</button>
+  <div id="carSelectionContainer" style="margin-top: 30px;"></div>
+`;
           const formSection = document.getElementById("addressFormSection");
           formSection.insertBefore(summaryBox, formSection.firstChild);
 
