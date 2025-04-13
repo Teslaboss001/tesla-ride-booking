@@ -163,7 +163,9 @@ document.addEventListener("DOMContentLoaded", function () {
                     <img src="0322_nobg_4x.png" style="display: block; margin-left: auto; margin-right: 0; height: 120px;" />
                     <div style="text-align: center;">
                       <button onclick="downloadQuote()" class="btn" style="margin-top: 20px;">儲存這張報價單圖片</button>
-                      <a href="https://lin.ee/C7A0bOW" target="_blank" class="btn" style="margin-top: 20px; margin-left: 10px; display: inline-block;">將報價單傳送我們</a>
+                      <a href="https://line.me/R/ti/p/@teslamarryme" target="_blank">
+                      <button class="btn">將報價單傳送我們</button>
+                      </a>
                     </div>
                   </div>`;
               });
