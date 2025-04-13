@@ -115,36 +115,55 @@ document.addEventListener("DOMContentLoaded", function () {
                 <div id="totalCostDisplay" style="margin-top: 30px; font-size: 1.2em; color: darkgreen;"></div>
               `;
 
-              document.getElementById("calculateTotal").addEventListener("click", () => {
-                const m3 = parseInt(document.getElementById("model3Qty").value);
-                const mY = parseInt(document.getElementById("modelYQty").value);
-                const mX = parseInt(document.getElementById("modelXQty").value);
-                const bundle = parseInt(document.getElementById("bundleOption").value);
-                let total = 0;
+             document.getElementById("calculateTotal").addEventListener("click", () => {
+  const m3 = parseInt(document.getElementById("model3Qty").value);
+  const mY = parseInt(document.getElementById("modelYQty").value);
+  const mX = parseInt(document.getElementById("modelXQty").value);
+  const bundle = parseInt(document.getElementById("bundleOption").value);
 
-                // 優惠組合判斷
-                if (m3 === 2 && mX === 1 && mY === 0) total = 16800;
-                else if (m3 === 5 && mX === 1 && mY === 0) total = 28888;
-                else if (mX === 3 && m3 === 0 && mY === 0) total = 20688;
-                else if (mX === 6 && m3 === 0 && mY === 0) total = 38888;
-                else total = m3 * 5000 + mY * 6000 + mX * 8000 + bundle;
+  let total = 0;
+  let comboName = "";
 
-                const weddingDate = document.getElementById("weddingRideDate").value;
-                const pickup = document.getElementById("pickup").value.trim();
-                const dropoff1 = document.getElementById("dropoff1").value.trim();
-                const dropoff2 = document.getElementById("dropoff2").value.trim();
-                const dropoff3 = document.getElementById("dropoff3").value.trim();
+  if (m3 === 2 && mX === 1 && mY === 0) {
+    total = 16800;
+    comboName = "【組合價】Model 3 × 2 + Model X × 1";
+  } else if (m3 === 5 && mX === 1 && mY === 0) {
+    total = 28888;
+    comboName = "【組合價】Model 3 × 5 + Model X × 1";
+  } else if (mX === 3 && m3 === 0 && mY === 0) {
+    total = 20688;
+    comboName = "【組合價】Model X × 3";
+  } else if (mX === 6 && m3 === 0 && mY === 0) {
+    total = 38888;
+    comboName = "【組合價】Model X × 6";
+  } else {
+    total = m3 * 5000 + mY * 6000 + mX * 8000 + bundle;
+  }
 
-                document.getElementById("totalCostDisplay").innerHTML = `
-                  <h4>結算結果</h4>
-                  <p>日期：${weddingDate}</p>
-                  <p>地址：${pickup} → ${dropoff1} → ${dropoff2} → ${dropoff3}</p>
-                  <p>路線時間估計：${minutes} 分鐘</p>
-                  <p>Model 3：${m3} 輛，Model Y：${mY} 輛，Model X：${mX} 輛</p>
-                  <p>是否捆綁儀式物品：${bundle > 0 ? "是" : "否"}</p>
-                  <p><strong>總費用：NT$ ${total.toLocaleString()}</strong></p>
-                `;
-              });
+  const weddingDate = document.getElementById("weddingRideDate").value;
+  const pickup = document.getElementById("pickup").value.trim();
+  const dropoff1 = document.getElementById("dropoff1").value.trim();
+  const dropoff2 = document.getElementById("dropoff2").value.trim();
+  const dropoff3 = document.getElementById("dropoff3").value.trim();
+
+  let modelList = "";
+  if (m3 > 0) modelList += `<li>Model 3：${m3} 輛</li>`;
+  if (mY > 0) modelList += `<li>Model Y：${mY} 輛</li>`;
+  if (mX > 0) modelList += `<li>Model X：${mX} 輛</li>`;
+
+  document.getElementById("totalCostDisplay").innerHTML = `
+    <div style="border: 2px solid #ccc; padding: 20px; background: #fdfdfd; border-radius: 10px; text-align: left;">
+      <h3 style="color: #d63384;">結算結果</h3>
+      <p><strong>結婚日期：</strong>${weddingDate}</p>
+      <p><strong>地址行程：</strong>${pickup} → ${dropoff1} → ${dropoff2} → ${dropoff3}</p>
+      <p><strong>預估行車時間：</strong>${minutes} 分鐘</p>
+      <ul style="padding-left: 20px; font-size: 1.1em;">${modelList}</ul>
+      <p><strong>儀式物品捆綁：</strong>${bundle > 0 ? "是（+1000元）" : "否"}</p>
+      ${comboName ? `<p style="color: green; font-weight: bold;">${comboName}</p>` : ""}
+      <p style="font-size: 1.3em; color: darkgreen;"><strong>總費用：NT$ ${total.toLocaleString()}</strong></p>
+    </div>
+  `;
+});
             });
           }, 300);
         } else {
