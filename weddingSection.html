@@ -5,10 +5,11 @@
   <title>Tesla Marry Me - 結婚禮車預約</title>
   <link rel="stylesheet" href="style.css" />
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script src="weddingScript.js" defer></script> <!-- ✅ defer 確保按鈕可點 -->
+  <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBYhjHSQTm68K_dnKgiiWFGRWX2RBiJMhQ&libraries=places"></script>
 </head>
 
-<body> <!-- ✅ 加上這一行 -->
-
+<body>
   <!-- 結婚禮車區塊 -->
   <div id="weddingRideSection">
     <img src="wedding_image.png" alt="結婚禮車" class="full-image" />
@@ -51,8 +52,5 @@
       </p>
     </div>
   </div>
-
-  <script src="weddingScript.js"></script>
-  <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBYhjHSQTm68K_dnKgiiWFGRWX2RBiJMhQ&libraries=places"></script>
 </body>
 </html>
