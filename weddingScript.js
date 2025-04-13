@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
 
-    // 顯示 wedding_map.png
+    // 顯示 wedding_map.PNG
     document.getElementById("weddingRideSection").style.display = "none";
     document.getElementById("finalWeddingMap").classList.remove("hidden");
 
