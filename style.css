@@ -216,3 +216,18 @@ body, html {
 .calculate-btn:hover {
   background-color: #009fc7;
 }
+#finalWeddingMap {
+  background-color: #ffe6f0;
+  padding: 20px;
+}
+
+#addressFormSection {
+  background-color: #ffe6f0;
+  padding: 20px;
+}
+.form-block {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
